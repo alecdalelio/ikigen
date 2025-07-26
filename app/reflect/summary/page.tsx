@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
+import jsPDF from 'jspdf';
 
 export default function SummaryPage() {
   const { data, isLoaded, clearData } = useReflectionData();
@@ -70,6 +71,61 @@ export default function SummaryPage() {
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleDownloadPDF = () => {
+    if (!structuredInsight) return;
+
+    const doc = new jsPDF();
+    
+    // Set font and colors
+    doc.setFont('helvetica');
+    doc.setTextColor(93, 58, 0); // Dark brown color
+    
+    // Title
+    doc.setFontSize(24);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Your Ikigai', 105, 30, { align: 'center' });
+    
+    // Your Ikigai section
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Your Ikigai', 20, 50);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    const ikigaiLines = doc.splitTextToSize(structuredInsight.ikigai, 170);
+    doc.text(ikigaiLines, 20, 60);
+    
+    // Why This Matters section
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Why This Matters', 20, 90);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    const meaningLines = doc.splitTextToSize(structuredInsight.meaning, 170);
+    doc.text(meaningLines, 20, 100);
+    
+    // What You Might Explore Next section
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('What You Might Explore Next', 20, 140);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    
+    let yPosition = 150;
+    structuredInsight.suggestions.forEach((suggestion, index) => {
+      const suggestionLines = doc.splitTextToSize(`• ${suggestion}`, 170);
+      doc.text(suggestionLines, 20, yPosition);
+      yPosition += suggestionLines.length * 7 + 5;
+    });
+    
+    // Footer
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    doc.text('Generated with Ikigen - Discover Your Purpose', 105, 280, { align: 'center' });
+    
+    // Download the PDF
+    doc.save('your-ikigai.pdf');
   };
 
   if (!isLoaded) {
@@ -248,30 +304,17 @@ export default function SummaryPage() {
               </p>
             </div>
 
-            {/* Export Options */}
+            {/* Download Option */}
             <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">
-              <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 staggered-fade-in">
+              <div className="flex justify-center staggered-fade-in">
                 <button 
-                  onClick={() => {
-                    const text = `Your Ikigai: ${structuredInsight.ikigai}\n\nWhy This Matters: ${structuredInsight.meaning}\n\nWhat You Might Explore Next:\n${structuredInsight.suggestions.map(s => `• ${s}`).join('\n')}`;
-                    navigator.clipboard.writeText(text);
-                  }}
+                  onClick={handleDownloadPDF}
                   className="export-button"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  Copy Insight
-                </button>
-                
-                <button 
-                  onClick={() => window.print()}
-                  className="export-button"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                  </svg>
-                  Export to PDF
+                  Download
                 </button>
               </div>
             </div>

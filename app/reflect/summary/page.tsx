@@ -153,72 +153,76 @@ export default function SummaryPage() {
           </div>
         )}
 
-        {/* Final Insight - Enhanced Structured Format */}
+        {/* Final Insight - Refactored with Improved Visual Hierarchy */}
         {structuredInsight ? (
-          <div className="ikigai-section space-y-8 sm:space-y-12">
+          <div className="ikigai-section space-y-6 md:space-y-10 lg:space-y-16">
             {/* Your Ikigai - Golden Bloom Card */}
-            <div className="ikigai-card p-8 sm:p-12 md:p-16 golden-bloom-card staggered-fade-in">
-              <div className="space-y-8 sm:space-y-10">
-                <div className="flex items-center justify-center space-x-4 sm:space-x-6">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold flex items-center justify-center soft-pulse">
-                    <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                    </svg>
+            <div className="max-w-[700px] mx-auto">
+              <div className="ikigai-card px-4 md:px-6 py-6 golden-bloom-card staggered-fade-in">
+                <div className="space-y-6 md:space-y-8">
+                  <div className="flex items-center justify-center space-x-4 sm:space-x-6">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold flex items-center justify-center soft-pulse">
+                      <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <h2 className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">Your Ikigai</h2>
                   </div>
-                  <h2 className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">Your Ikigai</h2>
-                </div>
-                <p className="ikigai-main-insight text-lg sm:text-xl md:text-2xl lg:text-3xl">
-                  {structuredInsight.ikigai}
-                </p>
-              </div>
-            </div>
-
-            {/* Why This Matters - Wisdom Card */}
-            <div className="ikigai-card p-6 sm:p-8 md:p-10 wisdom-card staggered-fade-in">
-              <div className="space-y-6 sm:space-y-8">
-                <div className="flex items-center space-x-4 sm:space-x-6">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
-                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-ikigai-warm-gold feather-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">Why This Matters</h3>
-                </div>
-                <div className="relative">
-                  <svg className="absolute -top-2 -left-2 w-6 h-6 text-ikigai-gold/30" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                  </svg>
-                  <p className="ikigai-wisdom-text text-base sm:text-lg md:text-xl pl-6">
-                    {structuredInsight.meaning}
+                  <p className="text-2xl md:text-3xl font-serif font-semibold text-center text-[#5D3A00] leading-relaxed">
+                    {structuredInsight.ikigai}
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* What You Might Explore Next - Suggestion Cards */}
-            <div className="space-y-4 sm:space-y-6 staggered-fade-in">
-              <div className="flex items-center space-x-4 sm:space-x-6 mb-6 sm:mb-8">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-ikigai-warm-gold" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
-                  </svg>
+            {/* Why This Matters - Wisdom Card */}
+            <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">
+              <div className="ikigai-card px-4 md:px-6 py-6 wisdom-card staggered-fade-in">
+                <div className="space-y-6 md:space-y-8">
+                  <div className="flex items-center space-x-4 sm:space-x-6">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-ikigai-warm-gold feather-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">Why This Matters</h3>
+                  </div>
+                  <div className="relative">
+                    <svg className="absolute -top-2 -left-2 w-6 h-6 text-ikigai-gold/30" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                    <p className="italic text-base md:text-lg text-[#7F5539] leading-relaxed pl-6">
+                      {structuredInsight.meaning}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">What You Might Explore Next</h3>
               </div>
-              
-              <div className="grid gap-4 sm:gap-6">
-                {structuredInsight.suggestions.map((suggestion, index) => {
-                  const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
-                  const icon = icons[index % icons.length];
-                  
-                  return (
-                    <div key={index} className="suggestion-card p-4 sm:p-6 rounded-lg">
-                      <div className="flex items-start space-x-4 sm:space-x-6">
+            </div>
+
+            {/* What You Might Explore Next - Redesigned Suggestion Cards */}
+            <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16 staggered-fade-in">
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex items-center space-x-4 sm:space-x-6 mb-6 sm:mb-8">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-ikigai-warm-gold" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">What You Might Explore Next</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  {structuredInsight.suggestions.map((suggestion, index) => {
+                    const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
+                    const icon = icons[index % icons.length];
+                    
+                    return (
+                      <div key={index} className="bg-[#F9F5F0] rounded-xl shadow-sm p-4 flex gap-3 items-start hover:shadow-md hover:border border-[#EADDC9] transition-all">
                         <div className="text-2xl sm:text-3xl flex-shrink-0 mt-1">
                           {icon}
                         </div>
                         <div className="flex-1">
-                          <p className="ikigai-suggestion-text text-base sm:text-lg leading-relaxed">
+                          <p className="text-base font-normal text-[#4B3C2A] leading-relaxed">
                             {suggestion}
                           </p>
                         </div>
@@ -228,36 +232,38 @@ export default function SummaryPage() {
                           </svg>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
             {/* Export Options */}
-            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 staggered-fade-in">
-              <button 
-                onClick={() => {
-                  const text = `Your Ikigai: ${structuredInsight.ikigai}\n\nWhy This Matters: ${structuredInsight.meaning}\n\nWhat You Might Explore Next:\n${structuredInsight.suggestions.map(s => `• ${s}`).join('\n')}`;
-                  navigator.clipboard.writeText(text);
-                }}
-                className="export-button"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                Copy Insight
-              </button>
-              
-              <button 
-                onClick={() => window.print()}
-                className="export-button"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                </svg>
-                Export to PDF
-              </button>
+            <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">
+              <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 staggered-fade-in">
+                <button 
+                  onClick={() => {
+                    const text = `Your Ikigai: ${structuredInsight.ikigai}\n\nWhy This Matters: ${structuredInsight.meaning}\n\nWhat You Might Explore Next:\n${structuredInsight.suggestions.map(s => `• ${s}`).join('\n')}`;
+                    navigator.clipboard.writeText(text);
+                  }}
+                  className="export-button"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  Copy Insight
+                </button>
+                
+                <button 
+                  onClick={() => window.print()}
+                  className="export-button"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                  </svg>
+                  Export to PDF
+                </button>
+              </div>
             </div>
           </div>
         ) : finalInsight ? (

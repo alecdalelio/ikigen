@@ -494,16 +494,7 @@ body {
   background: linear-gradient(90deg, transparent 0%, rgba(176, 137, 104, 0.3) 50%, transparent 100%);
 }
 
-.suggestion-card {
-  background: var(--ikigai-warm-white);
-  border: 1px solid rgba(176, 137, 104, 0.15);
-  transition: all 0.3s var(--ease-harmony);
-  cursor: pointer;
-}
-
-.suggestion-card:hover {
-  animation: suggestion-hover 0.3s ease-out forwards;
-}
+/* Suggestion cards now use Tailwind classes directly */
 
 .feather-icon {
   animation: feather-float 3s ease-in-out infinite;
@@ -817,9 +808,7 @@ body {
     padding: 1.25rem !important;
   }
 
-  .suggestion-card {
-    padding: 1rem !important;
-  }
+  /* Suggestion cards use Tailwind classes */
 
   .export-button {
     padding: 0.625rem 1.25rem;
@@ -939,9 +928,7 @@ body {
     padding: 1rem !important;
   }
 
-  .suggestion-card {
-    padding: 0.875rem !important;
-  }
+  /* Suggestion cards use Tailwind classes */
 
   .export-button {
     padding: 0.5rem 1rem;
@@ -1036,9 +1023,7 @@ body {
     padding: 0.875rem !important;
   }
 
-  .suggestion-card {
-    padding: 0.75rem !important;
-  }
+  /* Suggestion cards use Tailwind classes */
 
   .export-button {
     padding: 0.5rem 0.875rem;

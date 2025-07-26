@@ -63,12 +63,9 @@ export default function HomePage() {
             <p className="ikigai-body text-base sm:text-lg md:text-xl gentle-fade-in" style={{ animationDelay: '0.6s' }}>
               Begin your journey of self-discovery and find your unique purpose in life.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 gentle-fade-in" style={{ animationDelay: '0.8s' }}>
+            <div className="flex justify-center gentle-fade-in" style={{ animationDelay: '0.8s' }}>
               <Link href="/reflect/love" className="ikigai-button">
                 Begin your journey
-              </Link>
-              <Link href="/test-styles" className="ikigai-body hover:text-ikigai-warm-gold transition-colors duration-300 text-base sm:text-lg font-medium">
-                View design system
               </Link>
             </div>
           </div>

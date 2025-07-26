@@ -194,8 +194,13 @@ export default function SummaryPage() {
               </div>
             </div>
 
+            {/* Visual Separator */}
+            <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">
+              <hr className="my-8 border-t border-[#E6D8C5]" />
+            </div>
+
             {/* What You Might Explore Next - Redesigned Suggestion Cards */}
-            <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16 staggered-fade-in">
+            <div className="max-w-[700px] mx-auto staggered-fade-in">
               <div className="space-y-4 md:space-y-6">
                 <div className="flex items-center space-x-4 sm:space-x-6 mb-6 sm:mb-8">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">

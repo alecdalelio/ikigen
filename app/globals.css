@@ -740,8 +740,8 @@ body {
   z-index: 1;
 }
 
-/* Ikigai Compass Diagram Styles */
-.ikigai-compass-container {
+/* Ikigai Venn Diagram Styles */
+.ikigai-venn-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -749,90 +749,86 @@ body {
   margin: 2rem 0;
 }
 
-.ikigai-compass {
+.ikigai-venn-diagram {
   position: relative;
   width: 600px;
   height: 600px;
   max-width: 95vw;
   max-height: 95vw;
-  animation: compass-fade-in 1s ease-out;
+  animation: venn-fade-in 1s ease-out;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 /* Center Ikigai Circle */
-.compass-center {
+.venn-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
-  background: linear-gradient(135deg, rgba(221, 184, 146, 0.5) 0%, rgba(176, 137, 104, 0.6) 100%);
-  border: 3px solid rgba(221, 184, 146, 0.8);
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, rgba(221, 184, 146, 0.8) 0%, rgba(176, 137, 104, 0.9) 100%);
+  border: 3px solid rgba(221, 184, 146, 1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  box-shadow: 0 12px 40px rgba(221, 184, 146, 0.4), 0 0 0 1px rgba(221, 184, 146, 0.2);
-  animation: compass-center-appear 1s ease-out 0.5s both;
+  z-index: 20;
+  box-shadow: 0 8px 32px rgba(221, 184, 146, 0.6), 0 0 0 2px rgba(221, 184, 146, 0.3);
+  animation: venn-center-appear 1s ease-out 0.8s both;
 }
 
-.compass-center-content {
+.venn-center-content {
   text-align: center;
-  padding: 1.25rem;
+  padding: 1rem;
   width: 100%;
 }
 
-.compass-center-icon {
-  font-size: 2.25rem;
-  margin-bottom: 0.5rem;
-  animation: compass-pulse 3s ease-in-out infinite;
+.venn-center-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  animation: venn-pulse 3s ease-in-out infinite;
 }
 
-.compass-center-title {
-  font-size: 1.125rem;
+.venn-center-title {
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--ikigai-brown);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.25rem 0;
   line-height: 1.1;
 }
 
-.compass-center-text {
-  font-size: 0.875rem;
+.venn-center-text {
+  font-size: 0.75rem;
   color: var(--ikigai-brown);
   margin: 0;
   line-height: 1.2;
   font-weight: 500;
 }
 
-/* Compass Circles */
-.compass-circle {
+/* Venn Circles */
+.venn-circle {
   position: absolute;
-  width: 150px;
-  min-height: 150px;
-  max-height: 200px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 1.25rem;
+  padding: 1.5rem;
   box-sizing: border-box;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  animation: compass-circle-appear 0.8s ease-out;
+  animation: venn-circle-appear 0.8s ease-out;
+  overflow: hidden;
 }
 
-.compass-circle:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
-  z-index: 15;
-}
 
-.compass-circle-content {
+
+.venn-circle-content {
   width: 100%;
   height: 100%;
   display: flex;
@@ -842,160 +838,120 @@ body {
   gap: 0.5rem;
 }
 
-.compass-circle-title {
-  font-size: 0.75rem;
+.venn-circle-title {
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--ikigai-brown);
   margin: 0;
   line-height: 1.1;
 }
 
-.compass-circle-text {
-  font-size: 0.8rem;
+.venn-circle-text {
+  font-size: 0.875rem;
   color: var(--ikigai-brown);
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.3;
   font-weight: 500;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: 120px;
   hyphens: auto;
+  max-width: 160px;
 }
 
-.compass-quadrant-label {
-  font-size: 0.625rem;
-  font-weight: 600;
-  color: rgba(127, 85, 57, 0.8);
-  margin-top: 0.5rem;
-  padding: 0.25rem 0.75rem;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 1rem;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Circle positions and colors - improved symmetry */
-.compass-love {
-  top: 20px;
+/* Circle positions and colors - overlapping Venn layout */
+.venn-love {
+  top: 50px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(252, 213, 178, 0.4);
-  border: 2px solid rgba(252, 213, 178, 0.6);
+  background: rgba(252, 213, 178, 0.6);
+  border: 2px solid rgba(252, 213, 178, 0.8);
   animation-delay: 0.1s;
+  z-index: 1;
 }
 
-.compass-skill {
+.venn-skill {
   top: 50%;
-  right: 20px;
+  right: 50px;
   transform: translateY(-50%);
-  background: rgba(200, 230, 201, 0.4);
-  border: 2px solid rgba(200, 230, 201, 0.6);
+  background: rgba(200, 230, 201, 0.6);
+  border: 2px solid rgba(200, 230, 201, 0.8);
   animation-delay: 0.2s;
+  z-index: 1;
 }
 
-.compass-need {
-  bottom: 20px;
+.venn-need {
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 224, 178, 0.4);
-  border: 2px solid rgba(255, 224, 178, 0.6);
+  background: rgba(255, 224, 178, 0.6);
+  border: 2px solid rgba(255, 224, 178, 0.8);
   animation-delay: 0.3s;
+  z-index: 1;
 }
 
-.compass-value {
+.venn-value {
   top: 50%;
-  left: 20px;
+  left: 50px;
   transform: translateY(-50%);
-  background: rgba(226, 236, 233, 0.4);
-  border: 2px solid rgba(226, 236, 233, 0.6);
+  background: rgba(226, 236, 233, 0.6);
+  border: 2px solid rgba(226, 236, 233, 0.8);
   animation-delay: 0.4s;
+  z-index: 1;
 }
 
-/* Connecting lines - enhanced visibility */
-.compass-connectors {
+/* Intersection Labels */
+.venn-intersection {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: venn-intersection-appear 0.8s ease-out 0.6s both;
 }
 
-.compass-line {
-  position: absolute;
-  background: linear-gradient(90deg, transparent, rgba(221, 184, 146, 0.5), transparent);
-  animation: compass-line-appear 1s ease-out 0.6s both;
+.venn-intersection-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ikigai-brown);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(221, 184, 146, 0.3);
 }
 
-.compass-line::after {
-  content: '';
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: rgba(221, 184, 146, 0.8);
-  border-radius: 50%;
-  animation: compass-dot-appear 0.5s ease-out 1.2s both;
-}
-
-.compass-line-top {
-  top: 50%;
+/* Intersection positions */
+.venn-passion {
+  top: 25%;
   left: 50%;
-  width: 2px;
-  height: 100px;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  animation-delay: 0.5s;
 }
 
-.compass-line-top::after {
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.compass-line-right {
+.venn-profession {
   top: 50%;
+  right: 25%;
+  transform: translateY(-50%);
+  animation-delay: 0.6s;
+}
+
+.venn-mission {
+  bottom: 25%;
   left: 50%;
-  width: 100px;
-  height: 2px;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  animation-delay: 0.7s;
 }
 
-.compass-line-right::after {
+.venn-vocation {
   top: 50%;
-  right: 0;
-  transform: translate(50%, -50%);
+  left: 25%;
+  transform: translateY(-50%);
+  animation-delay: 0.8s;
 }
 
-.compass-line-bottom {
-  top: 50%;
-  left: 50%;
-  width: 2px;
-  height: 100px;
-  transform: translate(-50%, -50%);
-}
-
-.compass-line-bottom::after {
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
-}
-
-.compass-line-left {
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 2px;
-  transform: translate(-50%, -50%);
-}
-
-.compass-line-left::after {
-  top: 50%;
-  left: 0;
-  transform: translate(-50%, -50%);
-}
-
-/* Compass animations */
-@keyframes compass-fade-in {
+/* Venn animations */
+@keyframes venn-fade-in {
   0% {
     opacity: 0;
     transform: scale(0.8);
@@ -1006,21 +962,21 @@ body {
   }
 }
 
-@keyframes compass-circle-appear {
+@keyframes venn-circle-appear {
   0% {
     opacity: 0;
-    transform: scale(0.5);
+    transform: scale(0) translateY(20px);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
-@keyframes compass-center-appear {
+@keyframes venn-center-appear {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
+    transform: translate(-50%, -50%) scale(0);
   }
   100% {
     opacity: 1;
@@ -1028,7 +984,7 @@ body {
   }
 }
 
-@keyframes compass-line-appear {
+@keyframes venn-intersection-appear {
   0% {
     opacity: 0;
     transform: scale(0);
@@ -1039,18 +995,7 @@ body {
   }
 }
 
-@keyframes compass-dot-appear {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes compass-pulse {
+@keyframes venn-pulse {
   0%, 100% {
     transform: scale(1);
     opacity: 1;
@@ -1059,6 +1004,39 @@ body {
     transform: scale(1.05);
     opacity: 0.8;
   }
+}
+
+/* Hover effects */
+.venn-circle:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  z-index: 5;
+}
+
+.venn-love:hover {
+  background: rgba(252, 213, 178, 0.8);
+  border-color: rgba(252, 213, 178, 1);
+}
+
+.venn-skill:hover {
+  background: rgba(200, 230, 201, 0.8);
+  border-color: rgba(200, 230, 201, 1);
+}
+
+.venn-need:hover {
+  background: rgba(255, 224, 178, 0.8);
+  border-color: rgba(255, 224, 178, 1);
+}
+
+.venn-value:hover {
+  background: rgba(226, 236, 233, 0.8);
+  border-color: rgba(226, 236, 233, 1);
+}
+
+.venn-intersection:hover .venn-intersection-label {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
 }
 
 /* Enhanced progress indicator */
@@ -1373,47 +1351,51 @@ body {
     padding: 12px 16px !important;
   }
 
-  .ikigai-compass {
-    width: 400px;
-    height: 400px;
+  .ikigai-venn-diagram {
+    width: 450px;
+    height: 450px;
   }
 
-  .compass-circle {
-    width: 130px;
-    min-height: 130px;
-    max-height: 180px;
-    padding: 1rem;
+  .venn-circle {
+    width: 160px;
+    height: 160px;
+    padding: 1.25rem;
   }
 
-  .compass-circle-title {
+  .venn-circle-title {
+    font-size: 0.75rem;
+  }
+
+  .venn-circle-text {
+    font-size: 0.8rem;
+    max-width: 120px;
+  }
+
+  .venn-center {
+    width: 100px;
+    height: 100px;
+  }
+
+  .venn-center-icon {
+    font-size: 1.25rem;
+  }
+
+  .venn-center-title {
+    font-size: 0.75rem;
+  }
+
+  .venn-center-text {
     font-size: 0.625rem;
   }
 
-  .compass-circle-text {
-    font-size: 0.75rem;
-    max-width: 100px;
-  }
-
-  .compass-center {
-    width: 140px;
-    height: 140px;
-  }
-
-  .compass-center-icon {
-    font-size: 1.75rem;
-  }
-
-  .compass-center-title {
-    font-size: 0.875rem;
-  }
-
-  .compass-center-text {
-    font-size: 0.75rem;
+  .venn-intersection-label {
+    font-size: 0.625rem;
+    padding: 0.125rem 0.5rem;
   }
 
   /* Mobile vertical layout */
   @media (max-width: 480px) {
-    .ikigai-compass {
+    .ikigai-venn-diagram {
       width: 100%;
       height: auto;
       display: flex;
@@ -1422,18 +1404,18 @@ body {
       gap: 1.5rem;
     }
 
-    .compass-center {
+    .venn-center {
       position: relative;
       top: auto;
       left: auto;
       transform: none;
       order: 1;
       margin-bottom: 1rem;
-      width: 160px;
-      height: 160px;
+      width: 140px;
+      height: 140px;
     }
 
-    .compass-circle {
+    .venn-circle {
       position: relative;
       top: auto;
       left: auto;
@@ -1442,22 +1424,16 @@ body {
       transform: none;
       order: 2;
       margin-bottom: 0.75rem;
-      width: 140px;
-      min-height: 140px;
-      max-height: 200px;
+      width: 120px;
+      height: 120px;
     }
 
-    .compass-connectors {
+    .venn-intersection {
       display: none;
     }
 
-    .compass-quadrant-label {
-      font-size: 0.5rem;
-      padding: 0.25rem 0.5rem;
-    }
-
-    .compass-circle-text {
-      max-width: 110px;
+    .venn-circle-text {
+      max-width: 100px;
     }
   }
 }

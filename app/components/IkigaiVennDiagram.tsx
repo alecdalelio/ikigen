@@ -16,63 +16,65 @@ export default function IkigaiVennDiagram({
   ikigai 
 }: IkigaiVennDiagramProps) {
   return (
-    <div className="ikigai-compass-container">
-      <div className="ikigai-compass">
-        {/* Center Ikigai Circle */}
-        <div className="compass-center">
-          <div className="compass-center-content">
-            <div className="compass-center-icon">✨</div>
-            <h3 className="compass-center-title">Your Ikigai</h3>
+    <div className="ikigai-venn-container">
+      <div className="ikigai-venn-diagram">
+        {/* Main Circles */}
+        <div className="venn-circle venn-love" aria-label="What you love">
+          <div className="venn-circle-content">
+            <h4 className="venn-circle-title">What You Love</h4>
+            <p className="venn-circle-text">{love}</p>
+          </div>
+        </div>
+
+        <div className="venn-circle venn-skill" aria-label="What you're good at">
+          <div className="venn-circle-content">
+            <h4 className="venn-circle-title">What You're Good At</h4>
+            <p className="venn-circle-text">{goodAt}</p>
+          </div>
+        </div>
+
+        <div className="venn-circle venn-need" aria-label="What the world needs">
+          <div className="venn-circle-content">
+            <h4 className="venn-circle-title">What the World Needs</h4>
+            <p className="venn-circle-text">{worldNeeds}</p>
+          </div>
+        </div>
+
+        <div className="venn-circle venn-value" aria-label="What you can be paid for">
+          <div className="venn-circle-content">
+            <h4 className="venn-circle-title">What You Can Be Paid For</h4>
+            <p className="venn-circle-text">{paidFor}</p>
+          </div>
+        </div>
+
+        {/* Intersection Labels */}
+        <div className="venn-intersection venn-passion" aria-label="Passion: What you love and what you're good at">
+          <span className="venn-intersection-label">Passion</span>
+        </div>
+
+        <div className="venn-intersection venn-profession" aria-label="Profession: What you're good at and what you can be paid for">
+          <span className="venn-intersection-label">Profession</span>
+        </div>
+
+        <div className="venn-intersection venn-mission" aria-label="Mission: What the world needs and what you love">
+          <span className="venn-intersection-label">Mission</span>
+        </div>
+
+        <div className="venn-intersection venn-vocation" aria-label="Vocation: What you can be paid for and what the world needs">
+          <span className="venn-intersection-label">Vocation</span>
+        </div>
+
+        {/* Center Ikigai */}
+        <div className="venn-center" aria-label="Your Ikigai">
+          <div className="venn-center-content">
+            <div className="venn-center-icon">✨</div>
+            <h3 className="venn-center-title">Your Ikigai</h3>
             {ikigai && (
-              <p className="compass-center-text">{ikigai}</p>
+              <p className="venn-center-text">{ikigai}</p>
             )}
           </div>
-        </div>
-
-        {/* Top Circle - What You Love */}
-        <div className="compass-circle compass-love">
-          <div className="compass-circle-content">
-            <h4 className="compass-circle-title">What You Love</h4>
-            <p className="compass-circle-text">{love}</p>
-            <div className="compass-quadrant-label">Passion</div>
-          </div>
-        </div>
-
-        {/* Right Circle - What You're Good At */}
-        <div className="compass-circle compass-skill">
-          <div className="compass-circle-content">
-            <h4 className="compass-circle-title">What You're Good At</h4>
-            <p className="compass-circle-text">{goodAt}</p>
-            <div className="compass-quadrant-label">Profession</div>
-          </div>
-        </div>
-
-        {/* Bottom Circle - What the World Needs */}
-        <div className="compass-circle compass-need">
-          <div className="compass-circle-content">
-            <h4 className="compass-circle-title">What the World Needs</h4>
-            <p className="compass-circle-text">{worldNeeds}</p>
-            <div className="compass-quadrant-label">Mission</div>
-          </div>
-        </div>
-
-        {/* Left Circle - What You Can Be Paid For */}
-        <div className="compass-circle compass-value">
-          <div className="compass-circle-content">
-            <h4 className="compass-circle-title">What You Can Be Paid For</h4>
-            <p className="compass-circle-text">{paidFor}</p>
-            <div className="compass-quadrant-label">Vocation</div>
-          </div>
-        </div>
-
-        {/* Connecting lines (desktop only) */}
-        <div className="compass-connectors">
-          <div className="compass-line compass-line-top"></div>
-          <div className="compass-line compass-line-right"></div>
-          <div className="compass-line compass-line-bottom"></div>
-          <div className="compass-line compass-line-left"></div>
         </div>
       </div>
     </div>
   );
-} 
+}

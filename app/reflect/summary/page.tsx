@@ -212,11 +212,11 @@ export default function SummaryPage() {
                     const icon = icons[index % icons.length];
                     
                     return (
-                      <div key={index} className="bg-[#F9F5F0] rounded-xl shadow-sm p-4 flex gap-4 items-start hover:shadow-md hover:border border-[#EADDC9] transition-all">
+                      <div key={index} className="bg-[#FCF9F5] rounded-xl shadow-sm px-4 py-3 flex items-start gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">
                         <div className="text-3xl sm:text-4xl flex-shrink-0">
                           {icon}
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 max-w-prose">
                           <p className="text-base font-normal text-[#4B3C2A] leading-relaxed">
                             {suggestion}
                           </p>

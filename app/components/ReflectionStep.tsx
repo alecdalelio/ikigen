@@ -87,7 +87,7 @@ export default function ReflectionStepComponent({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white p-4 reflection-page">
+    <div className="min-h-screen flex items-center justify-center bg-black text-white p-4">
       <div className="bg-zinc-900 p-6 rounded-2xl shadow-xl max-w-xl w-full space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">

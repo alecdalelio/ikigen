@@ -82,7 +82,7 @@ export default function SummaryPage() {
   }
 
   return (
-    <div className="reflection-page min-h-screen bg-gradient-to-br from-black via-zinc-950 to-black text-white">
+    <div className="min-h-screen bg-black text-white">
       <div className="max-w-3xl mx-auto px-6 py-12 space-y-10">
         <div className="animate-fadeIn">
           {/* Header */}

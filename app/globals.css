@@ -15,87 +15,14 @@ body {
   padding: 0;
 }
 
-/* Aggressive overrides to remove external overlays */
-* {
-  background-attachment: scroll !important;
+/* Ensure dark mode foundation */
+html.dark {
+  background: #000000;
+  color: #ffffff;
 }
 
-/* Force clean background */
-body,
-html {
-  background: #000000 !important;
-  position: relative !important;
-  z-index: 1 !important;
-}
-
-/* Hide any decorative overlays */
-body::before,
-body::after,
-html::before,
-html::after {
-  display: none !important;
-  content: none !important;
-}
-
-/* Force our content to be visible - only for reflection pages */
-.reflection-page .min-h-screen {
-  position: relative !important;
-  z-index: 9999 !important;
-  background: #000000 !important;
-}
-
-/* Hide any large decorative shapes - only on reflection pages */
-.reflection-page div[style*="background"],
-.reflection-page div[style*="position"],
-.reflection-page div[style*="z-index"] {
-  max-height: 100px !important;
-  overflow: hidden !important;
-}
-
-/* Specific override for any large circular or abstract shapes - only on reflection pages */
-.reflection-page div[style*="border-radius: 50%"],
-.reflection-page div[style*="circle"],
-.reflection-page div[style*="arc"],
-.reflection-page div[style*="semi-circle"] {
-  display: none !important;
-}
-
-/* Hide large decorative elements that might be external overlays */
-.reflection-page svg[style*="width"],
-.reflection-page svg[style*="height"],
-.reflection-page div[style*="width: 100%"],
-.reflection-page div[style*="height: 100%"] {
-  max-width: 100px !important;
-  max-height: 100px !important;
-  overflow: hidden !important;
-}
-
-/* Removed problematic override that was hiding content */
-
-/* Override any potential fixed/absolute positioned elements - only on reflection pages */
-.reflection-page [style*="position: fixed"],
-.reflection-page [style*="position: absolute"] {
-  display: none !important;
-}
-
-/* Hide large checkmark icons and abstract shapes */
-.reflection-page svg[viewBox*="0 0 20 20"],
-.reflection-page svg[viewBox*="0 0 24 24"],
-.reflection-page div[class*="w-16"],
-.reflection-page div[class*="h-16"] {
-  max-width: 32px !important;
-  max-height: 32px !important;
-  overflow: hidden !important;
-}
-
-/* Force our content to be visible and override external overlays */
-.reflection-page .min-h-screen {
-  position: relative !important;
-  z-index: 9999 !important;
-  background: #000000 !important;
-}
-
-.reflection-page .max-w-3xl {
-  position: relative !important;
-  z-index: 10000 !important;
+/* Clean reflection page styling without aggressive overrides */
+.reflection-page {
+  background: #000000;
+  color: #ffffff;
 }

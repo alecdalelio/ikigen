@@ -291,20 +291,21 @@ export default function SummaryPage() {
               <hr className="my-10 border-t border-[#E6D8C5]" />
             </div>
 
-            {/* What You Might Explore Next - Enhanced Suggestion Cards */}
-            <div className="max-w-[700px] mx-auto staggered-fade-in" aria-labelledby="suggestions-heading">
-              <div className="space-y-4 md:space-y-6">
-                <div className="flex items-center space-x-4 sm:space-x-6 mb-6 sm:mb-8">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
-                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-ikigai-warm-gold" fill="currentColor" viewBox="0 0 20 20">
+            {/* What You Might Explore Next - Refactored Elegant Layout */}
+            <div className="max-w-[700px] mx-auto mt-12 md:mt-16 lg:mt-20" aria-labelledby="suggestions-heading">
+              <div className="space-y-8 md:space-y-10">
+                <div className="flex items-center space-x-4 sm:space-x-6 mb-8 sm:mb-10">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-ikigai-warm-gold" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <h3 id="suggestions-heading" className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">What You Might Explore Next</h3>
+                  <h3 id="suggestions-heading" className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">What You Might Explore Next</h3>
                 </div>
                 
-                <div className="ikigai-card px-8 md:px-10 py-8 wisdom-card staggered-fade-in">
-                  <div className="space-y-5">
+                {/* Soft translucent container with backdrop blur */}
+                <div className="backdrop-blur-sm bg-white/20 border border-white/30 rounded-2xl p-8 md:p-10 shadow-lg">
+                  <div className="space-y-6 md:space-y-8">
                     {structuredInsight.suggestions.map((suggestion, index) => {
                       const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
                       const icon = icons[index % icons.length];
@@ -312,19 +313,23 @@ export default function SummaryPage() {
                       return (
                         <div 
                           key={index} 
-                          className="flex items-center gap-6 hover:bg-[#FAF6F0] hover:shadow-md rounded-xl transition-all duration-200 ease-in-out px-4 py-4 cursor-pointer border border-transparent hover:border-[#E6D8C5] bg-[#FFFDFB]"
+                          className="suggestion-card-elegant"
                           aria-label={`Suggestion ${index + 1}: ${suggestion}`}
-                          style={{ borderRadius: '12px' }}
+                          style={{ animationDelay: `${0.3 * index}s` }}
                         >
-                          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-ikigai-gold/20 to-ikigai-warm-gold/30 rounded-full">
-                            <span className="text-xl">
-                              {icon}
-                            </span>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-base text-[#5C4033] leading-relaxed">
-                              {suggestion}
-                            </p>
+                          <div className="flex items-start space-x-6">
+                            {/* Icon positioned outside text block */}
+                            <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 rounded-2xl shadow-sm">
+                              <span className="text-2xl">
+                                {icon}
+                              </span>
+                            </div>
+                            {/* Text content with better typography */}
+                            <div className="flex-1 min-w-0 pt-1">
+                              <p className="suggestion-text-elegant">
+                                {suggestion}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       );
@@ -334,24 +339,45 @@ export default function SummaryPage() {
               </div>
             </div>
 
-            {/* Closing Encouragement */}
-            <div className="max-w-[700px] mx-auto mt-10">
-              <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-base md:text-lg leading-relaxed">
+            {/* Closing Encouragement with Floating Sparkle */}
+            <div className="max-w-[700px] mx-auto mt-16 md:mt-20 lg:mt-24 relative">
+              <div className="floating-sparkle"></div>
+              <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-lg md:text-xl leading-relaxed">
                 ✨ Let this insight guide you. Choose one small action this week that brings your Ikigai to life.
               </p>
             </div>
 
-            {/* Download Option */}
-            <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">
-              <div className="flex justify-center staggered-fade-in">
+            {/* Action Buttons - Horizontal Layout */}
+            <div className="max-w-[700px] mx-auto mt-12 md:mt-16 lg:mt-20">
+              <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button
+                  onClick={() => router.push('/reflect/paid-for')}
+                  className="action-button-elegant"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  <span>Previous step</span>
+                </button>
+                
                 <button 
                   onClick={handleDownloadPDF}
-                  className="export-button"
+                  className="action-button-elegant primary"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                   Download
+                </button>
+                
+                <button
+                  onClick={() => {
+                    clearData();
+                    router.push('/');
+                  }}
+                  className="action-button-elegant"
+                >
+                  <span>Start over</span>
                 </button>
               </div>
             </div>
@@ -377,30 +403,7 @@ export default function SummaryPage() {
           </div>
         ) : null}
 
-        {/* Navigation */}
-        <div className="ikigai-section flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-          <button
-            onClick={() => router.push('/reflect/paid-for')}
-            className="ikigai-nav-button gentle-fade-in flex items-center space-x-2 sm:space-x-3"
-            style={{ animationDelay: '0.8s' }}
-          >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            <span>Previous step</span>
-          </button>
-          
-          <button
-            onClick={() => {
-              clearData();
-              router.push('/');
-            }}
-            className="ikigai-nav-button gentle-fade-in"
-            style={{ animationDelay: '0.9s' }}
-          >
-            Start over
-          </button>
-        </div>
+
       </div>
     </div>
   );

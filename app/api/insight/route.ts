@@ -7,7 +7,7 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
-    const { input } = await request.json();
+    const { input, context, question } = await request.json();
 
     if (!input || typeof input !== 'string') {
       return NextResponse.json(
@@ -23,18 +23,39 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const prompt = `You are a thoughtful reflection assistant helping someone uncover their Ikigai - their reason for being. 
+    let prompt;
+    
+    if (context === 'Ikigai Summary') {
+      // Final summary prompt
+      prompt = `You are a wise Ikigai coach helping someone discover their life purpose. 
 
-The user has shared what they love doing: "${input}"
+The user has completed their Ikigai reflection with these four areas:
+${input}
+
+Please provide a thoughtful, inspiring response that:
+- Celebrates their completion of this reflection journey
+- Helps them see how these four areas might intersect to form their Ikigai
+- Offers guidance on how they might bring these elements together in their life
+- Encourages them to take action based on these insights
+- Keeps the tone warm, supportive, and empowering
+
+Keep your response to 3-4 sentences maximum. Make it feel personal and actionable.`;
+    } else {
+      // Individual step prompt
+      prompt = `You are a thoughtful reflection assistant helping someone uncover their Ikigai - their reason for being. 
+
+The user is reflecting on: "${context}"
+Their response: "${input}"
 
 Please provide a warm, insightful response that:
-- Acknowledges their passion and enthusiasm
-- Helps them see how this activity connects to their deeper purpose
-- Suggests how it might relate to their Ikigai (the intersection of what they love, what they're good at, what the world needs, and what they can be paid for)
+- Acknowledges their thoughts and feelings
+- Helps them see how this connects to their deeper purpose
+- Suggests how it might relate to their Ikigai journey
 - Encourages further reflection
 - Keeps the tone supportive and encouraging, like a wise mentor
 
 Keep your response to 2-3 sentences maximum. Make it feel personal and meaningful.`;
+    }
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',

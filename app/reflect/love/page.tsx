@@ -20,10 +20,16 @@ export default function LovePage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-rose-600 mx-auto mb-4"></div>
-          <p className="text-zinc-400">Loading...</p>
+      <div className="ikigai-container">
+        <div className="ikigai-center">
+          <div className="text-center gentle-fade-in">
+            <div className="mb-8">
+              <div className="w-12 h-12 border-4 border-ikigai-gold/30 border-t-ikigai-warm-gold rounded-full animate-spin mx-auto"></div>
+            </div>
+            <p className="ikigai-body text-lg">
+              Loading your reflection journey...
+            </p>
+          </div>
         </div>
       </div>
     );

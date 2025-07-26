@@ -3,26 +3,339 @@
 @tailwind utilities;
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  /* Meditative Japanese Color Palette */
+  --ikigai-cream: #EDE0D4;      /* Warm cream background */
+  --ikigai-brown: #7F5539;      /* Deep brown text */
+  --ikigai-warm-white: #FAF4EF; /* Light journal background */
+  --ikigai-gold: #DDB892;       /* Golden accent */
+  --ikigai-warm-gold: #B08968;  /* Warmer gold for buttons */
+  
+  /* Ikigai Circle Colors - Translucent */
+  --ikigai-love: #FCD5CE;       /* Soft pink for Love */
+  --ikigai-skill: #D8E2DC;      /* Soft mint for Skill */
+  --ikigai-need: #FFE5D9;       /* Soft peach for Need */
+  --ikigai-value: #E2ECE9;      /* Soft sage for Value */
+  
+  /* Typography */
+  --font-zen: 'Inter', system-ui, sans-serif;
+  --font-harmony: 'Noto Sans JP', sans-serif;
+  --font-poetry: 'DM Serif Display', 'Cormorant Garamond', serif;
+  
+  /* Spacing for breathing room */
+  --space-zen: 0.5rem;          /* 8px */
+  --space-harmony: 1rem;        /* 16px */
+  --space-presence: 1.5rem;     /* 24px */
+  --space-joy: 2rem;            /* 32px */
+  --space-ikigai: 3rem;         /* 48px */
+  
+  /* Border radius for organic shapes */
+  --radius-zen: 0.75rem;        /* 12px */
+  --radius-harmony: 1.5rem;     /* 24px */
+  --radius-presence: 2rem;      /* 32px */
+  
+  /* Animation curves */
+  --ease-zen: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-harmony: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-ikigai: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--ikigai-cream);
+  color: var(--ikigai-brown);
+  font-family: var(--font-zen);
+  font-size: 18px;
+  line-height: 1.7;
   margin: 0;
   padding: 0;
 }
 
-/* Ensure dark mode foundation */
-html.dark {
-  background: #000000;
-  color: #ffffff;
+/* Enhanced meditative animations */
+@keyframes gentle-fade-in {
+  0% { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
-/* Clean reflection page styling without aggressive overrides */
-.reflection-page {
-  background: #000000;
-  color: #ffffff;
+@keyframes soft-pulse {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.8; 
+  }
+  50% { 
+    transform: scale(1.02); 
+    opacity: 1; 
+  }
+}
+
+@keyframes golden-glow {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(221, 184, 146, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px rgba(221, 184, 146, 0.2);
+  }
+}
+
+@keyframes light-bloom {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.8); 
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: scale(1.1); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+/* Utility classes for meditative design */
+.ikigai-card {
+  background: var(--ikigai-warm-white);
+  border-radius: var(--radius-harmony);
+  padding: var(--space-presence);
+  box-shadow: 0 4px 20px rgba(127, 85, 57, 0.08);
+  border: 1px solid rgba(127, 85, 57, 0.1);
+}
+
+.ikigai-input {
+  background: var(--ikigai-warm-white);
+  border: 2px solid rgba(127, 85, 57, 0.15);
+  border-radius: var(--radius-harmony);
+  padding: var(--space-presence);
+  font-family: var(--font-harmony);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ikigai-brown);
+  transition: all 0.3s var(--ease-harmony);
+  box-shadow: inset 0 2px 4px rgba(127, 85, 57, 0.05);
+}
+
+.ikigai-input:focus {
+  outline: none;
+  border-color: var(--ikigai-gold);
+  box-shadow: 0 0 0 3px rgba(221, 184, 146, 0.3), inset 0 2px 4px rgba(127, 85, 57, 0.05);
+  background: var(--ikigai-warm-white);
+  color: var(--ikigai-brown);
+}
+
+.ikigai-button {
+  background: linear-gradient(135deg, var(--ikigai-warm-gold) 0%, var(--ikigai-gold) 100%);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: 500;
+  font-family: var(--font-harmony);
+  padding: 12px 32px;
+  font-size: 16px;
+  transition: all 0.3s var(--ease-harmony);
+  box-shadow: 0 4px 16px rgba(176, 137, 104, 0.3);
+  cursor: pointer;
+}
+
+.ikigai-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(176, 137, 104, 0.4);
+}
+
+.ikigai-button:active {
+  transform: translateY(0);
+}
+
+.gentle-fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: gentle-fade-in 0.8s var(--ease-harmony) forwards;
+}
+
+.soft-pulse {
+  animation: soft-pulse 3s ease-in-out infinite;
+}
+
+.light-bloom {
+  animation: light-bloom 1.2s var(--ease-harmony) forwards;
+}
+
+/* Typography enhancements */
+.ikigai-title {
+  font-family: var(--font-poetry);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ikigai-brown);
+  text-transform: none;
+}
+
+.ikigai-heading {
+  font-family: var(--font-poetry);
+  font-weight: 400;
+  color: var(--ikigai-brown);
+  text-transform: none;
+  line-height: 1.4;
+}
+
+.ikigai-body {
+  font-family: var(--font-harmony);
+  font-weight: 400;
+  color: var(--ikigai-brown);
+  line-height: 1.7;
+}
+
+.ikigai-question {
+  font-family: var(--font-harmony);
+  font-weight: 500;
+  color: var(--ikigai-brown);
+  line-height: 1.7;
+}
+
+.ikigai-insight {
+  font-style: italic;
+  color: var(--ikigai-brown);
+  line-height: 1.8;
+  border-left: 3px solid var(--ikigai-gold);
+  padding-left: var(--space-harmony);
+  font-family: var(--font-harmony);
+}
+
+/* Ikigai Circle Layout */
+.ikigai-venn {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.ikigai-venn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(221, 184, 146, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.ikigai-venn-petal {
+  position: relative;
+  z-index: 1;
+  transition: all 0.4s var(--ease-harmony);
+}
+
+.ikigai-venn-petal:hover {
+  transform: scale(1.05);
+}
+
+.ikigai-circle {
+  background: var(--ikigai-warm-white);
+  border: 2px solid rgba(127, 85, 57, 0.1);
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(127, 85, 57, 0.08);
+  transition: all 0.4s var(--ease-harmony);
+  position: relative;
+  overflow: hidden;
+}
+
+.ikigai-circle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-harmony);
+  border-radius: inherit;
+}
+
+.ikigai-circle.love::before {
+  background: var(--ikigai-love);
+}
+
+.ikigai-circle.skill::before {
+  background: var(--ikigai-skill);
+}
+
+.ikigai-circle.need::before {
+  background: var(--ikigai-need);
+}
+
+.ikigai-circle.value::before {
+  background: var(--ikigai-value);
+}
+
+.ikigai-circle:hover::before {
+  opacity: 0.3;
+}
+
+.ikigai-circle:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(127, 85, 57, 0.15);
+}
+
+/* Progress indicator */
+.ikigai-progress {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-harmony);
+  margin: var(--space-joy) 0;
+}
+
+.ikigai-progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(127, 85, 57, 0.3);
+  transition: all 0.3s var(--ease-harmony);
+  position: relative;
+}
+
+.ikigai-progress-dot.active {
+  background: var(--ikigai-gold);
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(221, 184, 146, 0.5);
+}
+
+.ikigai-progress-dot.completed {
+  background: var(--ikigai-warm-gold);
+  transform: scale(1.1);
+}
+
+/* Navigation and layout */
+.ikigai-container {
+  min-height: 100vh;
+  background: var(--ikigai-cream);
+  padding: var(--space-ikigai);
+}
+
+.ikigai-section {
+  margin-bottom: var(--space-ikigai);
+}
+
+.ikigai-center {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -85,59 +85,53 @@ export default function SummaryPage() {
   // TEMPORARY: Show loading for 2 seconds, then force render
   if (!isLoaded && !forceRender) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-rose-600 mx-auto mb-4"></div>
-          <p className="text-zinc-400">Loading... (will force render in 2 seconds for testing)</p>
+      <div className="ikigai-container">
+        <div className="ikigai-center">
+          <div className="text-center gentle-fade-in">
+            <div className="mb-8">
+              <div className="w-12 h-12 border-4 border-ikigai-gold/30 border-t-ikigai-warm-gold rounded-full animate-spin mx-auto"></div>
+            </div>
+            <p className="ikigai-body text-lg">
+              Loading your reflection journey...
+            </p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div 
-      className="min-h-screen bg-black text-white"
-      style={{ backgroundColor: '#000000', color: '#ffffff' }}
-    >
-      <div 
-        className="max-w-3xl mx-auto px-6 py-12 space-y-10"
-        style={{ maxWidth: '48rem', margin: '0 auto', padding: '3rem 1.5rem', backgroundColor: '#000000' }}
-      >
+    <div className="ikigai-container">
+      <div className="ikigai-center">
         {/* Header */}
-        <div className="text-center space-y-6">
+        <div className="ikigai-section text-center space-y-6">
           <div className="flex justify-center">
-            <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center">
-              <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
+            <div className="w-16 h-16 bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold rounded-full shadow-lg flex items-center justify-center gentle-fade-in">
+              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-white">
-            Your Ikigai Journey
+          <h1 className="ikigai-heading text-4xl gentle-fade-in">
+            Your Ikigai journey
           </h1>
-          <p className="text-lg text-zinc-300 max-w-2xl mx-auto">
+          <p className="ikigai-body text-lg max-w-2xl mx-auto gentle-fade-in" style={{ animationDelay: '0.2s' }}>
             Complete - Here's your reflection summary and personal insight
           </p>
         </div>
 
         {/* Reflection Summary */}
-        <div className="space-y-6">
+        <div className="ikigai-section space-y-6">
           {REFLECTION_STEPS.map((step, index) => (
             <div 
               key={step.id} 
-              className="bg-zinc-800/80 p-6 rounded-xl border border-zinc-700 shadow-sm"
-              style={{ 
-                backgroundColor: 'rgba(39, 39, 42, 0.8)', 
-                padding: '1.5rem', 
-                borderRadius: '0.75rem', 
-                border: '1px solid #3f3f46',
-                boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
-              }}
+              className="ikigai-card p-6 gentle-fade-in"
+              style={{ animationDelay: `${0.4 + index * 0.1}s` }}
             >
-              <h2 className="text-2xl font-semibold text-white">
+              <h2 className="ikigai-heading text-2xl mb-3">
                 {step.title}
               </h2>
-              <p className="text-lg text-zinc-300">
+              <p className="ikigai-body text-lg">
                 {data[step.id] || `Test content for ${step.title}`}
               </p>
             </div>
@@ -146,11 +140,11 @@ export default function SummaryPage() {
 
         {/* Generate Final Insight */}
         {!hasGenerated && (
-          <div className="flex justify-center">
+          <div className="ikigai-section flex justify-center">
             <button
               onClick={generateFinalInsight}
               disabled={isLoading}
-              className="px-8 py-3 bg-rose-600 text-white rounded-full font-medium hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center space-x-2"
+              className="ikigai-button gentle-fade-in disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
             >
               {isLoading && (
                 <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -158,47 +152,38 @@ export default function SummaryPage() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               )}
-              <span>{isLoading ? "Generating..." : "Discover My Ikigai"}</span>
+              <span>{isLoading ? "Generating..." : "Discover my Ikigai"}</span>
             </button>
           </div>
         )}
 
         {/* Final Insight */}
         {hasGenerated && (
-          <div 
-            className="bg-gradient-to-br from-rose-900 via-zinc-900 to-rose-950 border border-rose-800/60 rounded-xl p-6 shadow-lg"
-            style={{
-              background: 'linear-gradient(to bottom right, #881337, #18181b, #4c0519)',
-              border: '1px solid rgba(190, 18, 60, 0.6)',
-              borderRadius: '0.75rem',
-              padding: '1.5rem',
-              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
-            }}
-          >
-            <h2 className="text-2xl font-bold text-rose-100">
-              Your Ikigai
-            </h2>
-            <p className="italic text-lg text-rose-200">
-              "{finalInsight}"
-            </p>
+          <div className="ikigai-section">
+            <div className="ikigai-card p-8 gentle-fade-in light-bloom soft-pulse">
+              <h2 className="ikigai-heading text-2xl text-ikigai-warm-gold mb-4">
+                Your Ikigai
+              </h2>
+              <p className="ikigai-insight text-xl">
+                "{finalInsight}"
+              </p>
+            </div>
           </div>
         )}
 
         {/* Navigation */}
-        <div className="flex justify-center gap-4 pt-10">
+        <div className="ikigai-section flex justify-center gap-4 pt-10">
           <button 
             onClick={() => router.push('/')}
-            className="bg-zinc-800 text-white px-4 py-2 rounded hover:bg-zinc-700 transition"
-            style={{ backgroundColor: '#27272a', color: '#ffffff', padding: '0.5rem 1rem', borderRadius: '0.25rem' }}
+            className="ikigai-button"
           >
-            🏠 Back Home
+            Back home
           </button>
           <button 
             onClick={handleStartOver}
-            className="bg-zinc-800 text-white px-4 py-2 rounded hover:bg-zinc-700 transition"
-            style={{ backgroundColor: '#27272a', color: '#ffffff', padding: '0.5rem 1rem', borderRadius: '0.25rem' }}
+            className="ikigai-button"
           >
-            🔄 Start Over
+            Start over
           </button>
         </div>
       </div>

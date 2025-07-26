@@ -18,41 +18,38 @@ export default function ReflectPage() {
     let targetRoute = '/reflect/love';
     
     if (data.love && data.goodAt && data.worldNeeds && data.paidFor) {
-      // All steps completed, go to summary
       targetRoute = '/reflect/summary';
-      console.log('ReflectPage: All steps completed, redirecting to summary');
     } else if (data.love && data.goodAt && data.worldNeeds) {
-      // Completed first 3 steps, go to paid-for
       targetRoute = '/reflect/paid-for';
-      console.log('ReflectPage: Completed 3 steps, redirecting to paid-for');
     } else if (data.love && data.goodAt) {
-      // Completed first 2 steps, go to world-needs
       targetRoute = '/reflect/world-needs';
-      console.log('ReflectPage: Completed 2 steps, redirecting to world-needs');
     } else if (data.love) {
-      // Completed first step, go to good-at
       targetRoute = '/reflect/good-at';
-      console.log('ReflectPage: Completed 1 step, redirecting to good-at');
-    } else {
-      console.log('ReflectPage: No progress, starting with love step');
     }
 
-    // Add a small delay to show the loading state
     const timer = setTimeout(() => {
       console.log('ReflectPage: Redirecting to', targetRoute);
       router.push(targetRoute);
-    }, 500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [isLoaded, data, router]);
 
-  // Show loading state while determining redirect
   if (!isLoaded || isRedirecting) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-rose-600 mx-auto mb-4"></div>
-          <p className="text-zinc-400">Redirecting to reflection...</p>
+      <div className="ikigai-container">
+        <div className="ikigai-center">
+          <div className="text-center gentle-fade-in">
+            <div className="mb-8">
+              <div className="w-16 h-16 border-4 border-ikigai-gold/30 border-t-ikigai-warm-gold rounded-full animate-spin mx-auto"></div>
+            </div>
+            <h2 className="ikigai-heading text-2xl mb-4">
+              Preparing your journey
+            </h2>
+            <p className="ikigai-body text-lg">
+              Finding your path to Ikigai...
+            </p>
+          </div>
         </div>
       </div>
     );

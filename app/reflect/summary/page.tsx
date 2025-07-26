@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
 import jsPDF from 'jspdf';
-import IkigaiVennDiagram from '../../components/IkigaiVennDiagram';
+
 
 export default function SummaryPage() {
   const { data, isLoaded, clearData } = useReflectionData();
@@ -265,24 +265,7 @@ export default function SummaryPage() {
               </div>
             </div>
 
-            {/* Ikigai Venn Diagram */}
-            <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">
-              <div className="text-center mb-6 md:mb-8">
-                <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold mb-2">
-                  Here's how your Ikigai maps out visually
-                </h3>
-                <p className="ikigai-body text-sm sm:text-base text-[#7F5539]/80">
-                  The intersection of your four reflections
-                </p>
-              </div>
-              <IkigaiVennDiagram
-                love={data.love}
-                goodAt={data.goodAt}
-                worldNeeds={data.worldNeeds}
-                paidFor={data.paidFor}
-                ikigai={structuredInsight.ikigai}
-              />
-            </div>
+
 
             {/* Why This Matters - Wisdom Card */}
             <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">

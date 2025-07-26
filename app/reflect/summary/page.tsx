@@ -199,8 +199,8 @@ export default function SummaryPage() {
               <hr className="my-10 border-t border-[#E6D8C5]" />
             </div>
 
-            {/* What You Might Explore Next - Redesigned Suggestion Cards */}
-            <div className="max-w-[700px] mx-auto staggered-fade-in">
+            {/* What You Might Explore Next - Enhanced Suggestion Cards */}
+            <div className="max-w-[700px] mx-auto staggered-fade-in" aria-labelledby="suggestions-heading">
               <div className="space-y-4 md:space-y-6">
                 <div className="flex items-center space-x-4 sm:space-x-6 mb-6 sm:mb-8">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
@@ -208,24 +208,26 @@ export default function SummaryPage() {
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">What You Might Explore Next</h3>
+                  <h3 id="suggestions-heading" className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">What You Might Explore Next</h3>
                 </div>
                 
-                <div className="space-y-4">
+                <div className="rounded-xl bg-[#FFFDFB] shadow-sm px-6 py-4 space-y-3 transition-all duration-200">
                   {structuredInsight.suggestions.map((suggestion, index) => {
                     const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
                     const icon = icons[index % icons.length];
                     
                     return (
-                      <div key={index} className="bg-[#FCF9F5] rounded-xl shadow-sm px-4 py-3 flex items-start gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">
-                        <div className="text-3xl sm:text-4xl flex-shrink-0">
+                      <div 
+                        key={index} 
+                        className="flex items-start gap-3 hover:bg-[#FAF6F0] hover:shadow-md rounded-lg transition-all duration-150 ease-in-out px-3 py-2 cursor-pointer"
+                        aria-label={`Suggestion ${index + 1}: ${suggestion}`}
+                      >
+                        <span className="text-lg pt-[3px] min-w-[24px] flex-shrink-0">
                           {icon}
-                        </div>
-                        <div className="flex-1 max-w-prose">
-                          <p className="text-base font-normal text-[#4B3C2A] leading-relaxed">
-                            {suggestion}
-                          </p>
-                        </div>
+                        </span>
+                        <p className="text-base text-[#5C4033] leading-relaxed flex-1">
+                          {suggestion}
+                        </p>
                       </div>
                     );
                   })}

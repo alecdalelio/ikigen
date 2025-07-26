@@ -147,7 +147,7 @@ export default function ReflectionStepComponent({
                   <div className="flex justify-center pt-2">
                     <button
                       onClick={handleContinue}
-                      className="px-8 py-3 bg-rose-600 text-white rounded-full font-medium hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-all"
+                      className="px-8 py-3 bg-rose-600 text-white rounded-full font-medium hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-zinc-800 transition-all"
                     >
                       Continue
                     </button>

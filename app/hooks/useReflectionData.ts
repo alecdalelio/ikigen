@@ -18,15 +18,21 @@ export function useReflectionData() {
 
   // Load data from localStorage on mount
   useEffect(() => {
+    console.log('useReflectionData: Loading data from localStorage...');
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
+      console.log('useReflectionData: Stored data =', stored);
       if (stored) {
         const parsed = JSON.parse(stored);
+        console.log('useReflectionData: Parsed data =', parsed);
         setData({ ...initialData, ...parsed });
+      } else {
+        console.log('useReflectionData: No stored data found, using initial data');
       }
     } catch (error) {
       console.error('Error loading reflection data:', error);
     }
+    console.log('useReflectionData: Setting isLoaded to true');
     setIsLoaded(true);
   }, []);
 

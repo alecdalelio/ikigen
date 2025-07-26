@@ -168,7 +168,7 @@ export default function SummaryPage() {
                     </div>
                     <h2 className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">Your Ikigai</h2>
                   </div>
-                  <p className="text-2xl md:text-3xl font-serif font-semibold text-center text-[#5D3A00] leading-relaxed">
+                  <p className="text-2xl md:text-3xl font-['DM_Serif_Display'] font-semibold text-center text-[#5D3A00] leading-relaxed">
                     {structuredInsight.ikigai}
                   </p>
                 </div>
@@ -187,14 +187,9 @@ export default function SummaryPage() {
                     </div>
                     <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">Why This Matters</h3>
                   </div>
-                  <div className="relative">
-                    <svg className="absolute -top-2 -left-2 w-6 h-6 text-ikigai-gold/30" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                    </svg>
-                    <p className="italic text-base md:text-lg text-[#7F5539] leading-relaxed pl-6">
-                      {structuredInsight.meaning}
-                    </p>
-                  </div>
+                  <p className="italic text-base md:text-lg text-[#7F5539] leading-relaxed">
+                    {structuredInsight.meaning}
+                  </p>
                 </div>
               </div>
             </div>
@@ -217,19 +212,14 @@ export default function SummaryPage() {
                     const icon = icons[index % icons.length];
                     
                     return (
-                      <div key={index} className="bg-[#F9F5F0] rounded-xl shadow-sm p-4 flex gap-3 items-start hover:shadow-md hover:border border-[#EADDC9] transition-all">
-                        <div className="text-2xl sm:text-3xl flex-shrink-0 mt-1">
+                      <div key={index} className="bg-[#F9F5F0] rounded-xl shadow-sm p-4 flex gap-4 items-start hover:shadow-md hover:border border-[#EADDC9] transition-all">
+                        <div className="text-3xl sm:text-4xl flex-shrink-0">
                           {icon}
                         </div>
                         <div className="flex-1">
                           <p className="text-base font-normal text-[#4B3C2A] leading-relaxed">
                             {suggestion}
                           </p>
-                        </div>
-                        <div className="flex-shrink-0">
-                          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-ikigai-gold/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
                         </div>
                       </div>
                     );

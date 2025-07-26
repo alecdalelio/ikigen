@@ -211,8 +211,8 @@ export default function SummaryPage() {
                   <h3 id="suggestions-heading" className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">What You Might Explore Next</h3>
                 </div>
                 
-                <div className="ikigai-card px-4 md:px-6 py-6 wisdom-card staggered-fade-in">
-                  <div className="space-y-4">
+                <div className="ikigai-card px-6 md:px-8 py-8 wisdom-card staggered-fade-in">
+                  <div className="space-y-6">
                     {structuredInsight.suggestions.map((suggestion, index) => {
                       const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
                       const icon = icons[index % icons.length];
@@ -220,15 +220,19 @@ export default function SummaryPage() {
                       return (
                         <div 
                           key={index} 
-                          className="flex items-start gap-4 hover:bg-[#FAF6F0] hover:shadow-md rounded-lg transition-all duration-150 ease-in-out px-4 py-3 cursor-pointer"
+                          className="flex items-start gap-6 hover:bg-[#FAF6F0] hover:shadow-md rounded-xl transition-all duration-200 ease-in-out px-6 py-4 cursor-pointer border border-transparent hover:border-[#E6D8C5]"
                           aria-label={`Suggestion ${index + 1}: ${suggestion}`}
                         >
-                          <span className="text-xl pt-[2px] min-w-[32px] flex-shrink-0">
-                            {icon}
-                          </span>
-                          <p className="text-base text-[#5C4033] leading-relaxed flex-1">
-                            {suggestion}
-                          </p>
+                          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-ikigai-gold/20 to-ikigai-warm-gold/30 rounded-full">
+                            <span className="text-2xl">
+                              {icon}
+                            </span>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-base text-[#5C4033] leading-relaxed">
+                              {suggestion}
+                            </p>
+                          </div>
                         </div>
                       );
                     })}

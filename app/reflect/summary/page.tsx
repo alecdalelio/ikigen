@@ -211,8 +211,8 @@ export default function SummaryPage() {
                   <h3 id="suggestions-heading" className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">What You Might Explore Next</h3>
                 </div>
                 
-                <div className="ikigai-card px-6 md:px-8 py-8 wisdom-card staggered-fade-in">
-                  <div className="space-y-6">
+                <div className="ikigai-card px-8 md:px-10 py-8 wisdom-card staggered-fade-in">
+                  <div className="space-y-5">
                     {structuredInsight.suggestions.map((suggestion, index) => {
                       const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
                       const icon = icons[index % icons.length];
@@ -220,10 +220,10 @@ export default function SummaryPage() {
                       return (
                         <div 
                           key={index} 
-                          className="flex items-start gap-6 hover:bg-[#FAF6F0] hover:shadow-md rounded-xl transition-all duration-200 ease-in-out px-6 py-4 cursor-pointer border border-transparent hover:border-[#E6D8C5]"
+                          className="flex items-center gap-6 hover:bg-[#FAF6F0] hover:shadow-md rounded-xl transition-all duration-200 ease-in-out px-6 py-5 cursor-pointer border border-transparent hover:border-[#E6D8C5]"
                           aria-label={`Suggestion ${index + 1}: ${suggestion}`}
                         >
-                          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-ikigai-gold/20 to-ikigai-warm-gold/30 rounded-full">
+                          <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-ikigai-gold/20 to-ikigai-warm-gold/30 rounded-full">
                             <span className="text-2xl">
                               {icon}
                             </span>

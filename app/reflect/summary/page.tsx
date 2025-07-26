@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
 
 export default function SummaryPage() {
-  const { data, isLoaded } = useReflectionData();
+  const { data, isLoaded, clearData } = useReflectionData();
   const [isGenerating, setIsGenerating] = useState(false);
   const [finalInsight, setFinalInsight] = useState("");
   const [structuredInsight, setStructuredInsight] = useState<{
@@ -307,7 +307,10 @@ export default function SummaryPage() {
           </button>
           
           <button
-            onClick={() => router.push('/')}
+            onClick={() => {
+              clearData();
+              router.push('/');
+            }}
             className="ikigai-nav-button gentle-fade-in"
             style={{ animationDelay: '0.9s' }}
           >

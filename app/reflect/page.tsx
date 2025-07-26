@@ -6,118 +6,134 @@ export default function ReflectPage() {
   const [input, setInput] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [aiInsight, setAiInsight] = useState("");
 
   const handleSubmit = async () => {
     if (!input.trim()) return;
     
     setIsLoading(true);
     
-    // Simulate AI processing delay
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      const response = await fetch('/api/insight', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ input: input.trim() }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to generate insight');
+      }
+
+      const data = await response.json();
+      setAiInsight(data.summary);
       setHasSubmitted(true);
-    }, 1500);
+    } catch (error) {
+      console.error('Error generating insight:', error);
+      
+      // Check for specific error types
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      if (errorMessage.includes('API key not configured')) {
+        setAiInsight("Thank you for sharing what you love doing. This reflection is a beautiful step toward discovering your Ikigai. Consider how this passion might connect to serving others or contributing to something meaningful in your life. (Note: AI insights are currently unavailable - please check your OpenAI API configuration.)");
+      } else if (errorMessage.includes('quota exceeded') || errorMessage.includes('429')) {
+        setAiInsight("Thank you for sharing what you love doing. This reflection is a beautiful step toward discovering your Ikigai. Consider how this passion might connect to serving others or contributing to something meaningful in your life. (Note: AI insights are temporarily unavailable due to API usage limits.)");
+      } else if (errorMessage.includes('model access') || errorMessage.includes('404')) {
+        setAiInsight("Thank you for sharing what you love doing. This reflection is a beautiful step toward discovering your Ikigai. Consider how this passion might connect to serving others or contributing to something meaningful in your life. (Note: AI insights are temporarily unavailable due to model access issues.)");
+      } else {
+        // Fallback to a default message if API fails
+        setAiInsight("Thank you for sharing what you love doing. This reflection is a beautiful step toward discovering your Ikigai. Consider how this passion might connect to serving others or contributing to something meaningful in your life.");
+      }
+      setHasSubmitted(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const mockInsights = [
-    "Your passion for this activity suggests a deep connection to creativity and self-expression. This could be a key component of your Ikigai - the intersection of what you love and what you're good at.",
-    "The joy you find in this suggests it aligns with your core values. Consider how this activity might connect to serving others or contributing to something larger than yourself.",
-    "This reflection reveals a pattern of activities that bring you genuine satisfaction. These moments of flow and engagement are valuable clues to your life's purpose."
-  ];
-
-  const randomInsight = mockInsights[Math.floor(Math.random() * mockInsights.length)];
-
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
-      <div className="max-w-2xl mx-auto px-6 py-12">
-        <div className="space-y-8">
-          {/* Header */}
-          <div className="text-center space-y-4">
-            <h1 className="text-3xl font-bold tracking-tight">
-              Reflection Journey
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
-              Take a moment to reflect deeply on this question
-            </p>
+    <div className="min-h-screen flex items-center justify-center bg-black text-white p-4 reflection-page">
+      <div className="bg-zinc-900 p-6 rounded-2xl shadow-xl max-w-xl w-full space-y-6">
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <h1 className="text-3xl font-semibold text-white text-center">
+            Reflection Journey
+          </h1>
+          <p className="text-sm text-zinc-400 text-center">
+            Take a moment to reflect deeply on this question
+          </p>
+        </div>
+
+        {/* Main content */}
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <h2 className="text-lg font-medium text-white">
+              What do you love doing?
+            </h2>
+            
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Take your time to think about this... What activities bring you joy? What could you spend hours doing without getting tired? What makes you lose track of time?"
+              className="w-full min-h-[160px] p-4 rounded-xl bg-zinc-800 text-white placeholder-zinc-500 text-base resize-none border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all"
+              disabled={hasSubmitted}
+            />
+            
+            {!hasSubmitted && input.trim() && (
+              <div className="flex justify-center">
+                <button
+                  onClick={handleSubmit}
+                  disabled={isLoading}
+                  className="px-8 py-3 bg-rose-600 text-white rounded-full font-medium hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center space-x-2"
+                >
+                  {isLoading && (
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  )}
+                  <span>{isLoading ? "Processing..." : "Next"}</span>
+                </button>
+              </div>
+            )}
           </div>
 
-          {/* Main content */}
-          <div className="space-y-6">
-            <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8">
-              <h2 className="text-xl font-semibold mb-6 text-center">
-                What do you love doing?
-              </h2>
-              
-              <div className="space-y-4">
-                <label htmlFor="reflection-input" className="sr-only">
-                  Your reflection
-                </label>
-                <textarea
-                  id="reflection-input"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Take your time to think about this... What activities bring you joy? What could you spend hours doing without getting tired? What makes you lose track of time?"
-                  className="w-full h-48 p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all"
-                  disabled={hasSubmitted}
-                />
-                
-                {!hasSubmitted && input.trim() && (
-                  <div className="flex justify-center">
-                    <button
-                      onClick={handleSubmit}
-                      disabled={isLoading}
-                      className="px-8 py-3 bg-rose-600 text-white rounded-full font-medium hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                    >
-                      {isLoading ? "Processing..." : "Next"}
-                    </button>
-                  </div>
-                )}
+          {/* AI Insight */}
+          {hasSubmitted && (
+            <div className="bg-zinc-800 rounded-xl p-6 border border-zinc-700">
+              <div className="space-y-3">
+                <h3 className="text-lg font-semibold text-rose-200">
+                  AI Insight
+                </h3>
+                <p className="text-zinc-300 leading-relaxed">
+                  {aiInsight}
+                </p>
               </div>
             </div>
+          )}
+        </div>
 
-            {/* AI Insight */}
-            {hasSubmitted && (
-              <div className="bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 rounded-2xl p-8 border border-rose-200 dark:border-rose-800">
-                <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-rose-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-lg font-semibold text-rose-800 dark:text-rose-200">
-                      AI Insight
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      {randomInsight}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Navigation */}
-          <div className="flex justify-between items-center pt-8">
-            <a
-              href="/"
-              className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+        {/* Navigation */}
+        <div className="flex justify-between items-center pt-4 border-t border-zinc-800">
+          <a
+            href="/"
+            className="text-zinc-400 hover:text-zinc-200 transition-colors text-sm"
+          >
+            ← Back to home
+          </a>
+          
+          {hasSubmitted && (
+            <button
+              onClick={() => {
+                setInput("");
+                setHasSubmitted(false);
+                setAiInsight("");
+              }}
+              className="text-rose-400 hover:text-rose-300 transition-colors text-sm"
             >
-              ← Back to home
-            </a>
-            
-            {hasSubmitted && (
-              <button
-                onClick={() => {
-                  setInput("");
-                  setHasSubmitted(false);
-                }}
-                className="text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 transition-colors"
-              >
-                Reflect again
-              </button>
-            )}
-          </div>
+              Reflect again
+            </button>
+          )}
         </div>
       </div>
     </div>

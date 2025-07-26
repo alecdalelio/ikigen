@@ -189,40 +189,40 @@ body {
 /* Utility classes for meditative design */
 .ikigai-card {
   background: var(--ikigai-warm-white);
-  border-radius: var(--radius-harmony);
-  padding: var(--space-presence);
-  box-shadow: 0 8px 32px rgba(127, 85, 57, 0.08);
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(127, 85, 57, 0.1);
-  transition: all 0.4s var(--ease-harmony);
+  transition: all 0.2s ease-in-out;
 }
 
 .ikigai-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(127, 85, 57, 0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Enhanced input styling for distinct journal appearance */
 .ikigai-input {
   background: var(--ikigai-warm-white);
   border: 2px solid rgba(127, 85, 57, 0.15);
-  border-radius: var(--radius-harmony);
-  padding: 1.5rem;
+  border-radius: 12px;
+  padding: 20px 24px;
   font-family: var(--font-harmony);
   font-size: 16px;
   line-height: 1.7;
   color: var(--ikigai-brown);
-  transition: all 0.3s var(--ease-harmony);
-  box-shadow: 0 4px 16px rgba(127, 85, 57, 0.05), inset 0 2px 4px rgba(127, 85, 57, 0.03);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   position: relative;
   resize: none;
-  margin: 1.5rem 0;
+  margin: 24px 0;
   box-sizing: border-box;
 }
 
 .ikigai-input:focus {
   outline: none;
   border-color: var(--ikigai-gold);
-  box-shadow: 0 0 0 3px rgba(221, 184, 146, 0.3), 0 8px 24px rgba(127, 85, 57, 0.08), inset 0 2px 4px rgba(127, 85, 57, 0.03);
+  box-shadow: 0 0 0 3px rgba(221, 184, 146, 0.3), 0 6px 20px rgba(0, 0, 0, 0.08);
   background: var(--ikigai-warm-white);
   color: var(--ikigai-brown);
   transform: translateY(-1px);
@@ -243,17 +243,18 @@ body {
 
 .ikigai-input-hint {
   position: absolute;
-  bottom: 0.75rem;
-  right: 0.75rem;
+  bottom: 12px;
+  right: 12px;
   font-size: 0.875rem;
   color: rgba(127, 85, 57, 0.6);
   font-family: var(--font-harmony);
   pointer-events: none;
-  transition: all 0.3s var(--ease-harmony);
+  transition: all 0.2s ease-in-out;
   background: rgba(255, 255, 255, 0.9);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
+  padding: 4px 8px;
+  border-radius: 8px;
   backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .ikigai-input-hint.insufficient {
@@ -269,29 +270,29 @@ body {
 .ikigai-input-nudge {
   background: rgba(221, 184, 146, 0.1);
   border: 1px solid rgba(221, 184, 146, 0.3);
-  border-radius: var(--radius-zen);
-  padding: 0.75rem 1rem;
-  margin-top: 0.75rem;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-top: 12px;
   font-size: 0.875rem;
   color: var(--ikigai-brown);
   font-family: var(--font-harmony);
   font-style: italic;
   animation: gentle-nudge 0.8s ease-in-out;
-  box-shadow: 0 2px 8px rgba(221, 184, 146, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* Unified button styling for consistency */
 .ikigai-button {
   background: linear-gradient(135deg, var(--ikigai-warm-gold) 0%, var(--ikigai-gold) 100%);
   border: none;
-  border-radius: 50px;
+  border-radius: 12px;
   color: white;
   font-weight: 500;
   font-family: var(--font-harmony);
-  padding: 12px 32px;
+  padding: 12px 20px;
   font-size: 16px;
-  transition: all 0.3s var(--ease-harmony);
-  box-shadow: 0 4px 16px rgba(176, 137, 104, 0.3);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -315,8 +316,8 @@ body {
 }
 
 .ikigai-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(176, 137, 104, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .ikigai-button:active {
@@ -338,14 +339,14 @@ body {
 .ikigai-nav-button {
   background: linear-gradient(135deg, var(--ikigai-warm-gold) 0%, var(--ikigai-gold) 100%);
   border: none;
-  border-radius: 50px;
+  border-radius: 12px;
   color: white;
   font-weight: 500;
   font-family: var(--font-harmony);
-  padding: 10px 24px;
+  padding: 12px 20px;
   font-size: 15px;
-  transition: all 0.3s var(--ease-harmony);
-  box-shadow: 0 4px 16px rgba(176, 137, 104, 0.3);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -369,8 +370,8 @@ body {
 }
 
 .ikigai-nav-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(176, 137, 104, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .ikigai-nav-button:active {
@@ -514,12 +515,13 @@ body {
   background: linear-gradient(135deg, var(--ikigai-gold) 0%, var(--ikigai-warm-gold) 100%);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-harmony);
+  padding: 12px 20px;
+  border-radius: 12px;
   font-family: var(--font-zen);
   font-weight: 500;
   font-size: 0.875rem;
-  transition: all 0.3s var(--ease-harmony);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -528,7 +530,7 @@ body {
 
 .export-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(176, 137, 104, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .export-button:active {
@@ -601,9 +603,9 @@ body {
 .ikigai-circle {
   background: var(--ikigai-warm-white);
   border: 2px solid rgba(127, 85, 57, 0.1);
-  border-radius: 50%;
-  box-shadow: 0 8px 32px rgba(127, 85, 57, 0.08);
-  transition: all 0.4s var(--ease-harmony);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease-in-out;
   position: relative;
   overflow: hidden;
 }
@@ -641,8 +643,8 @@ body {
 }
 
 .ikigai-circle:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(127, 85, 57, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Navigation and layout */
@@ -653,7 +655,7 @@ body {
 }
 
 .ikigai-section {
-  margin-bottom: var(--space-ikigai);
+  margin-bottom: 32px;
 }
 
 .ikigai-center {
@@ -674,23 +676,23 @@ body {
   }
   
   .ikigai-card {
-    padding: 1.5rem;
+    padding: 16px 20px;
   }
   
   .ikigai-input {
-    padding: 1.25rem;
+    padding: 16px 20px;
     font-size: 16px;
   }
   
 
   
   .ikigai-button {
-    padding: 12px 28px;
+    padding: 12px 20px;
     font-size: 16px;
   }
   
   .ikigai-nav-button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 14px;
   }
   
@@ -726,11 +728,11 @@ body {
   }
   
   .ikigai-card {
-    padding: 1.25rem;
+    padding: 16px 20px;
   }
   
   .ikigai-input {
-    padding: 1rem;
+    padding: 16px 20px;
     font-size: 16px;
     min-height: 200px;
   }
@@ -738,13 +740,13 @@ body {
 
   
   .ikigai-button {
-    padding: 10px 24px;
+    padding: 12px 20px;
     font-size: 16px;
     min-width: 120px;
   }
   
   .ikigai-nav-button {
-    padding: 8px 16px;
+    padding: 12px 20px;
     font-size: 14px;
     min-width: 100px;
   }

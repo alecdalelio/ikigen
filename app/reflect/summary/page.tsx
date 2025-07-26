@@ -146,7 +146,7 @@ export default function SummaryPage() {
   }
 
   return (
-    <div className="ikigai-container page-transition">
+    <div className="ikigai-container page-transition summary-page">
       <div className="ikigai-center">
         {/* Header */}
         <div className="ikigai-section">
@@ -156,36 +156,54 @@ export default function SummaryPage() {
           </div>
         </div>
 
-        {/* Reflection Summary Cards */}
-        <div className="ikigai-section space-y-4 sm:space-y-6">
-          <div className="ikigai-card p-4 sm:p-6 gentle-fade-in">
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="ikigai-heading text-lg sm:text-xl text-ikigai-warm-gold">What you love</h3>
-                             <p className="ikigai-body text-sm sm:text-base leading-relaxed">{data.love}</p>
-            </div>
-          </div>
+        {/* Reflection Summary - Grouped Container */}
+        <div className="ikigai-section">
+          <div className="max-w-[700px] mx-auto">
+            <div className="ikigai-card px-6 md:px-8 py-8 gentle-fade-in reflection-group">
+              <div className="space-y-6">
+                <div className="text-center mb-8">
+                  <h2 className="ikigai-heading text-xl sm:text-2xl text-ikigai-warm-gold mb-2">Your Reflections</h2>
+                  <p className="ikigai-body text-sm sm:text-base text-[#7F5539]/80">The foundation of your Ikigai journey</p>
+                </div>
+                
+                <div className="grid gap-6">
+                  <div className="reflection-item">
+                    <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold mb-3">What you love</h3>
+                    <p className="ikigai-body text-base sm:text-lg leading-relaxed text-[#5C4033]">{data.love}</p>
+                  </div>
 
-          <div className="ikigai-card p-4 sm:p-6 gentle-fade-in" style={{ animationDelay: '0.1s' }}>
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="ikigai-heading text-lg sm:text-xl text-ikigai-warm-gold">What you're good at</h3>
-                             <p className="ikigai-body text-sm sm:text-base leading-relaxed">{data.goodAt}</p>
-            </div>
-          </div>
+                  <div className="reflection-item">
+                    <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold mb-3">What you're good at</h3>
+                    <p className="ikigai-body text-base sm:text-lg leading-relaxed text-[#5C4033]">{data.goodAt}</p>
+                  </div>
 
-          <div className="ikigai-card p-4 sm:p-6 gentle-fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="ikigai-heading text-lg sm:text-xl text-ikigai-warm-gold">What the world needs</h3>
-                             <p className="ikigai-body text-sm sm:text-base leading-relaxed">{data.worldNeeds}</p>
-            </div>
-          </div>
+                  <div className="reflection-item">
+                    <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold mb-3">What the world needs</h3>
+                    <p className="ikigai-body text-base sm:text-lg leading-relaxed text-[#5C4033]">{data.worldNeeds}</p>
+                  </div>
 
-          <div className="ikigai-card p-4 sm:p-6 gentle-fade-in" style={{ animationDelay: '0.3s' }}>
-            <div className="space-y-3 sm:space-y-4">
-              <h3 className="ikigai-heading text-lg sm:text-xl text-ikigai-warm-gold">What you can be paid for</h3>
-                             <p className="ikigai-body text-sm sm:text-base leading-relaxed">{data.paidFor}</p>
+                  <div className="reflection-item">
+                    <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold mb-3">What you can be paid for</h3>
+                    <p className="ikigai-body text-base sm:text-lg leading-relaxed text-[#5C4033]">{data.paidFor}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Visual Separator */}
+        {!finalInsight && (
+          <div className="ikigai-section">
+            <div className="max-w-[700px] mx-auto">
+              <div className="flex items-center space-x-4">
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#E6D8C5] to-transparent"></div>
+                <div className="w-3 h-3 rounded-full bg-[#E6D8C5]"></div>
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#E6D8C5] to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Generate Final Insight Button */}
         {!finalInsight && (
@@ -209,24 +227,39 @@ export default function SummaryPage() {
           </div>
         )}
 
+        {/* Insight Separator */}
+        {structuredInsight && (
+          <div className="ikigai-section">
+            <div className="max-w-[700px] mx-auto">
+              <div className="flex items-center space-x-4">
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#E6D8C5] to-transparent"></div>
+                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold"></div>
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#E6D8C5] to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Final Insight - Refactored with Improved Visual Hierarchy */}
         {structuredInsight ? (
           <div className="ikigai-section space-y-6 md:space-y-10 lg:space-y-16">
-            {/* Your Ikigai - Golden Bloom Card */}
+            {/* Your Ikigai - Enhanced Insight Card */}
             <div className="max-w-[700px] mx-auto">
-              <div className="ikigai-card px-4 md:px-6 py-6 golden-bloom-card staggered-fade-in">
-                <div className="space-y-6 md:space-y-8">
+              <div className="ikigai-card px-8 md:px-10 py-10 ikigai-insight-card staggered-fade-in">
+                <div className="space-y-8">
                   <div className="flex items-center justify-center space-x-4 sm:space-x-6">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold flex items-center justify-center soft-pulse">
-                      <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold flex items-center justify-center soft-pulse">
+                      <svg className="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <h2 className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">Your Ikigai</h2>
+                    <h2 className="ikigai-heading text-2xl sm:text-3xl md:text-4xl text-ikigai-warm-gold">Your Ikigai</h2>
                   </div>
-                  <p className="text-2xl md:text-3xl font-['DM_Serif_Display'] font-semibold text-center text-[#5D3A00] leading-relaxed">
-                    {structuredInsight.ikigai}
-                  </p>
+                  <div className="text-center">
+                    <p className="text-2xl md:text-3xl lg:text-4xl font-['DM_Serif_Display'] font-semibold text-[#5D3A00] leading-relaxed">
+                      {structuredInsight.ikigai}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

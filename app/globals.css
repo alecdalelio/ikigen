@@ -537,6 +537,93 @@ body {
   transform: translateY(0);
 }
 
+/* Enhanced Summary Page Styles */
+.reflection-group {
+  background: linear-gradient(135deg, rgba(250, 244, 239, 0.9) 0%, rgba(237, 224, 212, 0.8) 100%);
+  border: 1px solid rgba(176, 137, 104, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.reflection-group::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(176, 137, 104, 0.2) 50%, transparent 100%);
+}
+
+.reflection-item {
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(176, 137, 104, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.reflection-item:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.ikigai-insight-card {
+  background: linear-gradient(135deg, rgba(221, 184, 146, 0.15) 0%, rgba(176, 137, 104, 0.25) 100%);
+  border: 2px solid rgba(221, 184, 146, 0.4);
+  box-shadow: 0 8px 32px rgba(221, 184, 146, 0.3), 0 0 0 1px rgba(221, 184, 146, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ikigai-insight-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(221, 184, 146, 0.1) 0%, transparent 70%);
+  animation: gentle-rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gentle-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Summary Page Background Pattern */
+.summary-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(221, 184, 146, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(176, 137, 104, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(237, 224, 212, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.summary-page > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* Enhanced progress indicator */
 .ikigai-progress {
   display: flex;
@@ -816,6 +903,14 @@ body {
   .export-button {
     padding: 0.625rem 1.25rem;
     font-size: 0.75rem;
+  }
+
+  .reflection-item {
+    padding: 12px 16px;
+  }
+
+  .ikigai-insight-card {
+    padding: 12px 16px !important;
   }
 }
 

@@ -61,7 +61,7 @@ Your response should:
 - Honor the Japanese understanding that ikigai is experienced through lived sense of purpose
 - Use poetic, meditative language that evokes the feeling of ikigai-kan
 
-The "ikigai" should be one beautiful, concise sentence. The "meaning" should be 2-3 warm, affirming sentences. The "suggestions" should be an array of 2-3 specific, actionable possibilities that feel authentic to their unique combination of gifts and callings.
+The "ikigai" should be one beautiful, concise sentence. The "meaning" should be 2-3 warm, affirming sentences. The "suggestions" should be an array of 2-3 punchy, actionable possibilities in 1-2 lines each. Keep suggestions warm and poetic but concise - avoid verbosity. Examples: "Offer coaching sessions that blend empathy and personal growth." or "Run a workshop combining pizza-making and creative collaboration." or "Create guided AI workflows for purpose-driven small businesses."
 
 Respond ONLY with valid JSON - no additional text or explanation.`;
     } else if (context === 'What You Love') {

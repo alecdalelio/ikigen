@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <div className="ikigai-container page-transition">
+    <div className="ikigai-container page-transition homepage-animated">
       <div className="ikigai-center">
         {/* Header */}
         <div className="ikigai-section">
@@ -79,6 +79,10 @@ export default function HomePage() {
             <div className="w-2 h-2 sm:w-3 sm:h-3 bg-ikigai-gold rounded-full soft-pulse" style={{ animationDelay: '1s' }}></div>
           </div>
         </div>
+
+        {/* Floating particles */}
+        <div className="particle-1"></div>
+        <div className="particle-2"></div>
       </div>
     </div>
   );

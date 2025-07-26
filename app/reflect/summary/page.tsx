@@ -276,11 +276,12 @@ export default function SummaryPage() {
                       return (
                         <div 
                           key={index} 
-                          className="flex items-center gap-6 hover:bg-[#FAF6F0] hover:shadow-md rounded-xl transition-all duration-200 ease-in-out px-6 py-5 cursor-pointer border border-transparent hover:border-[#E6D8C5]"
+                          className="flex items-center gap-6 hover:bg-[#FAF6F0] hover:shadow-md rounded-xl transition-all duration-200 ease-in-out px-4 py-4 cursor-pointer border border-transparent hover:border-[#E6D8C5] bg-[#FFFDFB]"
                           aria-label={`Suggestion ${index + 1}: ${suggestion}`}
+                          style={{ borderRadius: '12px' }}
                         >
-                          <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-ikigai-gold/20 to-ikigai-warm-gold/30 rounded-full">
-                            <span className="text-2xl">
+                          <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-ikigai-gold/20 to-ikigai-warm-gold/30 rounded-full">
+                            <span className="text-xl">
                               {icon}
                             </span>
                           </div>

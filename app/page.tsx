@@ -1,105 +1,87 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="ikigai-container">
+    <div className="ikigai-container page-transition">
       <div className="ikigai-center">
-        <main className="ikigai-section">
-          {/* Ikigai Title */}
-          <div className="ikigai-section">
-            <h1 className="ikigai-title text-6xl sm:text-8xl gentle-fade-in">
-              Ikigen
+        {/* Header */}
+        <div className="ikigai-section">
+          <div className="text-center space-y-4 sm:space-y-6">
+            <h1 className="ikigai-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl gentle-fade-in">
+              Discover Your Ikigai
             </h1>
-            <div className="mt-6 w-32 h-1 bg-gradient-to-r from-ikigai-gold to-ikigai-warm-gold mx-auto rounded-full"></div>
-          </div>
-
-          {/* Subtitle */}
-          <div className="ikigai-section max-w-3xl space-y-6">
-            <p className="ikigai-heading text-2xl sm:text-3xl leading-relaxed gentle-fade-in" style={{ animationDelay: '0.2s' }}>
-              Discover your <em className="text-ikigai-warm-gold">ikigai</em> through mindful reflection
-            </p>
-            <p className="ikigai-body text-xl sm:text-2xl leading-relaxed gentle-fade-in" style={{ animationDelay: '0.4s' }}>
-              Embark on a guided journey to uncover your purpose at the intersection of passion, skill, need, and value.
+            <p className="ikigai-body text-base sm:text-lg md:text-xl max-w-2xl mx-auto gentle-fade-in" style={{ animationDelay: '0.2s' }}>
+              Find your purpose at the intersection of what you love, what you're good at, what the world needs, and what you can be paid for.
             </p>
           </div>
+        </div>
 
-          {/* Ikigai Circle Diagram */}
-          <div className="ikigai-section">
-            <div className="ikigai-venn">
-              {[
-                { 
-                  title: "Love", 
-                  subtitle: "What you love",
-                  type: "love",
-                  route: "/reflect/love"
-                },
-                { 
-                  title: "Skill", 
-                  subtitle: "What you're good at",
-                  type: "skill",
-                  route: "/reflect/good-at"
-                },
-                { 
-                  title: "Need", 
-                  subtitle: "What the world needs",
-                  type: "need",
-                  route: "/reflect/world-needs"
-                },
-                { 
-                  title: "Value", 
-                  subtitle: "What you can be paid for",
-                  type: "value",
-                  route: "/reflect/paid-for"
-                },
-              ].map((domain, i) => (
-                <Link
-                  key={domain.title}
-                  href={domain.route}
-                  className="ikigai-venn-petal"
-                >
-                  <div 
-                    className={`ikigai-circle p-8 text-center gentle-fade-in cursor-pointer ${domain.type}`}
-                    style={{ animationDelay: `${0.6 + i * 0.1}s` }}
-                  >
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-2xl ikigai-heading text-white">
-                        {domain.title.charAt(0)}
-                      </span>
-                    </div>
-                    <h3 className="text-xl ikigai-heading mb-2">
-                      {domain.title}
-                    </h3>
-                    <p className="text-sm ikigai-body">
-                      {domain.subtitle}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+        {/* Ikigai Diagram */}
+        <div className="ikigai-section">
+          <div className="ikigai-venn gentle-fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="ikigai-venn-petal">
+              <Link href="/reflect/love" className="block">
+                <div className="ikigai-circle love p-4 sm:p-6 md:p-8 text-center">
+                  <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl mb-2 sm:mb-3">Love</h3>
+                  <p className="ikigai-body text-sm sm:text-base">What you love doing</p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="ikigai-venn-petal">
+              <Link href="/reflect/good-at" className="block">
+                <div className="ikigai-circle skill p-4 sm:p-6 md:p-8 text-center">
+                  <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl mb-2 sm:mb-3">Skill</h3>
+                  <p className="ikigai-body text-sm sm:text-base">What you're good at</p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="ikigai-venn-petal">
+              <Link href="/reflect/world-needs" className="block">
+                <div className="ikigai-circle need p-4 sm:p-6 md:p-8 text-center">
+                  <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl mb-2 sm:mb-3">Need</h3>
+                  <p className="ikigai-body text-sm sm:text-base">What the world needs</p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="ikigai-venn-petal">
+              <Link href="/reflect/paid-for" className="block">
+                <div className="ikigai-circle value p-4 sm:p-6 md:p-8 text-center">
+                  <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl mb-2 sm:mb-3">Value</h3>
+                  <p className="ikigai-body text-sm sm:text-base">What you can be paid for</p>
+                </div>
+              </Link>
             </div>
           </div>
+        </div>
 
-          {/* CTA Button */}
-          <div className="ikigai-section">
-            <Link
-              href="/reflect"
-              className="ikigai-button gentle-fade-in inline-block"
-              style={{ animationDelay: '1s' }}
-            >
-              Begin your journey
-            </Link>
+        {/* Call to Action */}
+        <div className="ikigai-section">
+          <div className="text-center space-y-6 sm:space-y-8">
+            <p className="ikigai-body text-base sm:text-lg md:text-xl gentle-fade-in" style={{ animationDelay: '0.6s' }}>
+              Begin your journey of self-discovery and find your unique purpose in life.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 gentle-fade-in" style={{ animationDelay: '0.8s' }}>
+              <Link href="/reflect/love" className="ikigai-button">
+                Begin your journey
+              </Link>
+              <Link href="/test-styles" className="ikigai-body hover:text-ikigai-warm-gold transition-colors duration-300 text-base sm:text-lg font-medium">
+                View design system
+              </Link>
+            </div>
           </div>
+        </div>
 
-          {/* Decorative elements */}
-          <div className="flex items-center justify-center space-x-8 mt-12 opacity-60">
-            <div className="w-8 h-8 bg-ikigai-gold rounded-full soft-pulse"></div>
-            <div className="w-4 h-4 bg-ikigai-warm-gold rounded-full soft-pulse" style={{ animationDelay: '0.5s' }}></div>
-            <div className="w-6 h-6 bg-ikigai-gold rounded-full soft-pulse" style={{ animationDelay: '1s' }}></div>
+        {/* Decorative elements */}
+        <div className="ikigai-section">
+          <div className="flex justify-center space-x-4 sm:space-x-8">
+            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-ikigai-gold rounded-full soft-pulse"></div>
+            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-ikigai-warm-gold rounded-full soft-pulse" style={{ animationDelay: '0.5s' }}></div>
+            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-ikigai-gold rounded-full soft-pulse" style={{ animationDelay: '1s' }}></div>
           </div>
-        </main>
-
-        <footer className="text-sm ikigai-body mt-16">
-          © {new Date().getFullYear()} Alec D'Alelio — Built with intention and purpose
-        </footer>
+        </div>
       </div>
     </div>
   );

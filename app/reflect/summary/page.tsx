@@ -211,26 +211,28 @@ export default function SummaryPage() {
                   <h3 id="suggestions-heading" className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">What You Might Explore Next</h3>
                 </div>
                 
-                <div className="rounded-xl bg-[#FFFDFB] shadow-sm px-6 py-4 space-y-3 transition-all duration-200">
-                  {structuredInsight.suggestions.map((suggestion, index) => {
-                    const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
-                    const icon = icons[index % icons.length];
-                    
-                    return (
-                      <div 
-                        key={index} 
-                        className="flex items-start gap-3 hover:bg-[#FAF6F0] hover:shadow-md rounded-lg transition-all duration-150 ease-in-out px-3 py-2 cursor-pointer"
-                        aria-label={`Suggestion ${index + 1}: ${suggestion}`}
-                      >
-                        <span className="text-lg pt-[3px] min-w-[24px] flex-shrink-0">
-                          {icon}
-                        </span>
-                        <p className="text-base text-[#5C4033] leading-relaxed flex-1">
-                          {suggestion}
-                        </p>
-                      </div>
-                    );
-                  })}
+                <div className="ikigai-card px-4 md:px-6 py-6 wisdom-card staggered-fade-in">
+                  <div className="space-y-4">
+                    {structuredInsight.suggestions.map((suggestion, index) => {
+                      const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
+                      const icon = icons[index % icons.length];
+                      
+                      return (
+                        <div 
+                          key={index} 
+                          className="flex items-start gap-4 hover:bg-[#FAF6F0] hover:shadow-md rounded-lg transition-all duration-150 ease-in-out px-4 py-3 cursor-pointer"
+                          aria-label={`Suggestion ${index + 1}: ${suggestion}`}
+                        >
+                          <span className="text-xl pt-[2px] min-w-[32px] flex-shrink-0">
+                            {icon}
+                          </span>
+                          <p className="text-base text-[#5C4033] leading-relaxed flex-1">
+                            {suggestion}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

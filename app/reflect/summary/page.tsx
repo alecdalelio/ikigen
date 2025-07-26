@@ -8,6 +8,11 @@ export default function SummaryPage() {
   const { data, isLoaded } = useReflectionData();
   const [isGenerating, setIsGenerating] = useState(false);
   const [finalInsight, setFinalInsight] = useState("");
+  const [structuredInsight, setStructuredInsight] = useState<{
+    ikigai: string;
+    meaning: string;
+    suggestions: string[];
+  } | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -38,7 +43,16 @@ export default function SummaryPage() {
       }
 
       const responseData = await response.json();
-      setFinalInsight(responseData.summary);
+      
+      // Handle structured response for final summary
+      if (responseData.structured) {
+        setStructuredInsight(responseData.structured);
+        setFinalInsight(responseData.summary); // Keep for backward compatibility
+      } else {
+        // Fallback to regular text response
+        setFinalInsight(responseData.summary);
+        setStructuredInsight(null);
+      }
     } catch (error) {
       console.error('Error generating final insight:', error);
       
@@ -52,6 +66,7 @@ export default function SummaryPage() {
       } else {
         setFinalInsight("Your Ikigai is the intersection of what you love, what you're good at, what the world needs, and what you can be paid for. This unique combination creates your purpose and reason for being. Reflect on how these four elements work together in your life.");
       }
+      setStructuredInsight(null); // Clear structured data on error
     } finally {
       setIsGenerating(false);
     }
@@ -138,8 +153,69 @@ export default function SummaryPage() {
           </div>
         )}
 
-        {/* Final Insight */}
-        {finalInsight && (
+        {/* Final Insight - Structured Format */}
+        {structuredInsight ? (
+          <div className="ikigai-section space-y-6 sm:space-y-8">
+            {/* Your Ikigai */}
+            <div className="ikigai-card p-6 sm:p-8 md:p-10 gentle-fade-in light-bloom">
+              <div className="space-y-6 sm:space-y-8">
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold flex items-center justify-center soft-pulse">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h2 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">Your Ikigai</h2>
+                </div>
+                <p className="ikigai-insight text-base sm:text-lg md:text-xl leading-relaxed font-medium">
+                  {structuredInsight.ikigai}
+                </p>
+              </div>
+            </div>
+
+            {/* Why This Matters */}
+            <div className="ikigai-card p-6 sm:p-8 gentle-fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-ikigai-gold/20 to-ikigai-warm-gold/20 flex items-center justify-center">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-ikigai-warm-gold" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h3 className="ikigai-heading text-lg sm:text-xl text-ikigai-warm-gold">Why This Matters</h3>
+                </div>
+                <p className="ikigai-body text-base sm:text-lg leading-relaxed">
+                  {structuredInsight.meaning}
+                </p>
+              </div>
+            </div>
+
+            {/* What You Might Explore Next */}
+            <div className="ikigai-card p-6 sm:p-8 gentle-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-ikigai-gold/20 to-ikigai-warm-gold/20 flex items-center justify-center">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-ikigai-warm-gold" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h3 className="ikigai-heading text-lg sm:text-xl text-ikigai-warm-gold">What You Might Explore Next</h3>
+                </div>
+                <ul className="space-y-3 sm:space-y-4">
+                  {structuredInsight.suggestions.map((suggestion, index) => (
+                    <li key={index} className="flex items-start space-x-3 sm:space-x-4">
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-ikigai-warm-gold rounded-full mt-2 sm:mt-3 flex-shrink-0"></div>
+                      <p className="ikigai-body text-base sm:text-lg leading-relaxed">
+                        {suggestion}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ) : finalInsight ? (
+          /* Fallback to original format for backward compatibility */
           <div className="ikigai-section">
             <div className="ikigai-card p-6 sm:p-8 md:p-10 gentle-fade-in light-bloom">
               <div className="space-y-6 sm:space-y-8">
@@ -157,7 +233,7 @@ export default function SummaryPage() {
               </div>
             </div>
           </div>
-        )}
+        ) : null}
 
         {/* Navigation */}
         <div className="ikigai-section flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">

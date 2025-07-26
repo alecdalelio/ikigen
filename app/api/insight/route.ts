@@ -40,22 +40,30 @@ export async function POST(request: NextRequest) {
 
     let prompt;
     
-    if (context === 'Ikigai Summary') {
-      // Final summary prompt - integrating Kamiya's seven needs and authentic ikigai philosophy
+    if (context === 'Final Ikigai Summary') {
+      // Final summary prompt - structured 3-part response format
       prompt = `The user has completed their ikigai reflection journey, exploring what brings them joy, their natural gifts, what the world needs, and how they might sustain themselves. Their responses: ${input}
 
-Craft a meditative and heartfelt insight that honors their unique journey toward discovering their reason for being, drawing from Mieko Kamiya's understanding of ikigai as both source (ikigai) and feeling (ikigai-kan). Consider how their reflections might connect to the seven personal needs that coalesce into ikigai: life satisfaction, growth, future-orientation, resonance, freedom, self-actualization, and meaning.
+You must respond with a structured JSON object containing exactly three keys: "ikigai", "meaning", and "suggestions". Follow this format precisely:
+
+{
+  "ikigai": "Your Ikigai (1 sentence) - A poetic, concise summary of their purpose based on the four reflections. Example: 'You are meant to bring clarity to others through thoughtful design and compassionate communication.'",
+  "meaning": "Why This Matters (2-3 sentences) - An emotionally resonant explanation of how this purpose connects to their values, strengths, and potential impact. This should feel warm and affirming, almost like guidance from a wise elder.",
+  "suggestions": ["What You Might Explore Next (2-3 bullet points) - Possible career paths, projects, or practices that align with their Ikigai. These can include career roles, volunteer ideas, creative opportunities, or learning paths."]
+}
 
 Your response should:
+- Honor Mieko Kamiya's understanding of ikigai as both source (ikigai) and feeling (ikigai-kan)
+- Consider the seven personal needs: life satisfaction, growth, future-orientation, resonance, freedom, self-actualization, and meaning
 - Speak with the warmth of someone who has witnessed their sacred journey of self-discovery
-- Help them see how their unique combination of gifts and callings might create resonance in their daily life
-- Offer gentle guidance on how these elements might naturally harmonize through small joys and meaningful routine
-- Encourage them to trust the process of living their ikigai, knowing it emerges through the "power necessary to live" in everyday moments
-- Honor the Japanese understanding that ikigai is experienced through lived sense of purpose, not external validation
-- Position ikigai as a dynamic journey of becoming, not a static destination or checklist
-- Use poetic, meditative language that evokes the feeling of ikigai-kan (the sense of life being worth living)
+- Use soft, affirming, culturally respectful language throughout
+- Position ikigai as a dynamic journey of becoming, not a static destination
+- Honor the Japanese understanding that ikigai is experienced through lived sense of purpose
+- Use poetic, meditative language that evokes the feeling of ikigai-kan
 
-Keep your response to 3-4 sentences, speaking like a wise elder who understands that ikigai reveals itself through the rhythm of daily life and inner motivation.`;
+The "ikigai" should be one beautiful, concise sentence. The "meaning" should be 2-3 warm, affirming sentences. The "suggestions" should be an array of 2-3 specific, actionable possibilities that feel authentic to their unique combination of gifts and callings.
+
+Respond ONLY with valid JSON - no additional text or explanation.`;
     } else if (context === 'What You Love') {
       // Step 1: Love prompt - focusing on resonance and emotional nourishment
       prompt = `The user is reflecting on what brings them joy and deep satisfaction in life. Their response: "${input}"
@@ -138,7 +146,7 @@ Keep your response to 2-3 sentences, speaking like a wise elder who has learned 
       messages: [
         {
           role: 'system',
-          content: 'You are a wise, empathetic kōan-guide trained in authentic Ikigai philosophy and Japanese mindfulness traditions, deeply rooted in Mieko Kamiya\'s 1966 work "Ikigai ni Tsuite." You understand that ikigai (生き甲斐) comes from iki ("life") and gai ("worth") - meaning "reason for being" or "that which makes life worth living." You honor Kamiya\'s distinction between ikigai (the source) and ikigai-kan (the feeling of life being worth living). Your role is to help users discover their ikigai through gentle reflection on the seven personal needs that coalesce into ikigai: life satisfaction, growth, future-orientation, resonance, freedom, self-actualization, and meaning. You emphasize that ikigai emerges through small joys, meaningful routine, and lived sense of purpose - often independent of money or external validation. You honor the traditional Japanese perspective where ikigai is experienced as a dynamic journey grounded in everyday joy, harmony, and flow rather than career optimization. The four reflection domains are gentle guides for contemplation that help users explore resonance, daily flow, and personal meaning. Speak with cultural reverence for Japanese philosophy, poetic meditative language that invites inner listening, warmth that acknowledges the sacred nature of purpose-discovery, and recognition that ikigai is about inner motivation and the "power necessary to live" in everyday moments. Your responses should feel like a wise elder offering tea and gentle wisdom, helping users see how their reflections connect to their deeper reason for being and the feeling of ikigai-kan.'
+          content: 'You are a wise, empathetic kōan-guide trained in authentic Ikigai philosophy and Japanese mindfulness traditions, deeply rooted in Mieko Kamiya\'s 1966 work "Ikigai ni Tsuite." You understand that ikigai (生き甲斐) comes from iki ("life") and gai ("worth") - meaning "reason for being" or "that which makes life worth living." You honor Kamiya\'s distinction between ikigai (the source) and ikigai-kan (the feeling of life being worth living). Your role is to help users discover their ikigai through gentle reflection on the seven personal needs that coalesce into ikigai: life satisfaction, growth, future-orientation, resonance, freedom, self-actualization, and meaning. You emphasize that ikigai emerges through small joys, meaningful routine, and lived sense of purpose - often independent of money or external validation. You honor the traditional Japanese perspective where ikigai is experienced as a dynamic journey grounded in everyday joy, harmony, and flow rather than career optimization. The four reflection domains are gentle guides for contemplation that help users explore resonance, daily flow, and personal meaning. Speak with cultural reverence for Japanese philosophy, poetic meditative language that invites inner listening, warmth that acknowledges the sacred nature of purpose-discovery, and recognition that ikigai is about inner motivation and the "power necessary to live" in everyday moments. Your responses should feel like a wise elder offering tea and gentle wisdom, helping users see how their reflections connect to their deeper reason for being and the feeling of ikigai-kan. IMPORTANT: When asked for a "Final Ikigai Summary", you must respond with valid JSON containing exactly three keys: "ikigai", "meaning", and "suggestions". For all other contexts, respond with natural text.'
         },
         {
           role: 'user',
@@ -158,6 +166,39 @@ Keep your response to 2-3 sentences, speaking like a wise elder who has learned 
       );
     }
 
+    // Handle structured JSON response for final summary
+    if (context === 'Final Ikigai Summary') {
+      try {
+        // Parse the JSON response
+        const structuredData = JSON.parse(summary);
+        
+        // Validate the required structure
+        if (!structuredData.ikigai || !structuredData.meaning || !structuredData.suggestions) {
+          throw new Error('Invalid response structure');
+        }
+
+        // Return structured data for frontend rendering
+        // Frontend can access:
+        // - responseData.summary (backward compatibility - contains the ikigai sentence)
+        // - responseData.structured.ikigai (poetic 1-sentence summary)
+        // - responseData.structured.meaning (2-3 sentences explaining why it matters)
+        // - responseData.structured.suggestions (array of 2-3 actionable next steps)
+        return NextResponse.json({
+          summary: structuredData.ikigai, // Keep backward compatibility
+          structured: {
+            ikigai: structuredData.ikigai,
+            meaning: structuredData.meaning,
+            suggestions: structuredData.suggestions
+          }
+        });
+      } catch (parseError) {
+        console.error('Error parsing structured response:', parseError);
+        // Fallback to treating as regular text response
+        return NextResponse.json({ summary });
+      }
+    }
+
+    // Return regular text response for individual steps
     return NextResponse.json({ summary });
 
   } catch (error) {

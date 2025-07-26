@@ -82,26 +82,34 @@ export default function SummaryPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white p-4 reflection-page">
-      <div className="bg-zinc-900 p-6 rounded-2xl shadow-xl max-w-2xl w-full space-y-6">
+    <div className="reflection-page min-h-screen bg-gradient-to-br from-black via-zinc-900 to-black text-white">
+      <div className="max-w-3xl mx-auto px-4 py-12 space-y-10 text-white">
+        <div className="animate-fadeIn">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold text-white text-center">
+        <div className="text-center space-y-6">
+          <div className="flex justify-center">
+            <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center">
+              <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            </div>
+          </div>
+          <h1 className="text-4xl font-bold text-white">
             Your Ikigai Journey
           </h1>
-          <p className="text-sm text-zinc-400 text-center">
-            Complete - Here's your reflection summary
+          <p className="text-lg text-zinc-300 max-w-2xl mx-auto">
+            Complete - Here's your reflection summary and personal insight
           </p>
         </div>
 
         {/* Reflection Summary */}
-        <div className="space-y-4">
+        <div className="space-y-6">
           {REFLECTION_STEPS.map((step, index) => (
-            <div key={step.id} className="bg-zinc-800 rounded-xl p-4 border border-zinc-700">
-              <h3 className="text-lg font-medium text-white mb-2">
+            <div key={step.id} className="bg-zinc-800/80 p-6 rounded-xl border border-zinc-700 shadow-md hover:shadow-lg transition">
+              <h2 className="text-2xl font-semibold mb-2 text-white">
                 {step.title}
-              </h3>
-              <p className="text-zinc-300 leading-relaxed">
+              </h2>
+              <p className="text-lg text-zinc-300">
                 {data[step.id]}
               </p>
             </div>
@@ -129,33 +137,31 @@ export default function SummaryPage() {
 
         {/* Final Insight */}
         {hasGenerated && (
-          <div className="bg-gradient-to-br from-rose-900/20 to-pink-900/20 rounded-xl p-6 border border-rose-800/50">
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-rose-200 text-center">
-                Your Ikigai
-              </h3>
-              <p className="text-zinc-300 leading-relaxed text-center">
-                {finalInsight}
-              </p>
-            </div>
+          <div className="mt-8 bg-gradient-to-br from-rose-900 via-zinc-900 to-rose-950 border border-rose-800/60 text-center p-6 rounded-xl shadow-lg">
+            <h2 className="text-2xl font-bold text-rose-100 mb-4">
+              Your Ikigai
+            </h2>
+            <p className="italic text-lg text-rose-200 leading-relaxed">
+              "{finalInsight}"
+            </p>
           </div>
         )}
 
         {/* Navigation */}
-        <div className="flex justify-between items-center pt-4 border-t border-zinc-800">
-          <button
+        <div className="flex justify-center gap-4 pt-10">
+          <button 
             onClick={() => router.push('/')}
-            className="text-zinc-400 hover:text-zinc-200 transition-colors text-sm"
+            className="bg-zinc-800 px-6 py-2 rounded-lg hover:bg-zinc-700 transition text-white"
           >
-            ← Back to home
+            🏠 Back Home
           </button>
-          
-          <button
+          <button 
             onClick={handleStartOver}
-            className="text-rose-400 hover:text-rose-300 transition-colors text-sm"
+            className="bg-rose-800 px-6 py-2 rounded-lg hover:bg-rose-700 transition text-white"
           >
-            Start over
+            🔄 Start Over
           </button>
+        </div>
         </div>
       </div>
     </div>

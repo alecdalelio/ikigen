@@ -196,7 +196,7 @@ export default function SummaryPage() {
 
             {/* Visual Separator */}
             <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">
-              <hr className="my-8 border-t border-[#E6D8C5]" />
+              <hr className="my-10 border-t border-[#E6D8C5]" />
             </div>
 
             {/* What You Might Explore Next - Redesigned Suggestion Cards */}
@@ -231,6 +231,13 @@ export default function SummaryPage() {
                   })}
                 </div>
               </div>
+            </div>
+
+            {/* Closing Encouragement */}
+            <div className="max-w-[700px] mx-auto mt-10">
+              <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-base md:text-lg leading-relaxed">
+                ✨ Let this insight guide you. Choose one small action this week that brings your Ikigai to life.
+              </p>
             </div>
 
             {/* Export Options */}

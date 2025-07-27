@@ -336,10 +336,9 @@ export default function SummaryPage() {
         {structuredInsight ? (
           <div className="ikigai-section space-y-6 md:space-y-10 lg:space-y-16">
             {/* Your Ikigai - Enhanced Insight Card */}
-            <div className="max-w-[700px] mx-auto">
+            <div className="max-w-[700px] mx-auto px-4 sm:px-6">
               <div 
-                className="ikigai-card ikigai-insight-card staggered-fade-in"
-                style={{ width: '600px', margin: '0 auto' }}
+                className="ikigai-card ikigai-insight-card staggered-fade-in w-full max-w-[600px] mx-auto"
               >
                 <div className="space-y-8">
                   <div className="flex items-center justify-center space-x-4 sm:space-x-6">
@@ -351,7 +350,7 @@ export default function SummaryPage() {
                     <h2 className="ikigai-heading text-2xl sm:text-3xl md:text-4xl text-ikigai-warm-gold">Your Ikigai</h2>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl md:text-3xl lg:text-4xl font-['DM_Serif_Display'] font-semibold text-[#5D3A00] leading-relaxed">
+                    <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-['DM_Serif_Display'] font-semibold text-[#5D3A00] leading-relaxed">
                       {structuredInsight.ikigai}
                     </p>
                   </div>

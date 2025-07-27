@@ -40,13 +40,24 @@
 }
 
 body {
-  background: var(--ikigai-cream);
-  color: var(--ikigai-brown);
+  background: var(--theme-background, var(--ikigai-cream));
+  color: var(--theme-text, var(--ikigai-brown));
   font-family: var(--font-zen);
   font-size: 18px;
   line-height: 1.7;
   margin: 0;
   padding: 0;
+}
+
+/* Main container using theme variables */
+.ikigai-container {
+  min-height: 100vh;
+  background: var(--theme-background, linear-gradient(135deg, #FAF7F0 0%, #F5E6D3 100%));
+  color: var(--theme-text, var(--ikigai-brown));
+  font-family: var(--font-zen);
+  overflow-x: hidden;
+  position: relative;
+  transition: all 0.5s ease-in-out;
 }
 
 /* Enhanced meditative animations */
@@ -237,12 +248,12 @@ body {
 
 /* Utility classes for meditative design */
 .ikigai-card {
-  background: var(--ikigai-warm-white);
+  background: var(--theme-card-bg, var(--ikigai-warm-white));
   border-radius: 12px;
   padding: 20px 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(127, 85, 57, 0.1);
-  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, var(--shadow-strength, 0.06));
+  border: 1px solid var(--theme-border, rgba(127, 85, 57, 0.1));
+  transition: all calc(0.2s * var(--animation-intensity, 1)) ease-in-out;
 }
 
 .ikigai-card:hover {
@@ -332,7 +343,7 @@ body {
 
 /* Unified button styling for consistency */
 .ikigai-button {
-  background: linear-gradient(135deg, var(--ikigai-warm-gold) 0%, var(--ikigai-gold) 100%);
+  background: var(--theme-accent, linear-gradient(135deg, var(--ikigai-warm-gold) 0%, var(--ikigai-gold) 100%));
   border: none;
   border-radius: 12px;
   color: white;
@@ -340,8 +351,8 @@ body {
   font-family: var(--font-harmony);
   padding: 12px 20px;
   font-size: 16px;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all calc(0.2s * var(--animation-intensity, 1)) ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, var(--shadow-strength, 0.06));
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -465,9 +476,26 @@ body {
 .ikigai-heading {
   font-family: var(--font-poetry);
   font-weight: 400;
-  color: var(--ikigai-brown);
+  color: var(--theme-accent, var(--ikigai-brown));
   text-transform: none;
   line-height: 1.4;
+}
+
+/* Theme-aware text colors */
+.text-ikigai-warm-gold {
+  color: var(--theme-accent, var(--ikigai-warm-gold)) !important;
+}
+
+.text-theme-primary {
+  color: var(--theme-text, #7F5539) !important;
+}
+
+.bg-theme-card {
+  background: var(--theme-card-bg, rgba(248, 246, 240, 0.8)) !important;
+}
+
+.border-theme-border {
+  border-color: var(--theme-border, rgba(221, 184, 146, 0.3)) !important;
 }
 
 .ikigai-body {

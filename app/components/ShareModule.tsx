@@ -91,6 +91,13 @@ const ShareModule: React.FC<ShareModuleProps> = ({ ikigaiText, onMount, onDownlo
                 📸 Download as Image
               </button>
             )}
+
+            {/* TODO: Add "Copy to Clipboard" functionality
+                - Use navigator.clipboard.write() with ClipboardItem
+                - Convert canvas to blob and copy as image/png
+                - Add clipboard icon button alongside download/share
+                - Show success toast notification
+            */}
           </div>
         </div>
       </div>

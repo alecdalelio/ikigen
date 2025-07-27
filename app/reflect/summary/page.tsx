@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
 import ShareModule from '../../components/ShareModule';
+import IkigaiExportCard from '../../components/IkigaiExportCard';
 import jsPDF from 'jspdf';
 import { toPng } from 'html-to-image';
 
@@ -20,6 +21,7 @@ export default function SummaryPage() {
   const [showShareModule, setShowShareModule] = useState(false);
   const shareModuleRef = useRef<HTMLDivElement>(null);
   const ikigaiRef = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const handleShareModuleMount = () => {
@@ -35,19 +37,27 @@ export default function SummaryPage() {
   };
 
   const handleDownloadImage = async () => {
-    if (!ikigaiRef.current) return;
+    if (!exportRef.current) return;
 
     try {
-      const dataUrl = await toPng(ikigaiRef.current, {
+      // Temporarily show the hidden export card
+      const originalDisplay = exportRef.current.style.display;
+      exportRef.current.style.display = 'block';
+
+      // Generate the image
+      const dataUrl = await toPng(exportRef.current, {
         pixelRatio: 2,
-        backgroundColor: 'transparent',
+        backgroundColor: '#fff',
         width: 600,
-        height: ikigaiRef.current.offsetHeight * 2, // Account for pixelRatio
+        height: exportRef.current.offsetHeight,
         style: {
           transform: 'scale(1)',
           transformOrigin: 'top left'
         }
       });
+
+      // Hide the export card again
+      exportRef.current.style.display = originalDisplay;
 
       // Create download link
       const link = document.createElement('a');
@@ -56,7 +66,11 @@ export default function SummaryPage() {
       link.click();
     } catch (error) {
       console.error('Error generating image:', error);
-      // Fallback: Could show a toast notification here
+      // Hide the export card in case of error
+      if (exportRef.current) {
+        exportRef.current.style.display = 'none';
+      }
+      // Fallback: User-friendly error message
       alert('Sorry, there was an error generating the image. Please try again.');
     }
   };
@@ -469,6 +483,13 @@ export default function SummaryPage() {
             />
           </div>
         )}
+
+        {/* Hidden Export Card for Image Generation */}
+        <div ref={exportRef} style={{ display: 'none' }}>
+          <IkigaiExportCard 
+            ikigaiText={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
+          />
+        </div>
 
       </div>
     </div>

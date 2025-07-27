@@ -57,6 +57,7 @@ const ShareModule: React.FC<ShareModuleProps> = ({ ikigaiText, onMount, onLinked
               className="share-linkedin-button"
               aria-label="Share your Ikigai insight on LinkedIn"
               title={isMobile ? "Copy message and open LinkedIn app" : "Copy caption, download image, open LinkedIn"}
+              data-mobile={isMobile}
             >
                               <svg 
                   className="share-linkedin-icon" 

@@ -35,7 +35,7 @@ export const isAndroid = (): boolean => {
 
 /**
  * Opens LinkedIn with mobile app support
- * Falls back to web version if app is not available
+ * Uses a more reliable approach for mobile devices
  */
 export const openLinkedIn = (url: string = 'https://ikigen.vercel.app'): void => {
   const isMobile = isMobileDevice();
@@ -44,34 +44,34 @@ export const openLinkedIn = (url: string = 'https://ikigen.vercel.app'): void =>
   
   if (isMobile) {
     if (isIOSDevice) {
-      // iOS LinkedIn app URL scheme
+      // iOS: Try multiple approaches for better app opening
       const linkedInAppUrl = `linkedin://post?text=${encodeURIComponent('Check out my Ikigai journey!')}&url=${encodeURIComponent(url)}`;
+      const linkedInWebUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
       
       // Try to open the app first
       const appWindow = window.open(linkedInAppUrl, '_blank');
       
-      // If app doesn't open, fall back to web after a short delay
+      // Fall back to web version after a short delay
       setTimeout(() => {
-        if (appWindow && appWindow.closed) {
-          // App didn't open, use web version
-          window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+        if (!appWindow || appWindow.closed) {
+          window.open(linkedInWebUrl, '_blank');
         }
-      }, 1000);
+      }, 500);
       
     } else if (isAndroidDevice) {
-      // Android LinkedIn app intent
-      const linkedInAppUrl = `intent://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}#Intent;package=com.linkedin.android;scheme=https;end`;
+      // Android: Use intent URL for better app opening
+      const linkedInIntentUrl = `intent://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}#Intent;package=com.linkedin.android;scheme=https;end`;
+      const linkedInWebUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
       
       // Try to open the app first
-      const appWindow = window.open(linkedInAppUrl, '_blank');
+      const appWindow = window.open(linkedInIntentUrl, '_blank');
       
-      // If app doesn't open, fall back to web after a short delay
+      // Fall back to web version after a short delay
       setTimeout(() => {
-        if (appWindow && appWindow.closed) {
-          // App didn't open, use web version
-          window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+        if (!appWindow || appWindow.closed) {
+          window.open(linkedInWebUrl, '_blank');
         }
-      }, 1000);
+      }, 500);
       
     } else {
       // Other mobile devices - use web version
@@ -96,8 +96,80 @@ export const shareToLinkedIn = async (
       await navigator.clipboard.writeText(text);
     }
     
-    // Open LinkedIn with mobile app support
-    openLinkedIn(url);
+    // Check if Web Share API is available (most reliable for mobile apps)
+    if (navigator.share && isMobileDevice()) {
+      try {
+        await navigator.share({
+          title: 'My Ikigai Journey',
+          text: text,
+          url: url
+        });
+        return; // Web Share API handled it
+      } catch (shareError) {
+        console.log('Web Share API failed, falling back to LinkedIn-specific methods');
+      }
+    }
+    
+    // For mobile devices, try to open the LinkedIn app with the text content
+    const isMobile = isMobileDevice();
+    const isIOSDevice = isIOS();
+    const isAndroidDevice = isAndroid();
+    
+    if (isMobile) {
+      if (isIOSDevice) {
+        // iOS: Try multiple LinkedIn app URL schemes
+        const linkedInAppUrl1 = `linkedin://post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        const linkedInAppUrl2 = `linkedin://sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        const linkedInWebUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        
+        // Try first app URL
+        let appWindow = window.open(linkedInAppUrl1, '_blank');
+        
+        // If first attempt fails, try second URL
+        setTimeout(() => {
+          if (!appWindow || appWindow.closed) {
+            appWindow = window.open(linkedInAppUrl2, '_blank');
+            
+            // If both app attempts fail, use web version
+            setTimeout(() => {
+              if (!appWindow || appWindow.closed) {
+                window.open(linkedInWebUrl, '_blank');
+              }
+            }, 300);
+          }
+        }, 300);
+        
+      } else if (isAndroidDevice) {
+        // Android: Try multiple approaches
+        const linkedInIntentUrl = `intent://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}#Intent;package=com.linkedin.android;scheme=https;end`;
+        const linkedInAppUrl = `linkedin://post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        const linkedInWebUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        
+        // Try intent URL first
+        let appWindow = window.open(linkedInIntentUrl, '_blank');
+        
+        // If intent fails, try direct app URL
+        setTimeout(() => {
+          if (!appWindow || appWindow.closed) {
+            appWindow = window.open(linkedInAppUrl, '_blank');
+            
+            // If both app attempts fail, use web version
+            setTimeout(() => {
+              if (!appWindow || appWindow.closed) {
+                window.open(linkedInWebUrl, '_blank');
+              }
+            }, 300);
+          }
+        }, 300);
+        
+      } else {
+        // Other mobile devices
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+      }
+    } else {
+      // Desktop
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+    }
     
   } catch (error) {
     console.error('Error sharing to LinkedIn:', error);

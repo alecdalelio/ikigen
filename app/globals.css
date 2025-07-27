@@ -1991,6 +1991,82 @@ body {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Ensure cards don't overflow on mobile */
+  .ikigai-card {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Mobile text container and wrapper classes */
+  .mobile-text-container {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0.75rem !important;
+  }
+  
+  .mobile-text-wrapper {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 0.5rem !important;
+    margin: 0 auto !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+  }
+  
+  .mobile-text {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    line-height: 1.6 !important;
+    font-size: 0.95rem !important;
+  }
+  
+  /* Responsive font sizing for different screen sizes */
+  @media (max-width: 480px) {
+    .mobile-text {
+      font-size: 0.9rem !important;
+      line-height: 1.7 !important;
+    }
+    
+    .mobile-text-wrapper {
+      padding: 0 0.75rem !important;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    .mobile-text {
+      font-size: 0.85rem !important;
+      line-height: 1.8 !important;
+    }
+    
+    .mobile-text-wrapper {
+      padding: 0 1rem !important;
+    }
+    
+    .mobile-text-container {
+      padding: 0.5rem !important;
+    }
+    
+    .ikigai-card {
+      padding: 0.75rem !important;
+    }
+    
+    .suggestion-card-refined {
+      padding: 1rem !important;
+    }
   }
   
   .ikigai-insight-card p,
@@ -2034,6 +2110,11 @@ body {
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+  }
+  
+  .suggestion-text-refined.mobile-text {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
   }
 
   /* Suggestion cards use Tailwind classes */

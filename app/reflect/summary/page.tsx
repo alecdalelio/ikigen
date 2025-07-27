@@ -321,9 +321,9 @@ export default function SummaryPage() {
         {structuredInsight ? (
           <div className="ikigai-section space-y-6 md:space-y-10 lg:space-y-16">
             {/* Your Ikigai - Enhanced Insight Card */}
-            <div className="max-w-[700px] mx-auto px-2 sm:px-4 md:px-6">
+            <div className="max-w-[700px] mx-auto px-3 sm:px-4 md:px-6">
               <div 
-                className="ikigai-card ikigai-insight-card staggered-fade-in w-full"
+                className="ikigai-card ikigai-insight-card staggered-fade-in w-full mobile-text-container"
               >
                 <div className="space-y-8">
                   <div className="flex items-center justify-center space-x-4 sm:space-x-6">
@@ -334,8 +334,8 @@ export default function SummaryPage() {
                     </div>
                     <h2 className="ikigai-heading text-2xl sm:text-3xl md:text-4xl text-ikigai-warm-gold">Your Ikigai</h2>
                   </div>
-                  <div className="text-center px-2 sm:px-4">
-                    <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-['DM_Serif_Display'] font-semibold text-[#5D3A00] leading-relaxed break-words">
+                  <div className="text-center mobile-text-wrapper">
+                    <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-['DM_Serif_Display'] font-semibold text-[#5D3A00] leading-relaxed mobile-text">
                       {structuredInsight.ikigai}
                     </p>
                   </div>
@@ -346,8 +346,8 @@ export default function SummaryPage() {
 
 
             {/* Why This Matters - Wisdom Card */}
-            <div className="max-w-[700px] mx-auto px-2 sm:px-4 md:px-6 mt-6 md:mt-10 lg:mt-16">
-              <div className="ikigai-card wisdom-card staggered-fade-in w-full">
+            <div className="max-w-[700px] mx-auto px-3 sm:px-4 md:px-6 mt-6 md:mt-10 lg:mt-16">
+              <div className="ikigai-card wisdom-card staggered-fade-in w-full mobile-text-container">
                 <div className="space-y-6 sm:space-y-8">
                   <div className="flex items-center justify-center space-x-4 sm:space-x-6">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
@@ -357,8 +357,8 @@ export default function SummaryPage() {
                     </div>
                     <h3 className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">Why This Matters</h3>
                   </div>
-                  <div className="text-center px-2 sm:px-4">
-                    <p className="italic text-base md:text-lg lg:text-xl text-[#7F5539] leading-relaxed break-words">
+                  <div className="text-center mobile-text-wrapper">
+                    <p className="italic text-base md:text-lg lg:text-xl text-[#7F5539] leading-relaxed mobile-text">
                       {structuredInsight.meaning}
                     </p>
                   </div>
@@ -405,8 +405,8 @@ export default function SummaryPage() {
                           </div>
                         </div>
                         {/* Text content with improved typography */}
-                        <div className="text-center px-2 sm:px-4">
-                          <p className="suggestion-text-refined break-words">
+                        <div className="text-center mobile-text-wrapper">
+                          <p className="suggestion-text-refined mobile-text">
                             {suggestion}
                           </p>
                         </div>
@@ -418,15 +418,15 @@ export default function SummaryPage() {
             </div>
 
             {/* Closing Encouragement with Floating Sparkle */}
-            <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-16 md:mt-20 lg:mt-24 relative">
+            <div className="max-w-[700px] mx-auto px-3 sm:px-4 md:px-6 mt-16 md:mt-20 lg:mt-24 relative">
               <div className="floating-sparkle"></div>
-              <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-lg md:text-xl leading-relaxed">
+              <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-base md:text-lg lg:text-xl leading-relaxed mobile-text">
                 ✨ Let this insight guide you. Choose one small action this week that brings your Ikigai to life.
               </p>
             </div>
 
             {/* Action Buttons - Refined Layout */}
-            <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-16 md:mt-20 lg:mt-24">
+            <div className="max-w-[700px] mx-auto px-3 sm:px-4 md:px-6 mt-16 md:mt-20 lg:mt-24">
               <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
                 <button
                   onClick={() => router.push('/reflect/paid-for')}

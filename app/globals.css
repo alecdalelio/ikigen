@@ -596,6 +596,42 @@ body {
   flex-shrink: 0;
 }
 
+.share-download-button {
+  background: linear-gradient(135deg, var(--theme-accent, #DDB892) 0%, var(--ikigai-warm-gold) 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-family: var(--font-harmony);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all calc(0.2s * var(--animation-intensity, 1)) ease-in-out;
+  box-shadow: 0 4px 12px rgba(221, 184, 146, 0.3);
+  min-width: 180px;
+  justify-content: center;
+}
+
+.share-download-button:hover {
+  background: linear-gradient(135deg, var(--ikigai-warm-gold) 0%, var(--ikigai-gold) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(221, 184, 146, 0.4);
+}
+
+.share-download-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(221, 184, 146, 0.3);
+}
+
+.share-download-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .share-module-content {
@@ -617,7 +653,13 @@ body {
     min-width: 140px;
   }
 
-  .share-linkedin-icon {
+  .share-download-button {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+    min-width: 160px;
+  }
+
+  .share-linkedin-icon, .share-download-icon {
     width: 1rem;
     height: 1rem;
   }
@@ -638,6 +680,44 @@ body {
     padding: 0.625rem 1rem;
     min-width: 120px;
   }
+
+  .share-download-button {
+    font-size: 0.875rem;
+    padding: 0.625rem 1rem;
+    min-width: 140px;
+  }
+}
+
+/* Image Export Styling */
+.ikigai-image-export {
+  background: var(--theme-card-bg, rgba(248, 246, 240, 0.95)) !important;
+  border: 2px solid var(--theme-border, rgba(221, 184, 146, 0.3));
+  border-radius: 16px !important;
+  padding: 3rem !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, var(--shadow-strength, 0.12));
+  font-family: var(--font-harmony);
+  color: var(--theme-text, #5D3A00);
+  position: relative;
+}
+
+.ikigai-image-export::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(221, 184, 146, 0.05) 0%, 
+    rgba(248, 246, 240, 0.05) 50%, 
+    rgba(221, 184, 146, 0.05) 100%);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.ikigai-image-export * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Force theme background on containers */

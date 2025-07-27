@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
 import ShareModule from '../../components/ShareModule';
 import jsPDF from 'jspdf';
+import { toPng } from 'html-to-image';
 
 
 export default function SummaryPage() {
@@ -18,6 +19,7 @@ export default function SummaryPage() {
   } | null>(null);
   const [showShareModule, setShowShareModule] = useState(false);
   const shareModuleRef = useRef<HTMLDivElement>(null);
+  const ikigaiRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const handleShareModuleMount = () => {
@@ -30,6 +32,33 @@ export default function SummaryPage() {
         });
       }
     }, 400); // Small delay to ensure animation has started
+  };
+
+  const handleDownloadImage = async () => {
+    if (!ikigaiRef.current) return;
+
+    try {
+      const dataUrl = await toPng(ikigaiRef.current, {
+        pixelRatio: 2,
+        backgroundColor: 'transparent',
+        width: 600,
+        height: ikigaiRef.current.offsetHeight * 2, // Account for pixelRatio
+        style: {
+          transform: 'scale(1)',
+          transformOrigin: 'top left'
+        }
+      });
+
+      // Create download link
+      const link = document.createElement('a');
+      link.download = 'my-ikigai.png';
+      link.href = dataUrl;
+      link.click();
+    } catch (error) {
+      console.error('Error generating image:', error);
+      // Fallback: Could show a toast notification here
+      alert('Sorry, there was an error generating the image. Please try again.');
+    }
   };
 
   useEffect(() => {
@@ -271,7 +300,11 @@ export default function SummaryPage() {
           <div className="ikigai-section space-y-6 md:space-y-10 lg:space-y-16">
             {/* Your Ikigai - Enhanced Insight Card */}
             <div className="max-w-[700px] mx-auto">
-              <div className="ikigai-card px-8 md:px-10 py-10 ikigai-insight-card staggered-fade-in">
+              <div 
+                ref={ikigaiRef}
+                className="ikigai-card ikigai-insight-card staggered-fade-in ikigai-image-export"
+                style={{ width: '600px', margin: '0 auto' }}
+              >
                 <div className="space-y-8">
                   <div className="flex items-center justify-center space-x-4 sm:space-x-6">
                     <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-ikigai-warm-gold to-ikigai-gold flex items-center justify-center soft-pulse">
@@ -432,6 +465,7 @@ export default function SummaryPage() {
             <ShareModule 
               ikigaiText={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
               onMount={handleShareModuleMount}
+              onDownloadImage={handleDownloadImage}
             />
           </div>
         )}

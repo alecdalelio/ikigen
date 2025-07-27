@@ -303,38 +303,36 @@ export default function SummaryPage() {
                   <h3 id="suggestions-heading" className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">What You Might Explore Next</h3>
                 </div>
                 
-                {/* Soft translucent container with backdrop blur */}
-                <div className="backdrop-blur-sm bg-white/20 border border-white/30 rounded-2xl p-8 md:p-10 shadow-lg">
-                  <div className="space-y-6 md:space-y-8">
-                    {structuredInsight.suggestions.map((suggestion, index) => {
-                      const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
-                      const icon = icons[index % icons.length];
-                      
-                      return (
-                        <div 
-                          key={index} 
-                          className="suggestion-card-elegant"
-                          aria-label={`Suggestion ${index + 1}: ${suggestion}`}
-                          style={{ animationDelay: `${0.3 * index}s` }}
-                        >
-                          <div className="flex items-start space-x-6">
-                            {/* Icon positioned outside text block */}
-                            <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 rounded-2xl shadow-sm">
-                              <span className="text-2xl">
-                                {icon}
-                              </span>
-                            </div>
-                            {/* Text content with better typography */}
-                            <div className="flex-1 min-w-0 pt-1">
-                              <p className="suggestion-text-elegant">
-                                {suggestion}
-                              </p>
-                            </div>
+                {/* Individual suggestion cards without outer container */}
+                <div className="space-y-8 md:space-y-10">
+                  {structuredInsight.suggestions.map((suggestion, index) => {
+                    const icons = ['💼', '🎨', '🧘', '📚', '🌱', '🤝'];
+                    const icon = icons[index % icons.length];
+                    
+                    return (
+                      <div 
+                        key={index} 
+                        className="suggestion-card-refined"
+                        aria-label={`Suggestion ${index + 1}: ${suggestion}`}
+                        style={{ animationDelay: `${0.3 * index}s` }}
+                      >
+                        {/* Emoji positioned above text, centered */}
+                        <div className="flex justify-center mb-6">
+                          <div className="suggestion-emoji-container">
+                            <span className="suggestion-emoji">
+                              {icon}
+                            </span>
                           </div>
                         </div>
-                      );
-                    })}
-                  </div>
+                        {/* Text content with improved typography */}
+                        <div className="text-center">
+                          <p className="suggestion-text-refined">
+                            {suggestion}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -347,12 +345,12 @@ export default function SummaryPage() {
               </p>
             </div>
 
-            {/* Action Buttons - Horizontal Layout */}
-            <div className="max-w-[700px] mx-auto mt-12 md:mt-16 lg:mt-20">
-              <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            {/* Action Buttons - Refined Layout */}
+            <div className="max-w-[700px] mx-auto mt-16 md:mt-20 lg:mt-24">
+              <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
                 <button
                   onClick={() => router.push('/reflect/paid-for')}
-                  className="action-button-elegant"
+                  className="action-button-refined secondary"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -362,7 +360,7 @@ export default function SummaryPage() {
                 
                 <button 
                   onClick={handleDownloadPDF}
-                  className="action-button-elegant primary"
+                  className="action-button-refined primary"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -375,7 +373,7 @@ export default function SummaryPage() {
                     clearData();
                     router.push('/');
                   }}
-                  className="action-button-elegant"
+                  className="action-button-refined secondary"
                 >
                   <span>Start over</span>
                 </button>

@@ -760,70 +760,137 @@ body {
 
 
 
-/* Elegant Suggestion Cards */
-.suggestion-card-elegant {
-  background: linear-gradient(135deg, rgba(252, 213, 178, 0.3) 0%, rgba(255, 224, 178, 0.2) 100%);
-  border: 1px solid rgba(221, 184, 146, 0.2);
-  border-radius: 16px;
-  padding: 20px 24px;
-  transition: all 0.3s ease-in-out;
+/* Refined Suggestion Cards */
+.suggestion-card-refined {
+  background: linear-gradient(135deg, rgba(252, 213, 178, 0.25) 0%, rgba(255, 224, 178, 0.15) 100%);
+  border: 1px solid rgba(221, 184, 146, 0.15);
+  border-radius: 20px;
+  padding: 32px 24px;
+  transition: all 0.4s ease-in-out;
   animation: suggestion-fade-in 0.6s ease-out both;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
 }
 
-.suggestion-card-elegant:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(221, 184, 146, 0.2);
+.suggestion-card-refined::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.suggestion-card-refined:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(221, 184, 146, 0.25);
+  background: linear-gradient(135deg, rgba(252, 213, 178, 0.35) 0%, rgba(255, 224, 178, 0.25) 100%);
+}
+
+.suggestion-emoji-container {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, rgba(252, 213, 178, 0.4) 0%, rgba(255, 224, 178, 0.3) 100%);
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(221, 184, 146, 0.2);
+  transition: all 0.3s ease-in-out;
 }
 
-.suggestion-text-elegant {
+.suggestion-card-refined:hover .suggestion-emoji-container {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(221, 184, 146, 0.3);
+  background: linear-gradient(135deg, rgba(252, 213, 178, 0.6) 0%, rgba(255, 224, 178, 0.5) 100%);
+}
+
+.suggestion-emoji {
+  font-size: 2.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.suggestion-card-refined:hover .suggestion-emoji {
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 8px rgba(221, 184, 146, 0.4));
+}
+
+.suggestion-text-refined {
   font-family: 'DM Serif Display', serif;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   line-height: 1.6;
   color: var(--ikigai-brown);
   font-weight: 400;
-  max-width: 500px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.suggestion-text-elegant strong {
+.suggestion-text-refined strong {
   font-weight: 600;
   color: var(--ikigai-warm-gold);
 }
 
-/* Action Buttons */
-.action-button-elegant {
+/* Refined Action Buttons */
+.action-button-refined {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, rgba(252, 213, 178, 0.3) 0%, rgba(255, 224, 178, 0.2) 100%);
-  border: 1px solid rgba(221, 184, 146, 0.3);
-  border-radius: 12px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, rgba(252, 213, 178, 0.25) 0%, rgba(255, 224, 178, 0.15) 100%);
+  border: 1px solid rgba(221, 184, 146, 0.2);
+  border-radius: 16px;
   color: var(--ikigai-brown);
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  min-width: 140px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  min-width: 160px;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.action-button-elegant:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(221, 184, 146, 0.3);
-  background: linear-gradient(135deg, rgba(252, 213, 178, 0.5) 0%, rgba(255, 224, 178, 0.4) 100%);
+.action-button-refined::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-.action-button-elegant.primary {
+.action-button-refined:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 28px rgba(221, 184, 146, 0.3);
+  background: linear-gradient(135deg, rgba(252, 213, 178, 0.4) 0%, rgba(255, 224, 178, 0.3) 100%);
+}
+
+.action-button-refined.primary {
   background: linear-gradient(135deg, var(--ikigai-gold) 0%, var(--ikigai-warm-gold) 100%);
   color: white;
   border-color: var(--ikigai-warm-gold);
+  box-shadow: 0 6px 20px rgba(176, 137, 104, 0.3);
 }
 
-.action-button-elegant.primary:hover {
+.action-button-refined.primary:hover {
   background: linear-gradient(135deg, var(--ikigai-warm-gold) 0%, var(--ikigai-gold) 100%);
-  box-shadow: 0 8px 24px rgba(176, 137, 104, 0.4);
+  box-shadow: 0 10px 32px rgba(176, 137, 104, 0.5);
+  transform: translateY(-3px) scale(1.03);
+}
+
+.action-button-refined.secondary {
+  background: linear-gradient(135deg, rgba(252, 213, 178, 0.2) 0%, rgba(255, 224, 178, 0.1) 100%);
+  border-color: rgba(221, 184, 146, 0.15);
+}
+
+.action-button-refined.secondary:hover {
+  background: linear-gradient(135deg, rgba(252, 213, 178, 0.35) 0%, rgba(255, 224, 178, 0.25) 100%);
+  border-color: rgba(221, 184, 146, 0.25);
 }
 
 /* Floating Sparkle */
@@ -1172,19 +1239,28 @@ body {
     padding: 12px 16px !important;
   }
 
-  .suggestion-card-elegant {
-    padding: 16px 20px;
+  .suggestion-card-refined {
+    padding: 24px 20px;
   }
 
-  .suggestion-text-elegant {
-    font-size: 1rem;
+  .suggestion-emoji-container {
+    width: 70px;
+    height: 70px;
+  }
+
+  .suggestion-emoji {
+    font-size: 2rem;
+  }
+
+  .suggestion-text-refined {
+    font-size: 1.125rem;
     line-height: 1.5;
   }
 
-  .action-button-elegant {
-    padding: 10px 20px;
-    font-size: 0.8rem;
-    min-width: 120px;
+  .action-button-refined {
+    padding: 12px 24px;
+    font-size: 0.85rem;
+    min-width: 140px;
   }
 }
 
@@ -1305,6 +1381,30 @@ body {
   .export-button {
     padding: 0.5rem 1rem;
     font-size: 0.7rem;
+  }
+
+  .suggestion-card-refined {
+    padding: 20px 16px;
+  }
+
+  .suggestion-emoji-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .suggestion-emoji {
+    font-size: 1.75rem;
+  }
+
+  .suggestion-text-refined {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .action-button-refined {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    min-width: 120px;
   }
 }
 

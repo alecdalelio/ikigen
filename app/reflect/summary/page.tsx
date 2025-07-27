@@ -111,13 +111,14 @@ export default function SummaryPage() {
   };
 
   const handleLinkedInShare = async () => {
-    if (!exportRef.current) return;
+    if (!exportRef.current || !exportRef.current.firstElementChild) {
+      alert('Export card not found. Please try again.');
+      return;
+    }
 
     try {
-      // Wait for fonts to load
+      // Step 1: Generate export image
       await document.fonts.ready;
-      
-      // Additional wait for layout/rendering
       await new Promise(resolve => setTimeout(resolve, 500));
 
       // Temporarily make the element visible for capture
@@ -132,14 +133,11 @@ export default function SummaryPage() {
       exportRef.current.style.left = '0px';
       exportRef.current.style.zIndex = '10000';
 
-      // Wait a moment for the position change to take effect
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      // Generate the image for LinkedIn sharing
       const dataUrl = await toPng(exportRef.current.firstElementChild as HTMLElement, {
         pixelRatio: 2,
-        cacheBust: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#fff',
         width: 600,
         height: exportRef.current.firstElementChild?.scrollHeight || 500,
         style: {
@@ -160,7 +158,7 @@ export default function SummaryPage() {
         throw new Error('Generated image is empty or invalid');
       }
 
-      // Auto-download the image
+      // Step 2: Download the image
       const link = document.createElement('a');
       link.download = 'my-ikigai.png';
       link.href = dataUrl;
@@ -168,27 +166,47 @@ export default function SummaryPage() {
       link.click();
       document.body.removeChild(link);
 
-      // Copy text to clipboard for caption
-      const ikigaiText = structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues...";
-      const caption = `My Ikigai: ${ikigaiText}\n\nDiscover your own purpose at ikigen.app ✨`;
+      // Step 3: Copy the caption to clipboard
+      const caption = `I just completed my Ikigai journey with Ikigen 💫
+
+Here's what I discovered about my purpose in life.
+
+Try it yourself at https://ikigen.vercel.app`;
       
+      let clipboardSuccess = false;
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(caption);
+        try {
+          await navigator.clipboard.writeText(caption);
+          clipboardSuccess = true;
+        } catch (clipboardError) {
+          console.warn('Clipboard access failed:', clipboardError);
+          // Continue with flow even if clipboard fails
+        }
       }
 
-      // Open LinkedIn with a brief delay to allow download to start
+      // Step 4: Open LinkedIn share window
       setTimeout(() => {
-        window.open('https://www.linkedin.com/feed/', '_blank');
+        window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
         
-        // Show success message
-        alert('🎉 Your Ikigai image has been downloaded and your caption copied to clipboard! Upload the image and paste the caption in the LinkedIn tab that just opened.');
-      }, 500);
+        // Step 5: Show success message based on clipboard status
+        if (clipboardSuccess) {
+          alert('✅ Image downloaded + caption copied! Just paste and upload your image on LinkedIn to share your Ikigai.');
+        } else {
+          alert('✅ Image downloaded! LinkedIn opened - please copy the following caption manually:\n\n' + caption);
+        }
+      }, 300);
 
     } catch (error) {
-      console.error('Error generating LinkedIn share:', error);
-      // Fallback: just open LinkedIn
-      window.open('https://www.linkedin.com/feed/', '_blank');
-      alert('Sorry, there was an error generating the image. LinkedIn has been opened - you can share your Ikigai text manually.');
+      console.error('Error in LinkedIn share flow:', error);
+      
+      // Fallback: still open LinkedIn and provide manual instructions
+      window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
+      
+      if (error instanceof Error && error.message.includes('clipboard')) {
+        alert('LinkedIn opened! Please manually copy your Ikigai text and create a post about your discovery.');
+      } else {
+        alert('LinkedIn opened! There was an issue generating the image, but you can still share your Ikigai journey manually.');
+      }
     }
   };
 

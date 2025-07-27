@@ -50,6 +50,7 @@ const ShareModule: React.FC<ShareModuleProps> = ({ ikigaiText, onMount, onDownlo
               onClick={onLinkedInShare}
               className="share-linkedin-button"
               aria-label="Share your Ikigai insight on LinkedIn"
+              title="Copy caption, download image, open LinkedIn"
             >
                               <svg 
                   className="share-linkedin-icon" 

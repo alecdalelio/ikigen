@@ -6,6 +6,7 @@ import { useReflectionData } from '../../hooks/useReflectionData';
 import ShareModule from '../../components/ShareModule';
 import Toast from '../../components/Toast';
 import jsPDF from 'jspdf';
+import { shareToLinkedIn } from '../../utils/mobileDetection';
 
 // Import LinkedIn sharing utility
 const { generateLinkedInPost } = require('../../utils/linkedinShare.js');
@@ -49,30 +50,14 @@ export default function SummaryPage() {
       // Step 2: Generate dynamic LinkedIn post with rotating header, CTA, and tone adjustment
       const textSummary = await generateLinkedInPost(ikigaiInsight);
       
-      // Step 3: Copy to clipboard
-      let clipboardSuccess = false;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        try {
-          await navigator.clipboard.writeText(textSummary);
-          clipboardSuccess = true;
-        } catch (clipboardError) {
-          console.warn('Clipboard access failed:', clipboardError);
-        }
-      }
-
-      // Step 4: Show immediate confirmation toast
-      if (clipboardSuccess) {
-        setToastMessage("✅ Your message was copied! Opening LinkedIn…");
-        setToastType('success');
-      } else {
-        setToastMessage("📤 Opening LinkedIn… You can manually copy your Ikigai text.");
-        setToastType('info');
-      }
+      // Step 3: Show immediate confirmation toast
+      setToastMessage("✅ Your message was copied! Opening LinkedIn…");
+      setToastType('success');
       setShowToast(true);
 
-      // Step 5: Delay opening LinkedIn tab to ensure user sees the toast
+      // Step 4: Use mobile-aware LinkedIn sharing with delay
       setTimeout(() => {
-        window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
+        shareToLinkedIn(textSummary, 'https://ikigen.vercel.app');
       }, 1500); // 1.5 second delay
 
     } catch (error) {
@@ -84,7 +69,7 @@ export default function SummaryPage() {
       setShowToast(true);
       
       setTimeout(() => {
-        window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
+        shareToLinkedIn("Check out my Ikigai journey!", 'https://ikigen.vercel.app');
       }, 1500);
     }
   };

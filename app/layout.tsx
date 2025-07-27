@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from './contexts/ThemeContext';
+import ThemeToggle from './components/ThemeToggle';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,7 +32,16 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider>
+          <div className="theme-layout">
+            <header className="theme-header">
+              <ThemeToggle />
+            </header>
+            <main className="theme-main">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

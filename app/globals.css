@@ -762,19 +762,15 @@ body {
 
 /* Refined Suggestion Cards */
 .suggestion-card-refined {
-  background: linear-gradient(135deg, rgba(252, 213, 178, 0.25) 0%, rgba(255, 224, 178, 0.15) 100%);
-  border: 1px solid rgba(221, 184, 146, 0.15);
+  background: var(--theme-card-bg, linear-gradient(135deg, rgba(252, 213, 178, 0.25) 0%, rgba(255, 224, 178, 0.15) 100%));
+  border: 1px solid var(--theme-border, rgba(221, 184, 146, 0.15));
   border-radius: 20px;
-  padding: 40px 24px;
-  transition: all 0.25s ease;
+  padding: 32px 24px;
+  transition: all calc(0.4s * var(--animation-intensity, 1)) ease-in-out;
   animation: suggestion-fade-in 0.6s ease-out both;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, var(--shadow-strength, 0.08));
   position: relative;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 200px;
 }
 
 .suggestion-card-refined::before {
@@ -789,9 +785,9 @@ body {
 }
 
 .suggestion-card-refined:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(221, 184, 146, 0.25);
-  background: linear-gradient(135deg, rgba(252, 213, 178, 0.35) 0%, rgba(255, 224, 178, 0.25) 100%);
+  transform: translateY(calc(-3px * var(--animation-intensity, 1)));
+  box-shadow: 0 12px 32px var(--theme-border, rgba(221, 184, 146, 0.25));
+  background: var(--theme-primary, linear-gradient(135deg, rgba(252, 213, 178, 0.35) 0%, rgba(255, 224, 178, 0.25) 100%));
 }
 
 .suggestion-emoji-container {
@@ -800,39 +796,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(252, 213, 178, 0.4) 0%, rgba(255, 224, 178, 0.3) 100%);
+  background: var(--theme-primary, linear-gradient(135deg, rgba(252, 213, 178, 0.4) 0%, rgba(255, 224, 178, 0.3) 100%));
   border-radius: 50%;
-  box-shadow: 0 4px 16px rgba(221, 184, 146, 0.2);
-  transition: all 0.3s ease-in-out;
-  position: relative;
-  margin-bottom: 24px;
-}
-
-/* Glowing halo behind emoji */
-.suggestion-emoji-container::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, rgba(255, 193, 7, 0.1) 50%, transparent 70%);
-  border-radius: 50%;
-  z-index: -1;
-  animation: emoji-glow 3s ease-in-out infinite;
-}
-
-/* Different halo colors for different emojis */
-.suggestion-card-refined:nth-child(1) .suggestion-emoji-container::before {
-  background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, rgba(255, 193, 7, 0.1) 50%, transparent 70%);
-}
-
-.suggestion-card-refined:nth-child(2) .suggestion-emoji-container::before {
-  background: radial-gradient(circle, rgba(76, 175, 80, 0.3) 0%, rgba(76, 175, 80, 0.1) 50%, transparent 70%);
-}
-
-.suggestion-card-refined:nth-child(3) .suggestion-emoji-container::before {
-  background: radial-gradient(circle, rgba(33, 150, 243, 0.3) 0%, rgba(33, 150, 243, 0.1) 50%, transparent 70%);
+  box-shadow: 0 4px 16px var(--theme-border, rgba(221, 184, 146, 0.2));
+  transition: all calc(0.3s * var(--animation-intensity, 1)) ease-in-out;
 }
 
 .suggestion-card-refined:hover .suggestion-emoji-container {
@@ -844,33 +811,26 @@ body {
 .suggestion-emoji {
   font-size: 2.5rem;
   transition: all 0.3s ease-in-out;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .suggestion-card-refined:hover .suggestion-emoji {
-  animation: emoji-pulse 1.5s ease-in-out infinite;
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 8px rgba(221, 184, 146, 0.4));
 }
 
 .suggestion-text-refined {
   font-family: 'DM Serif Display', serif;
   font-size: 1.25rem;
-  line-height: 1.7;
-  color: var(--ikigai-brown);
+  line-height: 1.6;
+  color: var(--theme-text, var(--ikigai-brown));
   font-weight: 400;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
-  text-align: center;
-  letter-spacing: 0.02em;
 }
 
 .suggestion-text-refined strong {
   font-weight: 600;
   color: var(--ikigai-warm-gold);
-}
-
-.suggestion-text-refined .line-break {
-  display: block;
-  margin-top: 0.5em;
 }
 
 /* Refined Action Buttons */
@@ -879,14 +839,14 @@ body {
   align-items: center;
   gap: 8px;
   padding: 14px 28px;
-  background: linear-gradient(135deg, rgba(252, 213, 178, 0.25) 0%, rgba(255, 224, 178, 0.15) 100%);
-  border: 1px solid rgba(221, 184, 146, 0.2);
+  background: var(--theme-card-bg, linear-gradient(135deg, rgba(252, 213, 178, 0.25) 0%, rgba(255, 224, 178, 0.15) 100%));
+  border: 1px solid var(--theme-border, rgba(221, 184, 146, 0.2));
   border-radius: 16px;
-  color: var(--ikigai-brown);
+  color: var(--theme-text, var(--ikigai-brown));
   font-weight: 500;
   font-size: 0.9rem;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all calc(0.3s * var(--animation-intensity, 1)) ease-in-out;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, var(--shadow-strength, 0.08));
   min-width: 160px;
   justify-content: center;
   position: relative;
@@ -967,23 +927,298 @@ body {
   }
 }
 
-@keyframes emoji-glow {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
+/* Theme System */
+.theme-layout {
+  min-height: 100vh;
+  background: var(--theme-background, linear-gradient(135deg, #FAF7F0 0%, #F5E6D3 100%));
+  transition: all 0.5s ease-in-out;
+}
+
+.theme-header {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Theme Toggle Component */
+.theme-toggle-container {
+  position: relative;
+}
+
+.theme-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--theme-card-bg, rgba(248, 246, 240, 0.9));
+  border: 1px solid var(--theme-border, rgba(221, 184, 146, 0.3));
+  border-radius: 12px;
+  color: var(--theme-text, #7F5539);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  min-width: 120px;
+}
+
+.theme-toggle-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background: var(--theme-primary, #F5E6D3);
+}
+
+.theme-icon {
+  font-size: 1.125rem;
+}
+
+.theme-label {
+  font-weight: 500;
+}
+
+.theme-arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease-in-out;
+  margin-left: auto;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 300px;
+  background: var(--theme-card-bg, rgba(248, 246, 240, 0.95));
+  border: 1px solid var(--theme-border, rgba(221, 184, 146, 0.3));
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(20px);
+  animation: dropdown-fade-in 0.3s ease-out;
+  z-index: 1001;
+}
+
+.theme-dropdown-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--theme-border, rgba(221, 184, 146, 0.2));
+}
+
+.theme-dropdown-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--theme-text, #7F5539);
+  margin: 0 0 4px 0;
+}
+
+.theme-dropdown-header p {
+  font-size: 0.8rem;
+  color: var(--theme-text, #7F5539);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.theme-options {
+  padding: 8px;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: var(--theme-text, #7F5539);
+  font-size: 0.875rem;
+  text-align: left;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.theme-option:hover {
+  background: var(--theme-primary, rgba(245, 230, 211, 0.5));
+  transform: translateX(4px);
+}
+
+.theme-option.active {
+  background: var(--theme-accent, #DDB892);
+  color: white;
+  font-weight: 500;
+}
+
+.theme-option-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.theme-option-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.theme-option-label {
+  font-weight: 500;
+}
+
+.theme-option-description {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.theme-check {
+  width: 16px;
+  height: 16px;
+  color: white;
+}
+
+.audio-controls {
+  padding: 12px 16px;
+  border-top: 1px solid var(--theme-border, rgba(221, 184, 146, 0.2));
+}
+
+.audio-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.audio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--theme-text, #7F5539);
+}
+
+.audio-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--theme-accent, #DDB892);
+}
+
+.audio-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.audio-status {
+  font-size: 0.7rem;
+  color: var(--theme-accent, #DDB892);
+  font-weight: 500;
+}
+
+.theme-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+@keyframes dropdown-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
   }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.1);
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes emoji-pulse {
-  0%, 100% {
-    transform: scale(1);
+/* Theme-specific styles */
+.theme-calm {
+  --animation-intensity: 1;
+  --shadow-strength: 0.06;
+}
+
+.theme-bold {
+  --animation-intensity: 1.3;
+  --shadow-strength: 0.15;
+}
+
+.theme-bold .ikigai-card,
+.theme-bold .suggestion-card-refined,
+.theme-bold .action-button-refined {
+  font-weight: 600;
+  border-width: 2px;
+}
+
+.theme-bold .ikigai-card:hover,
+.theme-bold .suggestion-card-refined:hover,
+.theme-bold .action-button-refined:hover {
+  transform: translateY(-4px) scale(1.03);
+}
+
+.theme-forest {
+  --animation-intensity: 0.8;
+  --shadow-strength: 0.08;
+}
+
+.theme-forest::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(143, 188, 143, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(34, 139, 34, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.theme-dawn {
+  --animation-intensity: 1.1;
+  --shadow-strength: 0.1;
+}
+
+.theme-dawn::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(45deg, rgba(255, 182, 193, 0.1) 0%, transparent 30%),
+    linear-gradient(-45deg, rgba(221, 160, 221, 0.1) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .theme-layout,
+  .theme-toggle-button,
+  .theme-option,
+  .ikigai-card,
+  .suggestion-card-refined,
+  .action-button-refined {
+    transition-duration: 0.1s;
   }
-  50% {
-    transform: scale(1.1);
+  
+  .theme-bold .ikigai-card:hover,
+  .theme-bold .suggestion-card-refined:hover,
+  .theme-bold .action-button-refined:hover {
+    transform: none;
+  }
+  
+  .floating-sparkle {
+    animation: none;
   }
 }
 
@@ -1300,14 +1535,12 @@ body {
   }
 
   .suggestion-card-refined {
-    padding: 32px 20px;
-    min-height: 180px;
+    padding: 24px 20px;
   }
 
   .suggestion-emoji-container {
     width: 70px;
     height: 70px;
-    margin-bottom: 20px;
   }
 
   .suggestion-emoji {
@@ -1316,14 +1549,28 @@ body {
 
   .suggestion-text-refined {
     font-size: 1.125rem;
-    line-height: 1.6;
-    max-width: 450px;
+    line-height: 1.5;
   }
 
   .action-button-refined {
     padding: 12px 24px;
     font-size: 0.85rem;
     min-width: 140px;
+  }
+
+  .theme-header {
+    top: 16px;
+    right: 16px;
+  }
+
+  .theme-toggle-button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    min-width: 100px;
+  }
+
+  .theme-dropdown {
+    min-width: 280px;
   }
 }
 
@@ -1447,14 +1694,12 @@ body {
   }
 
   .suggestion-card-refined {
-    padding: 24px 16px;
-    min-height: 160px;
+    padding: 20px 16px;
   }
 
   .suggestion-emoji-container {
     width: 60px;
     height: 60px;
-    margin-bottom: 16px;
   }
 
   .suggestion-emoji {
@@ -1463,14 +1708,29 @@ body {
 
   .suggestion-text-refined {
     font-size: 1rem;
-    line-height: 1.6;
-    max-width: 400px;
+    line-height: 1.5;
   }
 
   .action-button-refined {
     padding: 10px 20px;
     font-size: 0.8rem;
     min-width: 120px;
+  }
+
+  .theme-header {
+    top: 12px;
+    right: 12px;
+  }
+
+  .theme-toggle-button {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    min-width: 80px;
+  }
+
+  .theme-dropdown {
+    min-width: 260px;
+    right: -10px;
   }
 }
 

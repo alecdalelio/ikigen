@@ -601,6 +601,13 @@ body {
   box-shadow: 0 6px 20px rgba(0, 119, 181, 0.5);
 }
 
+/* Hide ShareModule on mobile devices */
+@media (max-width: 768px) {
+  .share-module {
+    display: none !important;
+  }
+}
+
 .share-linkedin-icon {
   width: 1.25rem;
   height: 1.25rem;
@@ -1968,13 +1975,47 @@ body {
   }
 
   .wisdom-card {
-    padding: 0.75rem !important;
+    padding: 0.5rem !important;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: center;
+  }
+  
+  .wisdom-card .text-center {
+    text-align: center !important;
+  }
+  
+  .ikigai-insight-card,
+  .wisdom-card {
+    margin: 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .ikigai-insight-card p,
+  .wisdom-card p {
+    text-align: center !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
+  
+  .ikigai-insight-card .text-center,
+  .wisdom-card .text-center {
+    text-align: center !important;
+    width: 100% !important;
   }
   
   .ikigai-insight-card {
-    padding: 0.75rem !important;
+    padding: 0.5rem !important;
+    text-align: center;
+  }
+  
+  .ikigai-insight-card .text-center {
+    text-align: center !important;
   }
   
   .wisdom-card p {

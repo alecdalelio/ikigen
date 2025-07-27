@@ -321,9 +321,9 @@ export default function SummaryPage() {
         {structuredInsight ? (
           <div className="ikigai-section space-y-6 md:space-y-10 lg:space-y-16">
             {/* Your Ikigai - Enhanced Insight Card */}
-            <div className="max-w-[700px] mx-auto px-4 sm:px-6">
+            <div className="max-w-[700px] mx-auto px-2 sm:px-4 md:px-6">
               <div 
-                className="ikigai-card ikigai-insight-card staggered-fade-in w-full max-w-[600px] mx-auto"
+                className="ikigai-card ikigai-insight-card staggered-fade-in w-full"
               >
                 <div className="space-y-8">
                   <div className="flex items-center justify-center space-x-4 sm:space-x-6">
@@ -346,8 +346,8 @@ export default function SummaryPage() {
 
 
             {/* Why This Matters - Wisdom Card */}
-            <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-6 md:mt-10 lg:mt-16">
-              <div className="ikigai-card wisdom-card staggered-fade-in w-full max-w-[600px] mx-auto">
+            <div className="max-w-[700px] mx-auto px-2 sm:px-4 md:px-6 mt-6 md:mt-10 lg:mt-16">
+              <div className="ikigai-card wisdom-card staggered-fade-in w-full">
                 <div className="space-y-6 sm:space-y-8">
                   <div className="flex items-center justify-center space-x-4 sm:space-x-6">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
@@ -372,7 +372,7 @@ export default function SummaryPage() {
             </div>
 
             {/* What You Might Explore Next - Refactored Elegant Layout */}
-            <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-12 md:mt-16 lg:mt-20" aria-labelledby="suggestions-heading">
+            <div className="max-w-[700px] mx-auto px-2 sm:px-4 md:px-6 mt-12 md:mt-16 lg:mt-20" aria-labelledby="suggestions-heading">
               <div className="space-y-8 md:space-y-10">
                 <div className="flex items-center justify-center space-x-4 sm:space-x-6 mb-8 sm:mb-10">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">

@@ -30,6 +30,11 @@ const ShareModule: React.FC<ShareModuleProps> = ({ ikigaiText, onMount, onLinked
     return () => clearTimeout(timer);
   }, [onMount]);
 
+  // Don't render on mobile devices
+  if (isMobile) {
+    return null;
+  }
+
 
 
   return (

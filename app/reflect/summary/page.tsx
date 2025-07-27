@@ -334,8 +334,8 @@ export default function SummaryPage() {
                     </div>
                     <h2 className="ikigai-heading text-2xl sm:text-3xl md:text-4xl text-ikigai-warm-gold">Your Ikigai</h2>
                   </div>
-                  <div className="text-center">
-                    <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-['DM_Serif_Display'] font-semibold text-[#5D3A00] leading-relaxed">
+                  <div className="text-center px-2 sm:px-4">
+                    <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-['DM_Serif_Display'] font-semibold text-[#5D3A00] leading-relaxed break-words">
                       {structuredInsight.ikigai}
                     </p>
                   </div>
@@ -348,7 +348,7 @@ export default function SummaryPage() {
             {/* Why This Matters - Wisdom Card */}
             <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-6 md:mt-10 lg:mt-16">
               <div className="ikigai-card wisdom-card staggered-fade-in w-full max-w-[600px] mx-auto">
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   <div className="flex items-center justify-center space-x-4 sm:space-x-6">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
                       <svg className="w-6 h-6 sm:w-7 sm:h-7 text-ikigai-warm-gold feather-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -357,8 +357,8 @@ export default function SummaryPage() {
                     </div>
                     <h3 className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">Why This Matters</h3>
                   </div>
-                  <div className="text-center">
-                    <p className="italic text-base md:text-lg lg:text-xl text-[#7F5539] leading-relaxed">
+                  <div className="text-center px-2 sm:px-4">
+                    <p className="italic text-base md:text-lg lg:text-xl text-[#7F5539] leading-relaxed break-words">
                       {structuredInsight.meaning}
                     </p>
                   </div>
@@ -405,8 +405,8 @@ export default function SummaryPage() {
                           </div>
                         </div>
                         {/* Text content with improved typography */}
-                        <div className="text-center">
-                          <p className="suggestion-text-refined">
+                        <div className="text-center px-2 sm:px-4">
+                          <p className="suggestion-text-refined break-words">
                             {suggestion}
                           </p>
                         </div>

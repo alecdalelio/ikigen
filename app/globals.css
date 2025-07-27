@@ -765,12 +765,16 @@ body {
   background: linear-gradient(135deg, rgba(252, 213, 178, 0.25) 0%, rgba(255, 224, 178, 0.15) 100%);
   border: 1px solid rgba(221, 184, 146, 0.15);
   border-radius: 20px;
-  padding: 32px 24px;
-  transition: all 0.4s ease-in-out;
+  padding: 40px 24px;
+  transition: all 0.25s ease;
   animation: suggestion-fade-in 0.6s ease-out both;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 200px;
 }
 
 .suggestion-card-refined::before {
@@ -785,7 +789,7 @@ body {
 }
 
 .suggestion-card-refined:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 12px 32px rgba(221, 184, 146, 0.25);
   background: linear-gradient(135deg, rgba(252, 213, 178, 0.35) 0%, rgba(255, 224, 178, 0.25) 100%);
 }
@@ -800,6 +804,35 @@ body {
   border-radius: 50%;
   box-shadow: 0 4px 16px rgba(221, 184, 146, 0.2);
   transition: all 0.3s ease-in-out;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+/* Glowing halo behind emoji */
+.suggestion-emoji-container::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, rgba(255, 193, 7, 0.1) 50%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: emoji-glow 3s ease-in-out infinite;
+}
+
+/* Different halo colors for different emojis */
+.suggestion-card-refined:nth-child(1) .suggestion-emoji-container::before {
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, rgba(255, 193, 7, 0.1) 50%, transparent 70%);
+}
+
+.suggestion-card-refined:nth-child(2) .suggestion-emoji-container::before {
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.3) 0%, rgba(76, 175, 80, 0.1) 50%, transparent 70%);
+}
+
+.suggestion-card-refined:nth-child(3) .suggestion-emoji-container::before {
+  background: radial-gradient(circle, rgba(33, 150, 243, 0.3) 0%, rgba(33, 150, 243, 0.1) 50%, transparent 70%);
 }
 
 .suggestion-card-refined:hover .suggestion-emoji-container {
@@ -811,26 +844,33 @@ body {
 .suggestion-emoji {
   font-size: 2.5rem;
   transition: all 0.3s ease-in-out;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .suggestion-card-refined:hover .suggestion-emoji {
-  transform: scale(1.1);
-  filter: drop-shadow(0 2px 8px rgba(221, 184, 146, 0.4));
+  animation: emoji-pulse 1.5s ease-in-out infinite;
 }
 
 .suggestion-text-refined {
   font-family: 'DM Serif Display', serif;
   font-size: 1.25rem;
-  line-height: 1.6;
+  line-height: 1.7;
   color: var(--ikigai-brown);
   font-weight: 400;
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
+  text-align: center;
+  letter-spacing: 0.02em;
 }
 
 .suggestion-text-refined strong {
   font-weight: 600;
   color: var(--ikigai-warm-gold);
+}
+
+.suggestion-text-refined .line-break {
+  display: block;
+  margin-top: 0.5em;
 }
 
 /* Refined Action Buttons */
@@ -924,6 +964,26 @@ body {
   50% {
     transform: translateY(-10px) scale(1.1);
     opacity: 1;
+  }
+}
+
+@keyframes emoji-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes emoji-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
   }
 }
 
@@ -1240,12 +1300,14 @@ body {
   }
 
   .suggestion-card-refined {
-    padding: 24px 20px;
+    padding: 32px 20px;
+    min-height: 180px;
   }
 
   .suggestion-emoji-container {
     width: 70px;
     height: 70px;
+    margin-bottom: 20px;
   }
 
   .suggestion-emoji {
@@ -1254,7 +1316,8 @@ body {
 
   .suggestion-text-refined {
     font-size: 1.125rem;
-    line-height: 1.5;
+    line-height: 1.6;
+    max-width: 450px;
   }
 
   .action-button-refined {
@@ -1384,12 +1447,14 @@ body {
   }
 
   .suggestion-card-refined {
-    padding: 20px 16px;
+    padding: 24px 16px;
+    min-height: 160px;
   }
 
   .suggestion-emoji-container {
     width: 60px;
     height: 60px;
+    margin-bottom: 16px;
   }
 
   .suggestion-emoji {
@@ -1398,7 +1463,8 @@ body {
 
   .suggestion-text-refined {
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.6;
+    max-width: 400px;
   }
 
   .action-button-refined {

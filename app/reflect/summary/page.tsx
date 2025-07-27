@@ -327,7 +327,17 @@ export default function SummaryPage() {
                         {/* Text content with improved typography */}
                         <div className="text-center">
                           <p className="suggestion-text-refined">
-                            {suggestion}
+                            {suggestion.split(' — ').map((part, index, array) => (
+                              <span key={index}>
+                                {part}
+                                {index < array.length - 1 && (
+                                  <>
+                                    <span className="line-break"></span>
+                                    <span className="text-ikigai-warm-gold">—</span>{' '}
+                                  </>
+                                )}
+                              </span>
+                            ))}
                           </p>
                         </div>
                       </div>
@@ -337,12 +347,12 @@ export default function SummaryPage() {
               </div>
             </div>
 
-            {/* Closing Encouragement with Floating Sparkle */}
-            <div className="max-w-[700px] mx-auto mt-16 md:mt-20 lg:mt-24 relative">
+                        {/* Closing Encouragement with Floating Sparkle */}
+            <div className="max-w-[700px] mx-auto mt-24 md:mt-28 lg:mt-32 relative">
               <div className="floating-sparkle"></div>
-              <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-lg md:text-xl leading-relaxed">
-                ✨ Let this insight guide you. Choose one small action this week that brings your Ikigai to life.
-              </p>
+              <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-lg md:text-xl leading-relaxed tracking-wide font-light">
+                 ✨ Let this insight guide you. Choose one small action this week that brings your Ikigai to life.
+               </p>
             </div>
 
             {/* Action Buttons - Refined Layout */}

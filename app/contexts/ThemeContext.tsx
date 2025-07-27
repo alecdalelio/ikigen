@@ -116,10 +116,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       if (audioElement) {
         // Set audio source based on theme
         const audioSources = {
-          calm: '/audio/calm-ambient.mp3',
+          calm: '/audio/calm-ambient.wav',
           bold: '/audio/bold-ambient.mp3',
-          forest: '/audio/forest-ambient.mp3',
-          dawn: '/audio/dawn-ambient.mp3'
+          forest: '/audio/forest-ambient.wav',
+          dawn: '/audio/dawn-ambient.wav'
         };
         
         audioElement.src = audioSources[theme];

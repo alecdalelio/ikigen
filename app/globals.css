@@ -47,6 +47,7 @@ body {
   line-height: 1.7;
   margin: 0;
   padding: 0;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
 /* Main container using theme variables */
@@ -496,6 +497,27 @@ body {
 
 .border-theme-border {
   border-color: var(--theme-border, rgba(221, 184, 146, 0.3)) !important;
+}
+
+/* Force theme background on containers */
+.theme-bold .ikigai-container,
+.theme-bold body {
+  background: var(--theme-background) !important;
+}
+
+.theme-forest .ikigai-container,
+.theme-forest body {
+  background: var(--theme-background) !important;
+}
+
+.theme-dawn .ikigai-container,
+.theme-dawn body {
+  background: var(--theme-background) !important;
+}
+
+.theme-calm .ikigai-container,
+.theme-calm body {
+  background: var(--theme-background) !important;
 }
 
 .ikigai-body {
@@ -958,7 +980,6 @@ body {
 /* Theme System */
 .theme-layout {
   min-height: 100vh;
-  background: var(--theme-background, linear-gradient(135deg, #FAF7F0 0%, #F5E6D3 100%));
   transition: all 0.5s ease-in-out;
 }
 

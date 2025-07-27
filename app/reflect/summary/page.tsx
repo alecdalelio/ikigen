@@ -37,21 +37,60 @@ export default function SummaryPage() {
   };
 
   const handleDownloadImage = async () => {
-    if (!exportRef.current) {
+    if (!exportRef.current || !exportRef.current.firstElementChild) {
       alert('Export card not found. Please try again.');
       return;
     }
 
+    const exportCard = exportRef.current.firstElementChild as HTMLElement;
+    console.log('Export card dimensions:', {
+      width: exportCard.offsetWidth,
+      height: exportCard.offsetHeight,
+      scrollWidth: exportCard.scrollWidth,
+      scrollHeight: exportCard.scrollHeight
+    });
+
     try {
-      // Wait for fonts and rendering to complete
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // Wait for fonts to load
+      await document.fonts.ready;
+      
+      // Additional wait for layout/rendering
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Temporarily make the element visible for capture
+      const originalOpacity = exportRef.current.style.opacity;
+      const originalPosition = exportRef.current.style.position;
+      const originalTop = exportRef.current.style.top;
+      const originalLeft = exportRef.current.style.left;
+      
+      exportRef.current.style.opacity = '1';
+      exportRef.current.style.position = 'fixed';
+      exportRef.current.style.top = '0px';
+      exportRef.current.style.left = '0px';
+      exportRef.current.style.zIndex = '10000';
+
+      // Wait a moment for the position change to take effect
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // Generate the image
-      const dataUrl = await toPng(exportRef.current, {
+      const dataUrl = await toPng(exportRef.current.firstElementChild as HTMLElement, {
         pixelRatio: 2,
         cacheBust: true,
         backgroundColor: '#ffffff',
+        width: 600,
+        height: exportRef.current.firstElementChild?.scrollHeight || 500,
+        style: {
+          margin: '0',
+          padding: '0',
+        }
       });
+
+      // Restore original positioning immediately
+      exportRef.current.style.opacity = originalOpacity;
+      exportRef.current.style.position = originalPosition;
+      exportRef.current.style.top = originalTop;
+      exportRef.current.style.left = originalLeft;
+      exportRef.current.style.zIndex = '-1000';
 
       // Verify we have a valid image
       if (!dataUrl || dataUrl === 'data:,' || dataUrl.length < 100) {
@@ -75,15 +114,46 @@ export default function SummaryPage() {
     if (!exportRef.current) return;
 
     try {
-      // Wait for fonts and rendering to complete
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // Wait for fonts to load
+      await document.fonts.ready;
+      
+      // Additional wait for layout/rendering
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Temporarily make the element visible for capture
+      const originalOpacity = exportRef.current.style.opacity;
+      const originalPosition = exportRef.current.style.position;
+      const originalTop = exportRef.current.style.top;
+      const originalLeft = exportRef.current.style.left;
+      
+      exportRef.current.style.opacity = '1';
+      exportRef.current.style.position = 'fixed';
+      exportRef.current.style.top = '0px';
+      exportRef.current.style.left = '0px';
+      exportRef.current.style.zIndex = '10000';
+
+      // Wait a moment for the position change to take effect
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // Generate the image for LinkedIn sharing
-      const dataUrl = await toPng(exportRef.current, {
+      const dataUrl = await toPng(exportRef.current.firstElementChild as HTMLElement, {
         pixelRatio: 2,
         cacheBust: true,
         backgroundColor: '#ffffff',
+        width: 600,
+        height: exportRef.current.firstElementChild?.scrollHeight || 500,
+        style: {
+          margin: '0',
+          padding: '0',
+        }
       });
+
+      // Restore original positioning immediately
+      exportRef.current.style.opacity = originalOpacity;
+      exportRef.current.style.position = originalPosition;
+      exportRef.current.style.top = originalTop;
+      exportRef.current.style.left = originalLeft;
+      exportRef.current.style.zIndex = '-1000';
 
       // Verify we have a valid image
       if (!dataUrl || dataUrl === 'data:,' || dataUrl.length < 100) {
@@ -541,16 +611,19 @@ export default function SummaryPage() {
           </div>
         )}
 
-        {/* Hidden Export Card for Image Generation */}
+        {/* Export Card for Image Generation - positioned offscreen but visible to canvas */}
         <div 
           ref={exportRef} 
           style={{ 
-            position: 'absolute',
-            top: '-9999px',
-            left: '-9999px',
-            pointerEvents: 'none',
-            visibility: 'hidden',
+            position: 'fixed',
+            top: '-1000px',
+            left: '-1000px',
             width: '600px',
+            height: 'auto',
+            zIndex: -1000,
+            opacity: 0,
+            pointerEvents: 'none',
+            backgroundColor: '#ffffff',
           }}
         >
           <IkigaiExportCard 

@@ -427,12 +427,12 @@ export default function SummaryPage() {
 
             {/* Action Buttons - Refined Layout */}
             <div className="max-w-[700px] mx-auto px-3 sm:px-4 md:px-6 mt-16 md:mt-20 lg:mt-24">
-              <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+              <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 mobile-button-container">
                 <button
                   onClick={() => router.push('/reflect/paid-for')}
-                  className="action-button-refined secondary"
+                  className="action-button-refined secondary mobile-action-button"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="mobile-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                   <span>Previous step</span>
@@ -440,12 +440,12 @@ export default function SummaryPage() {
                 
                 <button 
                   onClick={handleDownloadPDF}
-                  className="action-button-refined primary"
+                  className="action-button-refined primary mobile-action-button"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="mobile-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  Download
+                  <span>Download</span>
                 </button>
                 
                 <button
@@ -453,7 +453,7 @@ export default function SummaryPage() {
                     clearData();
                     router.push('/');
                   }}
-                  className="action-button-refined secondary"
+                  className="action-button-refined secondary mobile-action-button"
                 >
                   <span>Start over</span>
                 </button>

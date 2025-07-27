@@ -2059,9 +2059,10 @@ body {
       padding: 0 1.5rem !important;
     }
     
-    .action-button-refined {
-      font-size: 0.85rem !important;
-      padding: 12px 24px !important;
+    .mobile-action-button {
+      width: 85% !important;
+      font-size: 0.95rem !important;
+      padding: 0.875rem 1.125rem !important;
     }
   }
   
@@ -2087,9 +2088,10 @@ body {
       padding: 1.25rem 1.5rem !important;
     }
     
-    .action-button-refined {
-      font-size: 0.8rem !important;
-      padding: 10px 20px !important;
+    .mobile-action-button {
+      width: 90% !important;
+      font-size: 0.9rem !important;
+      padding: 0.75rem 1rem !important;
     }
   }
   
@@ -2145,6 +2147,12 @@ body {
     margin-top: 2rem !important;
     margin-bottom: 2rem !important;
   }
+  
+  /* Ensure proper spacing around the encouragement text */
+  .mobile-encouragement p {
+    margin: 0 !important;
+    padding: 0 1rem !important;
+  }
 
   /* Suggestion cards use Tailwind classes */
 
@@ -2192,6 +2200,39 @@ body {
     max-width: 200px !important;
     border-radius: 12px !important;
     font-weight: 500 !important;
+  }
+  
+  /* Mobile-specific action button styling */
+  .mobile-button-container {
+    gap: 1rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .mobile-action-button {
+    width: 80% !important;
+    max-width: 300px !important;
+    margin: 0.75rem auto !important;
+    padding: 0.75rem 1.25rem !important;
+    font-size: 1rem !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  .mobile-button-icon {
+    height: 1.2em !important;
+    width: 1.2em !important;
+    flex-shrink: 0 !important;
+    stroke-width: 2 !important;
+  }
+  
+  /* Ensure buttons without icons are still properly centered */
+  .mobile-action-button:not(:has(.mobile-button-icon)) {
+    justify-content: center !important;
   }
 
   .theme-header {

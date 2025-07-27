@@ -361,20 +361,22 @@ export default function SummaryPage() {
 
 
             {/* Why This Matters - Wisdom Card */}
-            <div className="max-w-[700px] mx-auto mt-6 md:mt-10 lg:mt-16">
-              <div className="ikigai-card px-4 md:px-6 py-6 wisdom-card staggered-fade-in">
-                <div className="space-y-6 md:space-y-8">
-                  <div className="flex items-center space-x-4 sm:space-x-6">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
-                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-ikigai-warm-gold feather-icon" fill="currentColor" viewBox="0 0 20 20">
+            <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-6 md:mt-10 lg:mt-16">
+              <div className="ikigai-card wisdom-card staggered-fade-in w-full max-w-[600px] mx-auto">
+                <div className="space-y-8">
+                  <div className="flex items-center justify-center space-x-4 sm:space-x-6">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
+                      <svg className="w-6 h-6 sm:w-7 sm:h-7 text-ikigai-warm-gold feather-icon" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    <h3 className="ikigai-heading text-lg sm:text-xl md:text-2xl text-ikigai-warm-gold">Why This Matters</h3>
+                    <h3 className="ikigai-heading text-xl sm:text-2xl md:text-3xl text-ikigai-warm-gold">Why This Matters</h3>
                   </div>
-                  <p className="italic text-base md:text-lg text-[#7F5539] leading-relaxed">
-                    {structuredInsight.meaning}
-                  </p>
+                  <div className="text-center">
+                    <p className="italic text-base md:text-lg lg:text-xl text-[#7F5539] leading-relaxed">
+                      {structuredInsight.meaning}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -385,9 +387,9 @@ export default function SummaryPage() {
             </div>
 
             {/* What You Might Explore Next - Refactored Elegant Layout */}
-            <div className="max-w-[700px] mx-auto mt-12 md:mt-16 lg:mt-20" aria-labelledby="suggestions-heading">
+            <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-12 md:mt-16 lg:mt-20" aria-labelledby="suggestions-heading">
               <div className="space-y-8 md:space-y-10">
-                <div className="flex items-center space-x-4 sm:space-x-6 mb-8 sm:mb-10">
+                <div className="flex items-center justify-center space-x-4 sm:space-x-6 mb-8 sm:mb-10">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-ikigai-gold/30 to-ikigai-warm-gold/40 flex items-center justify-center">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-ikigai-warm-gold" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
@@ -431,7 +433,7 @@ export default function SummaryPage() {
             </div>
 
             {/* Closing Encouragement with Floating Sparkle */}
-            <div className="max-w-[700px] mx-auto mt-16 md:mt-20 lg:mt-24 relative">
+            <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-16 md:mt-20 lg:mt-24 relative">
               <div className="floating-sparkle"></div>
               <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-lg md:text-xl leading-relaxed">
                 ✨ Let this insight guide you. Choose one small action this week that brings your Ikigai to life.
@@ -439,7 +441,7 @@ export default function SummaryPage() {
             </div>
 
             {/* Action Buttons - Refined Layout */}
-            <div className="max-w-[700px] mx-auto mt-16 md:mt-20 lg:mt-24">
+            <div className="max-w-[700px] mx-auto px-4 sm:px-6 mt-16 md:mt-20 lg:mt-24">
               <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
                 <button
                   onClick={() => router.push('/reflect/paid-for')}

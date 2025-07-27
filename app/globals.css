@@ -270,7 +270,7 @@ body {
   padding: 20px 24px;
   font-family: var(--font-harmony);
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.5;
   color: var(--ikigai-brown);
   transition: all 0.2s ease-in-out;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
@@ -278,6 +278,10 @@ body {
   resize: none;
   margin: 24px 0;
   box-sizing: border-box;
+  vertical-align: top;
+  display: block;
+  width: 100%;
+  min-height: 120px;
 }
 
 .ikigai-input:focus {
@@ -292,6 +296,8 @@ body {
 .ikigai-input::placeholder {
   color: rgba(127, 85, 57, 0.5);
   font-style: italic;
+  line-height: 1.5;
+  vertical-align: top;
   animation: placeholder-fade 3s ease-in-out infinite;
 }
 
@@ -1439,6 +1445,8 @@ body {
   .ikigai-input {
     padding: 16px 20px;
     font-size: 16px;
+    min-height: 100px;
+    line-height: 1.5;
   }
   
 
@@ -1492,6 +1500,7 @@ body {
     padding: 16px 20px;
     font-size: 16px;
     min-height: 200px;
+    line-height: 1.5;
   }
   
 
@@ -1643,6 +1652,7 @@ body {
     font-size: 16px;
     min-height: 180px;
     border-radius: 1rem;
+    line-height: 1.5;
   }
   
 
@@ -1801,6 +1811,7 @@ body {
     padding: 0.75rem;
     font-size: 15px;
     min-height: 160px;
+    line-height: 1.5;
   }
   
 
@@ -1894,6 +1905,7 @@ body {
   
   .ikigai-input {
     min-height: 120px;
+    line-height: 1.5;
   }
   
   .ikigai-title {
@@ -1909,6 +1921,7 @@ body {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .ikigai-input {
     font-size: 16px;
+    line-height: 1.5;
   }
   
   .ikigai-button {

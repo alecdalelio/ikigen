@@ -14,7 +14,7 @@ interface ToastProps {
 const Toast: React.FC<ToastProps> = ({ 
   message, 
   type = 'success', 
-  duration = 5000, 
+  duration = 6000, 
   onClose, 
   isVisible 
 }) => {
@@ -28,7 +28,7 @@ const Toast: React.FC<ToastProps> = ({
       // Auto-dismiss after duration
       const timer = setTimeout(() => {
         setIsAnimating(false);
-        setTimeout(onClose, 300); // Wait for fade-out animation
+        setTimeout(onClose, 500); // Wait for fade-out animation
       }, duration);
 
       return () => clearTimeout(timer);
@@ -36,33 +36,33 @@ const Toast: React.FC<ToastProps> = ({
   }, [isVisible, duration, onClose]);
 
   const getToastStyles = () => {
-    const baseStyles = "fixed bottom-4 right-4 z-50 max-w-sm w-full mx-4 sm:mx-0 transform transition-all duration-300 ease-in-out";
+    const baseStyles = "fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 max-w-sm w-full mx-4 sm:mx-0 transition-all duration-500 ease-out";
     
     if (!isVisible) {
-      return `${baseStyles} translate-y-full opacity-0`;
+      return `${baseStyles} translate-y-full opacity-0 scale-95`;
     }
     
     if (isAnimating) {
-      return `${baseStyles} translate-y-0 opacity-100`;
+      return `${baseStyles} translate-y-0 opacity-100 scale-100`;
     }
     
-    return `${baseStyles} translate-y-full opacity-0`;
+    return `${baseStyles} translate-y-full opacity-0 scale-95`;
   };
 
   const getToastContent = () => {
-    const baseContent = "ikigai-card shadow-lg border-l-4 p-4 flex items-start space-x-3";
+    const baseContent = "ikigai-card shadow-lg border-l-4 p-4 flex items-start space-x-3 backdrop-blur-sm";
     
     switch (type) {
       case 'success':
-        return `${baseContent} border-ikigai-gold bg-gradient-to-r from-ikigai-warm-white to-white`;
+        return `${baseContent} border-ikigai-gold bg-gradient-to-r from-[var(--theme-card-bg,var(--ikigai-warm-white))]/95 to-white/95`;
       case 'info':
-        return `${baseContent} border-blue-400 bg-gradient-to-r from-blue-50 to-white`;
+        return `${baseContent} border-blue-400 bg-gradient-to-r from-blue-50/95 to-[var(--theme-card-bg,white)]/95`;
       case 'warning':
-        return `${baseContent} border-yellow-400 bg-gradient-to-r from-yellow-50 to-white`;
+        return `${baseContent} border-yellow-400 bg-gradient-to-r from-yellow-50/95 to-[var(--theme-card-bg,white)]/95`;
       case 'error':
-        return `${baseContent} border-red-400 bg-gradient-to-r from-red-50 to-white`;
+        return `${baseContent} border-red-400 bg-gradient-to-r from-red-50/95 to-[var(--theme-card-bg,white)]/95`;
       default:
-        return `${baseContent} border-ikigai-gold bg-gradient-to-r from-ikigai-warm-white to-white`;
+        return `${baseContent} border-ikigai-gold bg-gradient-to-r from-[var(--theme-card-bg,var(--ikigai-warm-white))]/95 to-white/95`;
     }
   };
 
@@ -110,7 +110,7 @@ const Toast: React.FC<ToastProps> = ({
       <div className={getToastContent()}>
         {getIcon()}
         <div className="flex-1 min-w-0">
-          <p className="ikigai-body text-sm text-ikigai-brown leading-relaxed">
+          <p className="ikigai-body text-sm text-[var(--theme-text,var(--ikigai-brown))] leading-relaxed">
             {message}
             {message.includes('Opening LinkedIn') && (
               <span className="inline-block ml-1 animate-pulse">⋯</span>
@@ -120,9 +120,9 @@ const Toast: React.FC<ToastProps> = ({
         <button
           onClick={() => {
             setIsAnimating(false);
-            setTimeout(onClose, 300);
+            setTimeout(onClose, 500);
           }}
-          className="flex-shrink-0 ml-2 text-ikigai-brown/60 hover:text-ikigai-brown transition-colors duration-200"
+          className="flex-shrink-0 ml-2 text-[var(--theme-text,var(--ikigai-brown))]/60 hover:text-[var(--theme-text,var(--ikigai-brown))] transition-colors duration-200 p-1 rounded-full hover:bg-[var(--theme-text,var(--ikigai-brown))]/10"
           aria-label="Close notification"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">

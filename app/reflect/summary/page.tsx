@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
 import ShareModule from '../../components/ShareModule';
+import ShareSuccessModal from '../../components/ShareSuccessModal';
 import IkigaiExportCard from '../../components/IkigaiExportCard';
 import jsPDF from 'jspdf';
 import { toPng } from 'html-to-image';
@@ -19,6 +20,8 @@ export default function SummaryPage() {
     suggestions: string[];
   } | null>(null);
   const [showShareModule, setShowShareModule] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [clipboardSuccess, setClipboardSuccess] = useState(false);
   const shareModuleRef = useRef<HTMLDivElement>(null);
   const ikigaiRef = useRef<HTMLDivElement>(null);
   const exportRef = useRef<HTMLDivElement>(null);
@@ -184,29 +187,22 @@ Try it yourself at https://ikigen.vercel.app`;
         }
       }
 
-      // Step 4: Open LinkedIn share window
+      // Step 4: Open LinkedIn share window and show modal
       setTimeout(() => {
         window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
         
-        // Step 5: Show success message based on clipboard status
-        if (clipboardSuccess) {
-          alert('✅ Image downloaded + caption copied! Just paste and upload your image on LinkedIn to share your Ikigai.');
-        } else {
-          alert('✅ Image downloaded! LinkedIn opened - please copy the following caption manually:\n\n' + caption);
-        }
+        // Step 5: Set clipboard success state and show modal
+        setClipboardSuccess(clipboardSuccess);
+        setShowShareModal(true);
       }, 300);
 
     } catch (error) {
       console.error('Error in LinkedIn share flow:', error);
       
-      // Fallback: still open LinkedIn and provide manual instructions
+      // Fallback: still open LinkedIn and show modal with error state
       window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
-      
-      if (error instanceof Error && error.message.includes('clipboard')) {
-        alert('LinkedIn opened! Please manually copy your Ikigai text and create a post about your discovery.');
-      } else {
-        alert('LinkedIn opened! There was an issue generating the image, but you can still share your Ikigai journey manually.');
-      }
+      setClipboardSuccess(false); // Show manual caption in modal
+      setShowShareModal(true);
     }
   };
 
@@ -357,6 +353,10 @@ Try it yourself at https://ikigen.vercel.app`;
   if (!data.love || !data.goodAt || !data.worldNeeds || !data.paidFor) {
     return null;
   }
+
+  const handleCloseShareModal = () => {
+    setShowShareModal(false);
+  };
 
   return (
     <div className="ikigai-container page-transition summary-page">
@@ -648,6 +648,13 @@ Try it yourself at https://ikigen.vercel.app`;
             text={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
           />
         </div>
+
+        {/* Share Success Modal */}
+        <ShareSuccessModal 
+          isOpen={showShareModal}
+          onClose={handleCloseShareModal}
+          clipboardSuccess={clipboardSuccess}
+        />
 
       </div>
     </div>

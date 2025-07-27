@@ -1997,6 +1997,24 @@ body {
     transition: transform 0.2s ease-in-out !important;
   }
   
+  /* Desktop overrides to ensure proper alignment */
+  @media (min-width: 769px) {
+    .ikigai-insight-card,
+    .wisdom-card {
+      padding: 2rem !important;
+      margin: 0 auto 1.5rem auto !important;
+    }
+    
+    .mobile-text-wrapper {
+      padding: 0 !important;
+    }
+    
+    .mobile-text {
+      font-size: inherit !important;
+      line-height: inherit !important;
+    }
+  }
+  
   .ikigai-insight-card:last-child,
   .wisdom-card:last-child {
     margin-bottom: 0 !important;
@@ -2022,6 +2040,13 @@ body {
     max-width: 100% !important;
     margin: 0 auto !important;
     padding: 0.75rem !important;
+  }
+  
+  /* Desktop overrides for mobile container */
+  @media (min-width: 769px) {
+    .mobile-text-container {
+      padding: inherit !important;
+    }
   }
   
   .mobile-text-wrapper {

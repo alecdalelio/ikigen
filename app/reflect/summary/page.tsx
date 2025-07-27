@@ -37,42 +37,55 @@ export default function SummaryPage() {
   };
 
   const handleDownloadImage = async () => {
-    if (!exportRef.current) return;
+    if (!exportRef.current) {
+      alert('Export card not found. Please try again.');
+      return;
+    }
 
     try {
-      // Wait for fonts and rendering to complete
-      await new Promise(resolve => setTimeout(resolve, 300));
+      console.log('Starting image generation...');
+      console.log('Export ref element:', exportRef.current);
+      console.log('Element dimensions:', {
+        width: exportRef.current.offsetWidth,
+        height: exportRef.current.offsetHeight,
+        scrollWidth: exportRef.current.scrollWidth,
+        scrollHeight: exportRef.current.scrollHeight
+      });
 
-      // Generate the image (card is already rendered offscreen)
+      // Wait longer for fonts and rendering to complete
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Generate the image with simpler options
       const dataUrl = await toPng(exportRef.current, {
-        pixelRatio: 2,
+        pixelRatio: 1, // Start with 1x to test
         backgroundColor: '#ffffff',
-        width: 600,
-        height: exportRef.current.offsetHeight || 500,
+        cacheBust: true,
         style: {
           transform: 'scale(1)',
-          transformOrigin: 'top left'
-        },
-        filter: (node) => {
-          // Ensure all nodes are included
-          return true;
         }
       });
 
+      console.log('Generated dataURL length:', dataUrl.length);
+      console.log('DataURL preview:', dataUrl.substring(0, 100));
+
       // Verify we have a valid image
-      if (!dataUrl || dataUrl === 'data:,') {
-        throw new Error('Generated image is empty');
+      if (!dataUrl || dataUrl === 'data:,' || dataUrl.length < 100) {
+        throw new Error('Generated image is empty or invalid');
       }
 
       // Create download link
       const link = document.createElement('a');
       link.download = 'my-ikigai.png';
       link.href = dataUrl;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
+
+      console.log('Image download triggered successfully');
     } catch (error) {
       console.error('Error generating image:', error);
       // Fallback: User-friendly error message
-      alert('Sorry, there was an error generating the image. Please try again.');
+      alert(`Error generating image: ${error instanceof Error ? error.message : 'Unknown error'}. Please check the console for details.`);
     }
   };
 
@@ -80,35 +93,31 @@ export default function SummaryPage() {
     if (!exportRef.current) return;
 
     try {
-      // Wait for fonts and rendering to complete
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // Wait longer for fonts and rendering to complete
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Generate the image for LinkedIn sharing
       const dataUrl = await toPng(exportRef.current, {
-        pixelRatio: 2,
+        pixelRatio: 1, // Start with 1x to test
         backgroundColor: '#ffffff',
-        width: 600,
-        height: exportRef.current.offsetHeight || 500,
+        cacheBust: true,
         style: {
           transform: 'scale(1)',
-          transformOrigin: 'top left'
-        },
-        filter: (node) => {
-          // Ensure all nodes are included
-          return true;
         }
       });
 
       // Verify we have a valid image
-      if (!dataUrl || dataUrl === 'data:,') {
-        throw new Error('Generated image is empty');
+      if (!dataUrl || dataUrl === 'data:,' || dataUrl.length < 100) {
+        throw new Error('Generated image is empty or invalid');
       }
 
       // Auto-download the image
       const link = document.createElement('a');
       link.download = 'my-ikigai.png';
       link.href = dataUrl;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
 
       // Copy text to clipboard for caption
       const ikigaiText = structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues...";
@@ -557,14 +566,14 @@ export default function SummaryPage() {
         <div 
           ref={exportRef} 
           style={{ 
-            position: 'absolute',
-            top: '-9999px',
-            left: '-9999px',
-            visibility: 'hidden',
+            // position: 'absolute',
+            // top: '-9999px',
+            // left: '-9999px',
+            // visibility: 'hidden',
             // For debugging: temporarily change to 'visible' and remove position to test
-            // visibility: 'visible',
-            // position: 'static',
-            // margin: '20px auto'
+            visibility: 'visible',
+            position: 'static',
+            margin: '20px auto'
           }}
         >
           <IkigaiExportCard 

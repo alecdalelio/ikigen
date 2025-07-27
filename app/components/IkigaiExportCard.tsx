@@ -140,9 +140,11 @@ const IkigaiExportCard: React.FC<IkigaiExportCardProps> = ({ ikigaiText }) => {
             marginLeft: 'auto',
             marginRight: 'auto',
             fontFamily: 'Georgia, "Times New Roman", serif',
+            padding: '0 20px',
+            wordWrap: 'break-word',
           }}
         >
-          {ikigaiText || 'Your unique purpose and reason for being...'}
+          {ikigaiText || 'Your unique purpose and reason for being awaits discovery...'}
         </p>
 
         {/* Decorative bottom accent */}

@@ -2239,7 +2239,8 @@ body {
   margin: 0;
 }
 
-.share-modal-steps {
+.share-modal-steps,
+.share-modal-status {
   margin-bottom: 24px;
 }
 

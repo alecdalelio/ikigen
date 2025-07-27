@@ -68,25 +68,15 @@ const ShareSuccessModal: React.FC<ShareSuccessModalProps> = ({
             </h2>
           </div>
 
-          {/* Steps */}
-          <div id="share-modal-description" className="share-modal-steps">
-            <div className="share-step">
-              <span className="share-step-icon">✅</span>
-              <span className="share-step-text">Image downloaded</span>
-            </div>
-            
+          {/* Status Message */}
+          <div id="share-modal-description" className="share-modal-status">
             <div className="share-step">
               <span className="share-step-icon">
                 {clipboardSuccess ? '✅' : '⚠️'}
               </span>
               <span className="share-step-text">
-                {clipboardSuccess ? 'Caption copied' : 'Caption ready (copy manually)'}
+                {clipboardSuccess ? 'Your Ikigai was copied to clipboard.' : 'Your Ikigai is ready to copy.'}
               </span>
-            </div>
-            
-            <div className="share-step">
-              <span className="share-step-icon">✅</span>
-              <span className="share-step-text">LinkedIn post opened</span>
             </div>
           </div>
 
@@ -94,18 +84,19 @@ const ShareSuccessModal: React.FC<ShareSuccessModalProps> = ({
           <div className="share-modal-instructions">
             {clipboardSuccess ? (
               <p>
-                Just paste <kbd className="share-kbd">Cmd+V</kbd> and upload your image to finish sharing your Ikigai.
+                Paste it into the LinkedIn post and hit share!
               </p>
             ) : (
               <div>
-                <p>Copy this caption and upload your image on LinkedIn:</p>
+                <p>Copy this text and paste it into LinkedIn:</p>
                 <div className="share-caption-box">
                   <code className="share-caption-text">
-                    I just completed my Ikigai journey with Ikigen 💫<br/>
+                    ✨ My Ikigai ✨<br/>
                     <br/>
-                    Here's what I discovered about my purpose in life.<br/>
+                    [Your Ikigai text]<br/>
                     <br/>
-                    Try it yourself at https://ikigen.vercel.app
+                    Discover your own purpose: https://ikigen.vercel.app<br/>
+                    #Ikigai #Purpose #SelfDiscovery #Ikigen
                   </code>
                 </div>
               </div>

@@ -5,9 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
 import ShareModule from '../../components/ShareModule';
 import ShareSuccessModal from '../../components/ShareSuccessModal';
-import IkigaiExportCard from '../../components/IkigaiExportCard';
 import jsPDF from 'jspdf';
-import { toPng } from 'html-to-image';
 
 
 export default function SummaryPage() {
@@ -23,8 +21,6 @@ export default function SummaryPage() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [clipboardSuccess, setClipboardSuccess] = useState(false);
   const shareModuleRef = useRef<HTMLDivElement>(null);
-  const ikigaiRef = useRef<HTMLDivElement>(null);
-  const exportRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const handleShareModuleMount = () => {
@@ -39,169 +35,43 @@ export default function SummaryPage() {
     }, 400); // Small delay to ensure animation has started
   };
 
-  const handleDownloadImage = async () => {
-    if (!exportRef.current || !exportRef.current.firstElementChild) {
-      alert('Export card not found. Please try again.');
-      return;
-    }
 
-    const exportCard = exportRef.current.firstElementChild as HTMLElement;
-    console.log('Export card dimensions:', {
-      width: exportCard.offsetWidth,
-      height: exportCard.offsetHeight,
-      scrollWidth: exportCard.scrollWidth,
-      scrollHeight: exportCard.scrollHeight
-    });
-
-    try {
-      // Wait for fonts to load
-      await document.fonts.ready;
-      
-      // Additional wait for layout/rendering
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      // Temporarily make the element visible for capture
-      const originalOpacity = exportRef.current.style.opacity;
-      const originalPosition = exportRef.current.style.position;
-      const originalTop = exportRef.current.style.top;
-      const originalLeft = exportRef.current.style.left;
-      
-      exportRef.current.style.opacity = '1';
-      exportRef.current.style.position = 'fixed';
-      exportRef.current.style.top = '0px';
-      exportRef.current.style.left = '0px';
-      exportRef.current.style.zIndex = '10000';
-
-      // Wait a moment for the position change to take effect
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // Generate the image
-      const dataUrl = await toPng(exportRef.current.firstElementChild as HTMLElement, {
-        pixelRatio: 2,
-        cacheBust: true,
-        backgroundColor: '#ffffff',
-        width: 600,
-        height: exportRef.current.firstElementChild?.scrollHeight || 500,
-        style: {
-          margin: '0',
-          padding: '0',
-        }
-      });
-
-      // Restore original positioning immediately
-      exportRef.current.style.opacity = originalOpacity;
-      exportRef.current.style.position = originalPosition;
-      exportRef.current.style.top = originalTop;
-      exportRef.current.style.left = originalLeft;
-      exportRef.current.style.zIndex = '-1000';
-
-      // Verify we have a valid image
-      if (!dataUrl || dataUrl === 'data:,' || dataUrl.length < 100) {
-        throw new Error('Generated image is empty or invalid');
-      }
-
-      // Create download link
-      const link = document.createElement('a');
-      link.download = 'my-ikigai.png';
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Error generating image:', error);
-      alert(`Error generating image: ${error instanceof Error ? error.message : 'Unknown error'}.`);
-    }
-  };
 
   const handleLinkedInShare = async () => {
-    if (!exportRef.current || !exportRef.current.firstElementChild) {
-      alert('Export card not found. Please try again.');
-      return;
-    }
-
     try {
-      // Step 1: Generate export image
-      await document.fonts.ready;
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Step 1: Create text summary with Ikigai
+      const ikigaiText = structuredInsight?.ikigai || finalInsight || "Your unique purpose and reason for being awaits discovery...";
+      const textSummary = `✨ My Ikigai ✨
 
-      // Temporarily make the element visible for capture
-      const originalOpacity = exportRef.current.style.opacity;
-      const originalPosition = exportRef.current.style.position;
-      const originalTop = exportRef.current.style.top;
-      const originalLeft = exportRef.current.style.left;
+${ikigaiText}
+
+Discover your own purpose: https://ikigen.vercel.app
+#Ikigai #Purpose #SelfDiscovery #Ikigen`;
       
-      exportRef.current.style.opacity = '1';
-      exportRef.current.style.position = 'fixed';
-      exportRef.current.style.top = '0px';
-      exportRef.current.style.left = '0px';
-      exportRef.current.style.zIndex = '10000';
-
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      const dataUrl = await toPng(exportRef.current.firstElementChild as HTMLElement, {
-        pixelRatio: 2,
-        backgroundColor: '#fff',
-        width: 600,
-        height: exportRef.current.firstElementChild?.scrollHeight || 500,
-        style: {
-          margin: '0',
-          padding: '0',
-        }
-      });
-
-      // Restore original positioning immediately
-      exportRef.current.style.opacity = originalOpacity;
-      exportRef.current.style.position = originalPosition;
-      exportRef.current.style.top = originalTop;
-      exportRef.current.style.left = originalLeft;
-      exportRef.current.style.zIndex = '-1000';
-
-      // Verify we have a valid image
-      if (!dataUrl || dataUrl === 'data:,' || dataUrl.length < 100) {
-        throw new Error('Generated image is empty or invalid');
-      }
-
-      // Step 2: Download the image
-      const link = document.createElement('a');
-      link.download = 'my-ikigai.png';
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Step 3: Copy the caption to clipboard
-      const caption = `I just completed my Ikigai journey with Ikigen 💫
-
-Here's what I discovered about my purpose in life.
-
-Try it yourself at https://ikigen.vercel.app`;
-      
+      // Step 2: Copy to clipboard
       let clipboardSuccess = false;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
-          await navigator.clipboard.writeText(caption);
+          await navigator.clipboard.writeText(textSummary);
           clipboardSuccess = true;
         } catch (clipboardError) {
           console.warn('Clipboard access failed:', clipboardError);
-          // Continue with flow even if clipboard fails
         }
       }
 
-      // Step 4: Open LinkedIn share window and show modal
-      setTimeout(() => {
-        window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
-        
-        // Step 5: Set clipboard success state and show modal
-        setClipboardSuccess(clipboardSuccess);
-        setShowShareModal(true);
-      }, 300);
+      // Step 3: Open LinkedIn share window
+      window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
+      
+      // Step 4: Show success modal
+      setClipboardSuccess(clipboardSuccess);
+      setShowShareModal(true);
 
     } catch (error) {
       console.error('Error in LinkedIn share flow:', error);
       
-      // Fallback: still open LinkedIn and show modal with error state
+      // Fallback: still open LinkedIn
       window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
-      setClipboardSuccess(false); // Show manual caption in modal
+      setClipboardSuccess(false);
       setShowShareModal(true);
     }
   };
@@ -459,8 +329,7 @@ Try it yourself at https://ikigen.vercel.app`;
             {/* Your Ikigai - Enhanced Insight Card */}
             <div className="max-w-[700px] mx-auto">
               <div 
-                ref={ikigaiRef}
-                className="ikigai-card ikigai-insight-card staggered-fade-in ikigai-image-export"
+                className="ikigai-card ikigai-insight-card staggered-fade-in"
                 style={{ width: '600px', margin: '0 auto' }}
               >
                 <div className="space-y-8">
@@ -617,37 +486,18 @@ Try it yourself at https://ikigen.vercel.app`;
           </div>
         ) : null}
 
-        {/* Share Module - appears after insight generation */}
+                {/* Share Module - appears after insight generation */}
         {showShareModule && (structuredInsight || finalInsight) && (
           <div ref={shareModuleRef}>
-            <ShareModule 
+            <ShareModule
               ikigaiText={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
               onMount={handleShareModuleMount}
-              onDownloadImage={handleDownloadImage}
               onLinkedInShare={handleLinkedInShare}
             />
           </div>
         )}
 
-        {/* Export Card for Image Generation - positioned offscreen but visible to canvas */}
-        <div 
-          ref={exportRef} 
-          style={{ 
-            position: 'fixed',
-            top: '-1000px',
-            left: '-1000px',
-            width: '600px',
-            height: 'auto',
-            zIndex: -1000,
-            opacity: 0,
-            pointerEvents: 'none',
-            backgroundColor: '#ffffff',
-          }}
-        >
-          <IkigaiExportCard 
-            text={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
-          />
-        </div>
+
 
         {/* Share Success Modal */}
         <ShareSuccessModal 

@@ -505,6 +505,141 @@ body {
   border-color: var(--theme-border, rgba(221, 184, 146, 0.3)) !important;
 }
 
+/* Share Module Styling */
+.share-module {
+  max-width: 700px;
+  margin: 2rem auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-in-out;
+}
+
+.share-module.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.share-module-content {
+  background: var(--theme-card-bg, rgba(248, 246, 240, 0.9));
+  border: 1px solid var(--theme-border, rgba(221, 184, 146, 0.3));
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, var(--shadow-strength, 0.08));
+  text-align: center;
+  transition: all calc(0.3s * var(--animation-intensity, 1)) ease-in-out;
+}
+
+.share-module-content:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, var(--shadow-strength, 0.12));
+}
+
+.share-module-header {
+  margin-bottom: 1.5rem;
+}
+
+.share-module-title {
+  font-family: var(--font-poetry);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--theme-accent, var(--ikigai-warm-gold));
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.share-module-description {
+  font-family: var(--font-harmony);
+  font-size: 1rem;
+  color: var(--theme-text, rgba(127, 85, 57, 0.8));
+  line-height: 1.6;
+  margin: 0;
+}
+
+.share-module-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.share-linkedin-button {
+  background: linear-gradient(135deg, #0077B5 0%, #005885 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-family: var(--font-harmony);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all calc(0.2s * var(--animation-intensity, 1)) ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+  min-width: 160px;
+  justify-content: center;
+}
+
+.share-linkedin-button:hover {
+  background: linear-gradient(135deg, #005885 0%, #004466 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 119, 181, 0.4);
+}
+
+.share-linkedin-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+}
+
+.share-linkedin-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .share-module-content {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .share-module-title {
+    font-size: 1.25rem;
+  }
+
+  .share-module-description {
+    font-size: 0.9rem;
+  }
+
+  .share-linkedin-button {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+    min-width: 140px;
+  }
+
+  .share-linkedin-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-module-content {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .share-module-title {
+    font-size: 1.125rem;
+  }
+
+  .share-linkedin-button {
+    font-size: 0.875rem;
+    padding: 0.625rem 1rem;
+    min-width: 120px;
+  }
+}
+
 /* Force theme background on containers */
 .theme-bold .ikigai-container,
 .theme-bold body {

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
+import ShareModule from '../../components/ShareModule';
 import jsPDF from 'jspdf';
 
 
@@ -15,7 +16,21 @@ export default function SummaryPage() {
     meaning: string;
     suggestions: string[];
   } | null>(null);
+  const [showShareModule, setShowShareModule] = useState(false);
+  const shareModuleRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const handleShareModuleMount = () => {
+    // Smooth scroll to ShareModule after it mounts
+    setTimeout(() => {
+      if (shareModuleRef.current) {
+        shareModuleRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+    }, 400); // Small delay to ensure animation has started
+  };
 
   useEffect(() => {
     if (isLoaded && (!data.love || !data.goodAt || !data.worldNeeds || !data.paidFor)) {
@@ -55,6 +70,11 @@ export default function SummaryPage() {
         setFinalInsight(responseData.summary);
         setStructuredInsight(null);
       }
+
+      // Show ShareModule after insight is generated
+      setTimeout(() => {
+        setShowShareModule(true);
+      }, 800); // Delay to allow insight animation to complete
     } catch (error) {
       console.error('Error generating final insight:', error);
       
@@ -69,6 +89,11 @@ export default function SummaryPage() {
         setFinalInsight("Your Ikigai is the intersection of what you love, what you're good at, what the world needs, and what you can be paid for. This unique combination creates your purpose and reason for being. Reflect on how these four elements work together in your life.");
       }
       setStructuredInsight(null); // Clear structured data on error
+      
+      // Show ShareModule even on error
+      setTimeout(() => {
+        setShowShareModule(true);
+      }, 800);
     } finally {
       setIsGenerating(false);
     }
@@ -401,6 +426,15 @@ export default function SummaryPage() {
           </div>
         ) : null}
 
+        {/* Share Module - appears after insight generation */}
+        {showShareModule && (structuredInsight || finalInsight) && (
+          <div ref={shareModuleRef}>
+            <ShareModule 
+              ikigaiText={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
+              onMount={handleShareModuleMount}
+            />
+          </div>
+        )}
 
       </div>
     </div>

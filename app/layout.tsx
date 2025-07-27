@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from './contexts/ThemeContext';
 import ThemeToggle from './components/ThemeToggle';
+import Footer from './components/Footer';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -40,6 +41,7 @@ export default function RootLayout({
             <main className="theme-main">
               {children}
             </main>
+            <Footer />
           </div>
         </ThemeProvider>
       </body>

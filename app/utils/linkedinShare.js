@@ -36,10 +36,18 @@ const generateLinkedInPost = async (ikigaiInsight) => {
     adjustedInsight = fallbackResult.adjustedText;
   }
   
+  // Remove quotation marks and optionally italicize the ikigai statement
+  const cleanInsight = adjustedInsight
+    .replace(/^["']|["']$/g, '') // Remove leading/trailing quotes
+    .replace(/["']/g, ''); // Remove any remaining quotes within the text
+  
+  // Italicize the ikigai statement for visual emphasis
+  const italicizedInsight = `*${cleanInsight}*`;
+  
   // Format the post with proper spacing
   const post = `${randomHeader}
 
-${adjustedInsight}
+${italicizedInsight}
 
 ${randomCTA}`;
 

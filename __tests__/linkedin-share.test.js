@@ -56,7 +56,8 @@ describe('LinkedIn Share Utils', () => {
     it('should include the Ikigai insight in the generated post', async () => {
       const testInsight = "Your ikigai is to help communities rediscover wonder through collective storytelling and play.";
       const post = await generateLinkedInPost(testInsight);
-      expect(post).toContain(testInsight);
+      // Should contain the insight without quotes and with italics
+      expect(post).toContain("*Your ikigai is to help communities rediscover wonder through collective storytelling and play.*");
     });
 
     it('should include a header from the defined list', async () => {
@@ -73,11 +74,11 @@ describe('LinkedIn Share Utils', () => {
       expect(hasValidCTA).toBe(true);
     });
 
-    it('should format the post with proper spacing', async () => {
+    it('should format the post with proper spacing and italicization', async () => {
       const testInsight = "Your ikigai is to bring joy to others.";
       const post = await generateLinkedInPost(testInsight);
       
-      // Should have the correct structure: header + blank line + insight + blank line + CTA
+      // Should have the correct structure: header + blank line + italicized insight + blank line + CTA
       const lines = post.split('\n');
       expect(lines.length).toBeGreaterThanOrEqual(4); // At least 4 lines
       
@@ -85,12 +86,24 @@ describe('LinkedIn Share Utils', () => {
       const hasHeader = INTRO_HEADERS_EXPORT.some(header => lines[0] === header);
       expect(hasHeader).toBe(true);
       
-      // Should contain the insight
-      expect(post).toContain(testInsight);
+      // Should contain the insight with italics and no quotes
+      expect(post).toContain("*Your ikigai is to bring joy to others.*");
       
       // Last line should be a CTA
       const hasCTA = CALL_TO_ACTIONS_EXPORT.some(cta => lines[lines.length - 1] === cta);
       expect(hasCTA).toBe(true);
+    });
+
+    it('should remove quotation marks from the insight', async () => {
+      const testInsight = '"Your ikigai is to make a difference."';
+      const post = await generateLinkedInPost(testInsight);
+      
+      // Should not contain quotes
+      expect(post).not.toContain('"');
+      expect(post).not.toContain("'");
+      
+      // Should contain the insight with italics
+      expect(post).toContain("*Your ikigai is to make a difference.*");
     });
 
     it('should generate different posts for the same insight', async () => {
@@ -104,7 +117,7 @@ describe('LinkedIn Share Utils', () => {
 
     it('should handle empty or undefined insight gracefully', async () => {
       const post = await generateLinkedInPost("");
-      expect(post).toContain("");
+      expect(post).toContain("*");
       expect(post).toMatch(/^[✨💡🧘‍♀️🎨🪷].*/); // Should start with an emoji header
     });
   });
@@ -148,12 +161,13 @@ describe('LinkedIn Share Integration', () => {
     expect(lines.length).toBeGreaterThanOrEqual(4);
     
     // Check content
-    expect(post).toContain(testInsight);
+    expect(post).toContain("*Your ikigai is to help communities rediscover wonder through collective storytelling and play.*");
     expect(INTRO_HEADERS_EXPORT.some(header => post.includes(header))).toBe(true);
     expect(CALL_TO_ACTIONS_EXPORT.some(cta => post.includes(cta))).toBe(true);
     
-    // Check formatting (should have blank lines between sections)
+    // Check formatting (should have blank lines between sections and italicized insight)
     expect(post).toMatch(/\n\n/); // Should have double line breaks
+    expect(post).toMatch(/\*.*\*/); // Should have italicized content
   });
 
   it('should produce posts that are suitable for LinkedIn sharing', async () => {
@@ -163,9 +177,13 @@ describe('LinkedIn Share Integration', () => {
     // LinkedIn posts should be reasonably sized
     expect(post.length).toBeLessThan(3000); // LinkedIn character limit is 3000
     
-    // Should contain the required elements
-    expect(post).toContain(testInsight);
+    // Should contain the required elements with proper formatting
+    expect(post).toContain("*Your ikigai is to inspire creativity and innovation.*");
     expect(INTRO_HEADERS_EXPORT.some(header => post.includes(header))).toBe(true);
     expect(CALL_TO_ACTIONS_EXPORT.some(cta => post.includes(cta))).toBe(true);
+    
+    // Should not contain quotation marks
+    expect(post).not.toContain('"');
+    expect(post).not.toContain("'");
   });
 }); 

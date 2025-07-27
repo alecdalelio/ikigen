@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useReflectionData } from '../../hooks/useReflectionData';
 import ShareModule from '../../components/ShareModule';
-import ShareSuccessModal from '../../components/ShareSuccessModal';
+import Toast from '../../components/Toast';
 import jsPDF from 'jspdf';
 
 
@@ -18,8 +18,9 @@ export default function SummaryPage() {
     suggestions: string[];
   } | null>(null);
   const [showShareModule, setShowShareModule] = useState(false);
-  const [showShareModal, setShowShareModal] = useState(false);
-  const [clipboardSuccess, setClipboardSuccess] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<'success' | 'info' | 'warning' | 'error'>('success');
   const shareModuleRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -59,20 +60,32 @@ Discover your own purpose: https://ikigen.vercel.app
         }
       }
 
-      // Step 3: Open LinkedIn share window
-      window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
-      
-      // Step 4: Show success modal
-      setClipboardSuccess(clipboardSuccess);
-      setShowShareModal(true);
+      // Step 3: Show immediate confirmation toast
+      if (clipboardSuccess) {
+        setToastMessage("✅ Your message was copied! Opening LinkedIn…");
+        setToastType('success');
+      } else {
+        setToastMessage("📤 Opening LinkedIn… You can manually copy your Ikigai text.");
+        setToastType('info');
+      }
+      setShowToast(true);
+
+      // Step 4: Delay opening LinkedIn tab to ensure user sees the toast
+      setTimeout(() => {
+        window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
+      }, 1500); // 1.5 second delay
 
     } catch (error) {
       console.error('Error in LinkedIn share flow:', error);
       
-      // Fallback: still open LinkedIn
-      window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
-      setClipboardSuccess(false);
-      setShowShareModal(true);
+      // Fallback: show error toast and still open LinkedIn after delay
+      setToastMessage("📤 Opening LinkedIn… You can manually copy your Ikigai text.");
+      setToastType('info');
+      setShowToast(true);
+      
+      setTimeout(() => {
+        window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
+      }, 1500);
     }
   };
 
@@ -224,8 +237,8 @@ Discover your own purpose: https://ikigen.vercel.app
     return null;
   }
 
-  const handleCloseShareModal = () => {
-    setShowShareModal(false);
+  const handleCloseToast = () => {
+    setShowToast(false);
   };
 
   return (
@@ -295,14 +308,10 @@ Discover your own purpose: https://ikigen.vercel.app
               <button
                 onClick={handleGenerateInsight}
                 disabled={isGenerating}
-                className="ikigai-button gentle-fade-in disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 sm:space-x-4"
-                style={{ animationDelay: '0.4s' }}
+                className="ikigai-button disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 sm:space-x-4"
               >
                 {isGenerating && (
-                  <svg className="animate-spin h-5 w-5 sm:h-6 sm:w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-ikigai-gold/30 border-t-ikigai-warm-gold rounded-full animate-spin"></div>
                 )}
                 <span className="text-sm sm:text-base">{isGenerating ? "Generating..." : "Generate Final Insight"}</span>
               </button>
@@ -500,10 +509,11 @@ Discover your own purpose: https://ikigen.vercel.app
 
 
         {/* Share Success Modal */}
-        <ShareSuccessModal 
-          isOpen={showShareModal}
-          onClose={handleCloseShareModal}
-          clipboardSuccess={clipboardSuccess}
+        <Toast
+          isVisible={showToast}
+          onClose={handleCloseToast}
+          message={toastMessage}
+          type={toastType}
         />
 
       </div>

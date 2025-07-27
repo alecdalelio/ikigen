@@ -40,17 +40,29 @@ export default function SummaryPage() {
     if (!exportRef.current) return;
 
     try {
+      // Wait for fonts and rendering to complete
+      await new Promise(resolve => setTimeout(resolve, 300));
+
       // Generate the image (card is already rendered offscreen)
       const dataUrl = await toPng(exportRef.current, {
         pixelRatio: 2,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
         width: 600,
-        height: exportRef.current.offsetHeight,
+        height: exportRef.current.offsetHeight || 500,
         style: {
           transform: 'scale(1)',
           transformOrigin: 'top left'
+        },
+        filter: (node) => {
+          // Ensure all nodes are included
+          return true;
         }
       });
+
+      // Verify we have a valid image
+      if (!dataUrl || dataUrl === 'data:,') {
+        throw new Error('Generated image is empty');
+      }
 
       // Create download link
       const link = document.createElement('a');
@@ -68,17 +80,29 @@ export default function SummaryPage() {
     if (!exportRef.current) return;
 
     try {
+      // Wait for fonts and rendering to complete
+      await new Promise(resolve => setTimeout(resolve, 300));
+
       // Generate the image for LinkedIn sharing
       const dataUrl = await toPng(exportRef.current, {
         pixelRatio: 2,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
         width: 600,
-        height: exportRef.current.offsetHeight,
+        height: exportRef.current.offsetHeight || 500,
         style: {
           transform: 'scale(1)',
           transformOrigin: 'top left'
+        },
+        filter: (node) => {
+          // Ensure all nodes are included
+          return true;
         }
       });
+
+      // Verify we have a valid image
+      if (!dataUrl || dataUrl === 'data:,') {
+        throw new Error('Generated image is empty');
+      }
 
       // Auto-download the image
       const link = document.createElement('a');
@@ -115,6 +139,15 @@ export default function SummaryPage() {
       router.push('/reflect');
     }
   }, [data, isLoaded, router]);
+
+  // Ensure fonts are loaded before image generation
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.fonts.ready.then(() => {
+        console.log('Fonts loaded and ready for image generation');
+      });
+    }
+  }, []);
 
   const handleGenerateInsight = async () => {
     setIsGenerating(true);
@@ -527,7 +560,11 @@ export default function SummaryPage() {
             position: 'absolute',
             top: '-9999px',
             left: '-9999px',
-            visibility: 'hidden'
+            visibility: 'hidden',
+            // For debugging: temporarily change to 'visible' and remove position to test
+            // visibility: 'visible',
+            // position: 'static',
+            // margin: '20px auto'
           }}
         >
           <IkigaiExportCard 

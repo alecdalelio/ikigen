@@ -1,117 +1,171 @@
-/**
- * Simple functional tests for LinkedIn share flow
- * Run manually in browser console or as integration tests
- */
+const { 
+  generateLinkedInPost, 
+  getRandomHeader, 
+  getRandomCTA,
+  INTRO_HEADERS_EXPORT,
+  CALL_TO_ACTIONS_EXPORT 
+} = require('../app/utils/linkedinShare.js');
 
-// Mock test helpers for manual browser testing
-const LinkedInShareTests = {
-  
-  // Test 1: Verify clipboard functionality
-  testClipboard: async () => {
-    try {
-      const caption = `I just completed my Ikigai journey with Ikigen 💫
-
-Here's what I discovered about my purpose in life.
-
-Try it yourself at https://ikigen.vercel.app`;
-      
-      await navigator.clipboard.writeText(caption);
-      const clipboardText = await navigator.clipboard.readText();
-      
-      console.log('✅ Clipboard test passed');
-      console.log('Caption copied:', clipboardText.substring(0, 50) + '...');
-      return true;
-    } catch (error) {
-      console.error('❌ Clipboard test failed:', error);
-      return false;
-    }
+// Mock clipboard API
+Object.assign(navigator, {
+  clipboard: {
+    writeText: jest.fn().mockResolvedValue(undefined),
   },
+});
 
-  // Test 2: Verify window.open functionality  
-  testLinkedInOpen: () => {
-    try {
-      const url = 'https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app';
-      
-      // In real test, this would open a window
-      // For testing, we just validate the URL
-      if (url.includes('linkedin.com') && url.includes('ikigen.vercel.app')) {
-        console.log('✅ LinkedIn URL test passed');
-        console.log('URL:', url);
-        return true;
-      } else {
-        throw new Error('Invalid LinkedIn URL format');
-      }
-    } catch (error) {
-      console.error('❌ LinkedIn URL test failed:', error);
-      return false;
-    }
-  },
-
-  // Test 3: Verify caption format
-  testCaptionFormat: () => {
-    try {
-      const caption = `I just completed my Ikigai journey with Ikigen 💫
-
-Here's what I discovered about my purpose in life.
-
-Try it yourself at https://ikigen.vercel.app`;
-
-      const requirements = [
-        caption.includes('Ikigai journey'),
-        caption.includes('💫'),
-        caption.includes('ikigen.vercel.app'),
-        caption.length > 50,
-        caption.split('\n').length >= 3
-      ];
-
-      if (requirements.every(req => req === true)) {
-        console.log('✅ Caption format test passed');
-        console.log('Caption preview:', caption.substring(0, 100) + '...');
-        return true;
-      } else {
-        throw new Error('Caption format requirements not met');
-      }
-    } catch (error) {
-      console.error('❌ Caption format test failed:', error);
-      return false;
-    }
-  },
-
-  // Test 4: Verify complete flow (mock version)
-  testCompleteFlow: async () => {
-    console.log('🧪 Testing complete LinkedIn share flow...');
-    
-    const results = {
-      clipboard: await LinkedInShareTests.testClipboard(),
-      linkedinUrl: LinkedInShareTests.testLinkedInOpen(), 
-      captionFormat: LinkedInShareTests.testCaptionFormat()
-    };
-
-    const allPassed = Object.values(results).every(result => result === true);
-    
-    if (allPassed) {
-      console.log('🎉 All LinkedIn share tests passed!');
-      console.log('Flow: Generate Image → Download → Copy Caption → Open LinkedIn → Show Success');
-    } else {
-      console.error('❌ Some tests failed:', results);
-    }
-
-    return allPassed;
-  },
-
-  // Run all tests
-  runAll: async () => {
-    console.log('🚀 Running LinkedIn Share Tests...');
-    await LinkedInShareTests.testCompleteFlow();
-  }
+// Mock window.open
+global.window = {
+  ...global.window,
+  open: jest.fn(),
 };
 
-// Export for use in browser console or integration tests
-if (typeof window !== 'undefined') {
-  window.LinkedInShareTests = LinkedInShareTests;
-}
+describe('LinkedIn Share Utils', () => {
+  describe('getRandomHeader', () => {
+    it('should return one of the defined headers', () => {
+      const header = getRandomHeader();
+      expect(INTRO_HEADERS_EXPORT).toContain(header);
+    });
 
-// For Node.js environments
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = LinkedInShareTests;
-} 
+    it('should return different headers on multiple calls', () => {
+      const headers = new Set();
+      for (let i = 0; i < 10; i++) {
+        headers.add(getRandomHeader());
+      }
+      // Should have at least 2 different headers (randomness)
+      expect(headers.size).toBeGreaterThan(1);
+    });
+  });
+
+  describe('getRandomCTA', () => {
+    it('should return one of the defined CTAs', () => {
+      const cta = getRandomCTA();
+      expect(CALL_TO_ACTIONS_EXPORT).toContain(cta);
+    });
+
+    it('should return different CTAs on multiple calls', () => {
+      const ctas = new Set();
+      for (let i = 0; i < 10; i++) {
+        ctas.add(getRandomCTA());
+      }
+      // Should have at least 2 different CTAs (randomness)
+      expect(ctas.size).toBeGreaterThan(1);
+    });
+  });
+
+  describe('generateLinkedInPost', () => {
+    it('should include the Ikigai insight in the generated post', () => {
+      const testInsight = "Your ikigai is to help communities rediscover wonder through collective storytelling and play.";
+      const post = generateLinkedInPost(testInsight);
+      expect(post).toContain(testInsight);
+    });
+
+    it('should include a header from the defined list', () => {
+      const testInsight = "Your ikigai is to create meaningful connections.";
+      const post = generateLinkedInPost(testInsight);
+      const hasValidHeader = INTRO_HEADERS_EXPORT.some(header => post.includes(header));
+      expect(hasValidHeader).toBe(true);
+    });
+
+    it('should include a CTA from the defined list', () => {
+      const testInsight = "Your ikigai is to inspire others.";
+      const post = generateLinkedInPost(testInsight);
+      const hasValidCTA = CALL_TO_ACTIONS_EXPORT.some(cta => post.includes(cta));
+      expect(hasValidCTA).toBe(true);
+    });
+
+    it('should format the post with proper spacing', () => {
+      const testInsight = "Your ikigai is to bring joy to others.";
+      const post = generateLinkedInPost(testInsight);
+      
+      // Should have the correct structure: header + blank line + insight + blank line + CTA
+      const lines = post.split('\n');
+      expect(lines.length).toBeGreaterThanOrEqual(4); // At least 4 lines
+      
+      // First line should be a header
+      const hasHeader = INTRO_HEADERS_EXPORT.some(header => lines[0] === header);
+      expect(hasHeader).toBe(true);
+      
+      // Should contain the insight
+      expect(post).toContain(testInsight);
+      
+      // Last line should be a CTA
+      const hasCTA = CALL_TO_ACTIONS_EXPORT.some(cta => lines[lines.length - 1] === cta);
+      expect(hasCTA).toBe(true);
+    });
+
+    it('should generate different posts for the same insight', () => {
+      const testInsight = "Your ikigai is to make a difference.";
+      const post1 = generateLinkedInPost(testInsight);
+      const post2 = generateLinkedInPost(testInsight);
+      
+      // Posts should be different due to random header/CTA selection
+      expect(post1).not.toBe(post2);
+    });
+
+    it('should handle empty or undefined insight gracefully', () => {
+      const post = generateLinkedInPost("");
+      expect(post).toContain("");
+      expect(post).toMatch(/^[✨💡🧘‍♀️🎨🪷].*/); // Should start with an emoji header
+    });
+  });
+
+  describe('Constants', () => {
+    it('should have the correct number of intro headers', () => {
+      expect(INTRO_HEADERS_EXPORT).toHaveLength(5);
+    });
+
+    it('should have the correct number of CTAs', () => {
+      expect(CALL_TO_ACTIONS_EXPORT).toHaveLength(5);
+    });
+
+    it('should have valid intro headers', () => {
+      INTRO_HEADERS_EXPORT.forEach(header => {
+        expect(header).toMatch(/^[✨💡🧘‍♀️🎨🪷].*/); // Should start with an emoji
+        expect(header.length).toBeGreaterThan(0);
+      });
+    });
+
+    it('should have valid CTAs with URLs', () => {
+      CALL_TO_ACTIONS_EXPORT.forEach(cta => {
+        expect(cta).toContain('https://ikigen.vercel.app');
+        expect(cta).toMatch(/^[👉🎯✨🧭🪞].*/); // Should start with an emoji
+      });
+    });
+  });
+});
+
+describe('LinkedIn Share Integration', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should generate a complete LinkedIn post with all required elements', () => {
+    const testInsight = "Your ikigai is to help communities rediscover wonder through collective storytelling and play.";
+    const post = generateLinkedInPost(testInsight);
+    
+    // Check structure
+    const lines = post.split('\n');
+    expect(lines.length).toBeGreaterThanOrEqual(4);
+    
+    // Check content
+    expect(post).toContain(testInsight);
+    expect(INTRO_HEADERS_EXPORT.some(header => post.includes(header))).toBe(true);
+    expect(CALL_TO_ACTIONS_EXPORT.some(cta => post.includes(cta))).toBe(true);
+    
+    // Check formatting (should have blank lines between sections)
+    expect(post).toMatch(/\n\n/); // Should have double line breaks
+  });
+
+  it('should produce posts that are suitable for LinkedIn sharing', () => {
+    const testInsight = "Your ikigai is to inspire creativity and innovation.";
+    const post = generateLinkedInPost(testInsight);
+    
+    // LinkedIn posts should be reasonably sized
+    expect(post.length).toBeLessThan(3000); // LinkedIn character limit is 3000
+    
+    // Should contain the required elements
+    expect(post).toContain(testInsight);
+    expect(INTRO_HEADERS_EXPORT.some(header => post.includes(header))).toBe(true);
+    expect(CALL_TO_ACTIONS_EXPORT.some(cta => post.includes(cta))).toBe(true);
+  });
+}); 

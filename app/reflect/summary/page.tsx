@@ -7,6 +7,9 @@ import ShareModule from '../../components/ShareModule';
 import Toast from '../../components/Toast';
 import jsPDF from 'jspdf';
 
+// Import LinkedIn sharing utility
+const { generateLinkedInPost } = require('../../utils/linkedinShare.js');
+
 
 export default function SummaryPage() {
   const { data, isLoaded, clearData } = useReflectionData();
@@ -40,16 +43,13 @@ export default function SummaryPage() {
 
   const handleLinkedInShare = async () => {
     try {
-      // Step 1: Create text summary with Ikigai
-      const ikigaiText = structuredInsight?.ikigai || finalInsight || "Your unique purpose and reason for being awaits discovery...";
-      const textSummary = `✨ My Ikigai ✨
-
-${ikigaiText}
-
-Discover your own purpose: https://ikigen.vercel.app
-#Ikigai #Purpose #SelfDiscovery #Ikigen`;
+      // Step 1: Get the user's Ikigai insight
+      const ikigaiInsight = structuredInsight?.ikigai || finalInsight || "Your unique purpose and reason for being awaits discovery...";
       
-      // Step 2: Copy to clipboard
+      // Step 2: Generate dynamic LinkedIn post with rotating header and CTA
+      const textSummary = generateLinkedInPost(ikigaiInsight);
+      
+      // Step 3: Copy to clipboard
       let clipboardSuccess = false;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
@@ -60,7 +60,7 @@ Discover your own purpose: https://ikigen.vercel.app
         }
       }
 
-      // Step 3: Show immediate confirmation toast
+      // Step 4: Show immediate confirmation toast
       if (clipboardSuccess) {
         setToastMessage("✅ Your message was copied! Opening LinkedIn…");
         setToastType('success');
@@ -70,7 +70,7 @@ Discover your own purpose: https://ikigen.vercel.app
       }
       setShowToast(true);
 
-      // Step 4: Delay opening LinkedIn tab to ensure user sees the toast
+      // Step 5: Delay opening LinkedIn tab to ensure user sees the toast
       setTimeout(() => {
         window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://ikigen.vercel.app', '_blank');
       }, 1500); // 1.5 second delay

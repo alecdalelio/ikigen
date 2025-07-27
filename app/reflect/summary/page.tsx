@@ -418,7 +418,7 @@ export default function SummaryPage() {
             </div>
 
             {/* Closing Encouragement with Floating Sparkle */}
-            <div className="max-w-[700px] mx-auto px-3 sm:px-4 md:px-6 mt-16 md:mt-20 lg:mt-24 relative">
+            <div className="max-w-[700px] mx-auto px-3 sm:px-4 md:px-6 mt-16 md:mt-20 lg:mt-24 relative mobile-encouragement">
               <div className="floating-sparkle"></div>
               <p className="text-center text-[#7F5539] italic font-['DM_Serif_Display'] text-base md:text-lg lg:text-xl leading-relaxed mobile-text">
                 ✨ Let this insight guide you. Choose one small action this week that brings your Ikigai to life.

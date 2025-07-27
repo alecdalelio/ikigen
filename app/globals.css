@@ -1987,11 +1987,24 @@ body {
   
   .ikigai-insight-card,
   .wisdom-card {
-    margin: 0 auto !important;
+    margin: 0 auto 1rem auto !important;
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    padding: 1.25rem 1.5rem !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    transition: transform 0.2s ease-in-out !important;
+  }
+  
+  .ikigai-insight-card:last-child,
+  .wisdom-card:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+  .ikigai-insight-card:hover,
+  .wisdom-card:hover {
+    transform: scale(1.01) !important;
   }
   
   /* Ensure cards don't overflow on mobile */
@@ -2015,7 +2028,7 @@ body {
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: 100% !important;
-    padding: 0 0.5rem !important;
+    padding: 0 1.5rem !important;
     margin: 0 auto !important;
     overflow-wrap: break-word !important;
     word-wrap: break-word !important;
@@ -2027,7 +2040,8 @@ body {
     max-width: 100% !important;
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
-    hyphens: auto !important;
+    hyphens: none !important;
+    word-break: normal !important;
     text-align: center !important;
     margin: 0 auto !important;
     line-height: 1.6 !important;
@@ -2042,7 +2056,12 @@ body {
     }
     
     .mobile-text-wrapper {
-      padding: 0 0.75rem !important;
+      padding: 0 1.5rem !important;
+    }
+    
+    .action-button-refined {
+      font-size: 0.85rem !important;
+      padding: 12px 24px !important;
     }
   }
   
@@ -2053,7 +2072,7 @@ body {
     }
     
     .mobile-text-wrapper {
-      padding: 0 1rem !important;
+      padding: 0 1.5rem !important;
     }
     
     .mobile-text-container {
@@ -2065,7 +2084,12 @@ body {
     }
     
     .suggestion-card-refined {
-      padding: 1rem !important;
+      padding: 1.25rem 1.5rem !important;
+    }
+    
+    .action-button-refined {
+      font-size: 0.8rem !important;
+      padding: 10px 20px !important;
     }
   }
   
@@ -2116,6 +2140,11 @@ body {
     font-size: 0.9rem !important;
     line-height: 1.6 !important;
   }
+  
+  .mobile-encouragement {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
 
   /* Suggestion cards use Tailwind classes */
 
@@ -2125,7 +2154,18 @@ body {
   }
 
   .suggestion-card-refined {
-    padding: 20px 16px;
+    padding: 1.25rem 1.5rem !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    transition: transform 0.2s ease-in-out !important;
+  }
+  
+  .suggestion-card-refined:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+  .suggestion-card-refined:hover {
+    transform: scale(1.01) !important;
   }
 
   .suggestion-emoji-container {
@@ -2146,6 +2186,12 @@ body {
     padding: 10px 20px;
     font-size: 0.8rem;
     min-width: 120px;
+    margin: 0.5rem auto !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 200px !important;
+    border-radius: 12px !important;
+    font-weight: 500 !important;
   }
 
   .theme-header {

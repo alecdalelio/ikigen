@@ -43,30 +43,15 @@ export default function SummaryPage() {
     }
 
     try {
-      console.log('Starting image generation...');
-      console.log('Export ref element:', exportRef.current);
-      console.log('Element dimensions:', {
-        width: exportRef.current.offsetWidth,
-        height: exportRef.current.offsetHeight,
-        scrollWidth: exportRef.current.scrollWidth,
-        scrollHeight: exportRef.current.scrollHeight
-      });
+      // Wait for fonts and rendering to complete
+      await new Promise(resolve => setTimeout(resolve, 300));
 
-      // Wait longer for fonts and rendering to complete
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Generate the image with simpler options
+      // Generate the image
       const dataUrl = await toPng(exportRef.current, {
-        pixelRatio: 1, // Start with 1x to test
-        backgroundColor: '#ffffff',
+        pixelRatio: 2,
         cacheBust: true,
-        style: {
-          transform: 'scale(1)',
-        }
+        backgroundColor: '#ffffff',
       });
-
-      console.log('Generated dataURL length:', dataUrl.length);
-      console.log('DataURL preview:', dataUrl.substring(0, 100));
 
       // Verify we have a valid image
       if (!dataUrl || dataUrl === 'data:,' || dataUrl.length < 100) {
@@ -80,12 +65,9 @@ export default function SummaryPage() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      console.log('Image download triggered successfully');
     } catch (error) {
       console.error('Error generating image:', error);
-      // Fallback: User-friendly error message
-      alert(`Error generating image: ${error instanceof Error ? error.message : 'Unknown error'}. Please check the console for details.`);
+      alert(`Error generating image: ${error instanceof Error ? error.message : 'Unknown error'}.`);
     }
   };
 
@@ -93,17 +75,14 @@ export default function SummaryPage() {
     if (!exportRef.current) return;
 
     try {
-      // Wait longer for fonts and rendering to complete
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Wait for fonts and rendering to complete
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       // Generate the image for LinkedIn sharing
       const dataUrl = await toPng(exportRef.current, {
-        pixelRatio: 1, // Start with 1x to test
-        backgroundColor: '#ffffff',
+        pixelRatio: 2,
         cacheBust: true,
-        style: {
-          transform: 'scale(1)',
-        }
+        backgroundColor: '#ffffff',
       });
 
       // Verify we have a valid image
@@ -566,18 +545,16 @@ export default function SummaryPage() {
         <div 
           ref={exportRef} 
           style={{ 
-            // position: 'absolute',
-            // top: '-9999px',
-            // left: '-9999px',
-            // visibility: 'hidden',
-            // For debugging: temporarily change to 'visible' and remove position to test
-            visibility: 'visible',
-            position: 'static',
-            margin: '20px auto'
+            position: 'absolute',
+            top: '-9999px',
+            left: '-9999px',
+            pointerEvents: 'none',
+            visibility: 'hidden',
+            width: '600px',
           }}
         >
           <IkigaiExportCard 
-            ikigaiText={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
+            text={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
           />
         </div>
 

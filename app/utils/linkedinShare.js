@@ -16,17 +16,30 @@ const CALL_TO_ACTIONS = [
   "🪞 What drives *you*? → https://ikigen.vercel.app"
 ];
 
-const generateLinkedInPost = (ikigaiInsight) => {
+const generateLinkedInPost = async (ikigaiInsight) => {
   // Randomly select one intro header
   const randomHeader = INTRO_HEADERS[Math.floor(Math.random() * INTRO_HEADERS.length)];
   
   // Randomly select one CTA
   const randomCTA = CALL_TO_ACTIONS[Math.floor(Math.random() * CALL_TO_ACTIONS.length)];
   
+  // Adjust tone to match header voice
+  let adjustedInsight = ikigaiInsight;
+  try {
+    const { adjustIkigaiTone, fallbackToneAdjustment } = require('./toneAdjuster.js');
+    const toneResult = await adjustIkigaiTone(ikigaiInsight, randomHeader);
+    adjustedInsight = toneResult.adjustedText;
+  } catch (error) {
+    console.warn('Tone adjustment failed, using fallback:', error);
+    const { fallbackToneAdjustment } = require('./toneAdjuster.js');
+    const fallbackResult = fallbackToneAdjustment(ikigaiInsight, randomHeader);
+    adjustedInsight = fallbackResult.adjustedText;
+  }
+  
   // Format the post with proper spacing
   const post = `${randomHeader}
 
-${ikigaiInsight}
+${adjustedInsight}
 
 ${randomCTA}`;
 

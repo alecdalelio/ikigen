@@ -53,29 +53,29 @@ describe('LinkedIn Share Utils', () => {
   });
 
   describe('generateLinkedInPost', () => {
-    it('should include the Ikigai insight in the generated post', () => {
+    it('should include the Ikigai insight in the generated post', async () => {
       const testInsight = "Your ikigai is to help communities rediscover wonder through collective storytelling and play.";
-      const post = generateLinkedInPost(testInsight);
+      const post = await generateLinkedInPost(testInsight);
       expect(post).toContain(testInsight);
     });
 
-    it('should include a header from the defined list', () => {
+    it('should include a header from the defined list', async () => {
       const testInsight = "Your ikigai is to create meaningful connections.";
-      const post = generateLinkedInPost(testInsight);
+      const post = await generateLinkedInPost(testInsight);
       const hasValidHeader = INTRO_HEADERS_EXPORT.some(header => post.includes(header));
       expect(hasValidHeader).toBe(true);
     });
 
-    it('should include a CTA from the defined list', () => {
+    it('should include a CTA from the defined list', async () => {
       const testInsight = "Your ikigai is to inspire others.";
-      const post = generateLinkedInPost(testInsight);
+      const post = await generateLinkedInPost(testInsight);
       const hasValidCTA = CALL_TO_ACTIONS_EXPORT.some(cta => post.includes(cta));
       expect(hasValidCTA).toBe(true);
     });
 
-    it('should format the post with proper spacing', () => {
+    it('should format the post with proper spacing', async () => {
       const testInsight = "Your ikigai is to bring joy to others.";
-      const post = generateLinkedInPost(testInsight);
+      const post = await generateLinkedInPost(testInsight);
       
       // Should have the correct structure: header + blank line + insight + blank line + CTA
       const lines = post.split('\n');
@@ -93,17 +93,17 @@ describe('LinkedIn Share Utils', () => {
       expect(hasCTA).toBe(true);
     });
 
-    it('should generate different posts for the same insight', () => {
+    it('should generate different posts for the same insight', async () => {
       const testInsight = "Your ikigai is to make a difference.";
-      const post1 = generateLinkedInPost(testInsight);
-      const post2 = generateLinkedInPost(testInsight);
+      const post1 = await generateLinkedInPost(testInsight);
+      const post2 = await generateLinkedInPost(testInsight);
       
       // Posts should be different due to random header/CTA selection
       expect(post1).not.toBe(post2);
     });
 
-    it('should handle empty or undefined insight gracefully', () => {
-      const post = generateLinkedInPost("");
+    it('should handle empty or undefined insight gracefully', async () => {
+      const post = await generateLinkedInPost("");
       expect(post).toContain("");
       expect(post).toMatch(/^[✨💡🧘‍♀️🎨🪷].*/); // Should start with an emoji header
     });
@@ -139,9 +139,9 @@ describe('LinkedIn Share Integration', () => {
     jest.clearAllMocks();
   });
 
-  it('should generate a complete LinkedIn post with all required elements', () => {
+  it('should generate a complete LinkedIn post with all required elements', async () => {
     const testInsight = "Your ikigai is to help communities rediscover wonder through collective storytelling and play.";
-    const post = generateLinkedInPost(testInsight);
+    const post = await generateLinkedInPost(testInsight);
     
     // Check structure
     const lines = post.split('\n');
@@ -156,9 +156,9 @@ describe('LinkedIn Share Integration', () => {
     expect(post).toMatch(/\n\n/); // Should have double line breaks
   });
 
-  it('should produce posts that are suitable for LinkedIn sharing', () => {
+  it('should produce posts that are suitable for LinkedIn sharing', async () => {
     const testInsight = "Your ikigai is to inspire creativity and innovation.";
-    const post = generateLinkedInPost(testInsight);
+    const post = await generateLinkedInPost(testInsight);
     
     // LinkedIn posts should be reasonably sized
     expect(post.length).toBeLessThan(3000); // LinkedIn character limit is 3000

@@ -46,8 +46,8 @@ export default function SummaryPage() {
       // Step 1: Get the user's Ikigai insight
       const ikigaiInsight = structuredInsight?.ikigai || finalInsight || "Your unique purpose and reason for being awaits discovery...";
       
-      // Step 2: Generate dynamic LinkedIn post with rotating header and CTA
-      const textSummary = generateLinkedInPost(ikigaiInsight);
+      // Step 2: Generate dynamic LinkedIn post with rotating header, CTA, and tone adjustment
+      const textSummary = await generateLinkedInPost(ikigaiInsight);
       
       // Step 3: Copy to clipboard
       let clipboardSuccess = false;

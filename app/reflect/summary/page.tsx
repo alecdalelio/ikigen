@@ -40,11 +40,7 @@ export default function SummaryPage() {
     if (!exportRef.current) return;
 
     try {
-      // Temporarily show the hidden export card
-      const originalDisplay = exportRef.current.style.display;
-      exportRef.current.style.display = 'block';
-
-      // Generate the image
+      // Generate the image (card is already rendered offscreen)
       const dataUrl = await toPng(exportRef.current, {
         pixelRatio: 2,
         backgroundColor: '#fff',
@@ -56,9 +52,6 @@ export default function SummaryPage() {
         }
       });
 
-      // Hide the export card again
-      exportRef.current.style.display = originalDisplay;
-
       // Create download link
       const link = document.createElement('a');
       link.download = 'my-ikigai.png';
@@ -66,12 +59,54 @@ export default function SummaryPage() {
       link.click();
     } catch (error) {
       console.error('Error generating image:', error);
-      // Hide the export card in case of error
-      if (exportRef.current) {
-        exportRef.current.style.display = 'none';
-      }
       // Fallback: User-friendly error message
       alert('Sorry, there was an error generating the image. Please try again.');
+    }
+  };
+
+  const handleLinkedInShare = async () => {
+    if (!exportRef.current) return;
+
+    try {
+      // Generate the image for LinkedIn sharing
+      const dataUrl = await toPng(exportRef.current, {
+        pixelRatio: 2,
+        backgroundColor: '#fff',
+        width: 600,
+        height: exportRef.current.offsetHeight,
+        style: {
+          transform: 'scale(1)',
+          transformOrigin: 'top left'
+        }
+      });
+
+      // Auto-download the image
+      const link = document.createElement('a');
+      link.download = 'my-ikigai.png';
+      link.href = dataUrl;
+      link.click();
+
+      // Copy text to clipboard for caption
+      const ikigaiText = structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues...";
+      const caption = `My Ikigai: ${ikigaiText}\n\nDiscover your own purpose at ikigen.app ✨`;
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(caption);
+      }
+
+      // Open LinkedIn with a brief delay to allow download to start
+      setTimeout(() => {
+        window.open('https://www.linkedin.com/feed/', '_blank');
+        
+        // Show success message
+        alert('🎉 Your Ikigai image has been downloaded and your caption copied to clipboard! Upload the image and paste the caption in the LinkedIn tab that just opened.');
+      }, 500);
+
+    } catch (error) {
+      console.error('Error generating LinkedIn share:', error);
+      // Fallback: just open LinkedIn
+      window.open('https://www.linkedin.com/feed/', '_blank');
+      alert('Sorry, there was an error generating the image. LinkedIn has been opened - you can share your Ikigai text manually.');
     }
   };
 
@@ -480,12 +515,21 @@ export default function SummaryPage() {
               ikigaiText={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
               onMount={handleShareModuleMount}
               onDownloadImage={handleDownloadImage}
+              onLinkedInShare={handleLinkedInShare}
             />
           </div>
         )}
 
         {/* Hidden Export Card for Image Generation */}
-        <div ref={exportRef} style={{ display: 'none' }}>
+        <div 
+          ref={exportRef} 
+          style={{ 
+            position: 'absolute',
+            top: '-9999px',
+            left: '-9999px',
+            visibility: 'hidden'
+          }}
+        >
           <IkigaiExportCard 
             ikigaiText={structuredInsight?.ikigai || finalInsight || "Your Ikigai journey continues..."}
           />

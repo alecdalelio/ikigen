@@ -28,19 +28,20 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setThemeState] = useState<ThemeType>('calm');
-  const [audioEnabled, setAudioEnabledState] = useState(false);
+  const [audioEnabled, setAudioEnabledState] = useState(true);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
   // Load theme from localStorage on mount
   useEffect(() => {
     const savedTheme = localStorage.getItem('ikigai-theme') as ThemeType;
-    const savedAudio = localStorage.getItem('ikigai-audio-enabled') === 'true';
+    const savedAudio = localStorage.getItem('ikigai-audio-enabled');
     
     if (savedTheme && ['calm', 'bold', 'forest', 'dawn'].includes(savedTheme)) {
       setThemeState(savedTheme);
     }
-    setAudioEnabledState(savedAudio);
+    // Default to true if no preference is saved, otherwise use saved preference
+    setAudioEnabledState(savedAudio === null ? true : savedAudio === 'true');
   }, []);
 
   // Update CSS variables when theme changes

@@ -66,6 +66,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         root.style.setProperty('--theme-border', 'rgba(221, 184, 146, 0.3)');
         root.style.setProperty('--shadow-strength', '0.06');
         root.style.setProperty('--animation-intensity', '1');
+        root.style.setProperty('--ikigai-love', '#FCD5CE');
+        root.style.setProperty('--ikigai-skill', '#D8E2DC');
+        root.style.setProperty('--ikigai-need', '#FFE5D9');
+        root.style.setProperty('--ikigai-value', '#E2ECE9');
         break;
       case 'bold':
         root.style.setProperty('--theme-primary', 'rgba(184, 134, 11, 0.8)');
@@ -77,6 +81,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         root.style.setProperty('--theme-border', 'rgba(218, 165, 32, 0.4)');
         root.style.setProperty('--shadow-strength', '0.15');
         root.style.setProperty('--animation-intensity', '1.3');
+        root.style.setProperty('--ikigai-love', '#FF6B6B');
+        root.style.setProperty('--ikigai-skill', '#4ECDC4');
+        root.style.setProperty('--ikigai-need', '#45B7D1');
+        root.style.setProperty('--ikigai-value', '#96CEB4');
         break;
       case 'forest':
         root.style.setProperty('--theme-primary', 'rgba(143, 188, 143, 0.8)');
@@ -88,6 +96,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         root.style.setProperty('--theme-border', 'rgba(143, 188, 143, 0.4)');
         root.style.setProperty('--shadow-strength', '0.08');
         root.style.setProperty('--animation-intensity', '0.8');
+        root.style.setProperty('--ikigai-love', '#90EE90');
+        root.style.setProperty('--ikigai-skill', '#98FB98');
+        root.style.setProperty('--ikigai-need', '#7CFC00');
+        root.style.setProperty('--ikigai-value', '#ADFF2F');
         break;
       case 'dawn':
         root.style.setProperty('--theme-primary', 'rgba(255, 182, 193, 0.8)');
@@ -99,6 +111,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         root.style.setProperty('--theme-border', 'rgba(255, 182, 193, 0.4)');
         root.style.setProperty('--shadow-strength', '0.1');
         root.style.setProperty('--animation-intensity', '1.1');
+        root.style.setProperty('--ikigai-love', '#FFB6C1');
+        root.style.setProperty('--ikigai-skill', '#DDA0DD');
+        root.style.setProperty('--ikigai-need', '#FFC0CB');
+        root.style.setProperty('--ikigai-value', '#E6E6FA');
         break;
     }
   }, [theme]);
